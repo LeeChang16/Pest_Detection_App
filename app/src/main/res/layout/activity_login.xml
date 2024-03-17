@@ -65,7 +65,8 @@
             android:layout_height="50dp"
             android:hint="Password"
             android:maxLength="20"
-            android:inputType="text"/>
+            android:inputType="textPassword"
+            app:endIconMode="password_toggle"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 

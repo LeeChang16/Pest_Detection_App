@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.sql.Blob;
 
-public class result_viewHolder extends RecyclerView.ViewHolder {
+public class recentViewholder extends RecyclerView.ViewHolder {
 
-     TextView name;
-     TextView scientificName;
-     ImageView Image;
-     View view;
+    TextView name;
+    TextView scientificName;
+    ImageView Image;
+    View view;
 
-     result_viewHolder(View itemView) {
+    recentViewholder(View itemView) {
         super(itemView);
 
         name = (TextView) itemView.findViewById(R.id.pest_name);

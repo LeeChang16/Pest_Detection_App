@@ -72,7 +72,7 @@ public class MenuFragment extends Fragment {
 
 
         signout.setOnClickListener(v -> logout());
-
+        gallery.setOnClickListener(v -> tolibrary());
 
         return rootView;
     }
@@ -95,4 +95,10 @@ public class MenuFragment extends Fragment {
             getActivity().finish();
 
     }
+
+    public void tolibrary(){
+        Intent intent = new Intent(requireContext(), pestLibrary.class);
+        startActivity(intent);
+    }
+
 }

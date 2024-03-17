@@ -20,6 +20,12 @@
         android:theme="@style/Theme.PestDetectionApp"
         tools:targetApi="31">
         <activity
+            android:name=".about"
+            android:exported="false" />
+        <activity
+            android:name=".pestLibrary"
+            android:exported="false" />
+        <activity
             android:name=".Detect"
             android:exported="false" />
         <activity

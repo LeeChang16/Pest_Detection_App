@@ -20,6 +20,8 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -27,8 +29,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -38,6 +43,10 @@ public class HomeFragment extends Fragment {
 
     TextView temp_reading;
 
+
+    recentAdapter adapter;
+    RecyclerView recyclerView;
+    recentClicklistener clickListener;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -61,21 +70,29 @@ public class HomeFragment extends Fragment {
 
         temp_reading.setText(""+id);
 
+
+        //Recyclers View
+        List<recentdetectionData> list = new ArrayList<>();
+        list = getData();
+
+        recyclerView = (RecyclerView)rootViews.findViewById(R.id.recent);
+        clickListener = new recentClicklistener() {
+            @Override
+            public void click(int index){
+                Toast.makeText(requireContext(),"clicked item index is "+index, Toast.LENGTH_SHORT).show();
+            }
+        };
+        adapter = new recentAdapter(list, getActivity().getApplication(),clickListener);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(
+                new LinearLayoutManager(requireContext()));
+
+
+
+
         return rootViews;
 
     }
-
-//    public int Id(){
-//        int id = 0;
-//        Intent intent = getActivity().getIntent();
-//        if (intent != null){
-//            id = intent.getIntExtra("IdValue",0);
-//        }
-//
-//        return id;
-//
-//    }
-
 
     private void openCamera(){
 
@@ -122,13 +139,6 @@ public class HomeFragment extends Fragment {
                 i.putExtra("byteArray", bs.toByteArray());
                 startActivity(i);
 
-
-
-
-                // Pass the bitmap image to Detect.java
-//                Intent intent = new Intent(requireContext(), Detect.class);
-//                intent.putExtra("BitmapImage", capturedImage);
-//                startActivity(intent);
                 Intent intent = new Intent(requireContext(),Detect.class);
                 startActivity(intent);
 
@@ -137,15 +147,39 @@ public class HomeFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-
     // Check if the Camera Permission Is Granted
     private boolean checkCameraPermission() {
         return ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
     }
-
     // Request Permission for the Camera
     private void requestCameraPermission() {
         ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.CAMERA}, REQUEST_CODE);
+    }
+
+
+//    @Override
+//    public void onBackPressed() {
+//        // Handle the back button press in your fragment
+//        // Implement your custom logic here
+//        super.getActivity().onBackPressed(); // Call the default behavior
+//    }
+
+
+    // Sample data for RecyclerView
+    private List<recentdetectionData> getData()
+    {
+        List<recentdetectionData> list = new ArrayList<>();
+        list.add(new recentdetectionData("StemBorer", "June 10, 2024"));
+        list.add(new recentdetectionData("Aphids", "June 09, 2015"));
+        list.add(new recentdetectionData("Rice Bug", "April 27, 2017"));
+        list.add(new recentdetectionData("StemBorer", "June 10, 2024"));
+        list.add(new recentdetectionData("StemBorer", "June 10, 2024"));
+        list.add(new recentdetectionData("Zigzag Leafhopper", "June 09, 2015"));
+        list.add(new recentdetectionData("Golden Apple Snail", "April 27, 2017"));
+        list.add(new recentdetectionData("Armyworm", "June 10, 2024"));
+
+
+        return list;
     }
 
 

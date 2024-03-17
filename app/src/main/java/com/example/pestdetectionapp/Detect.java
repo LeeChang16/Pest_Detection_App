@@ -109,7 +109,7 @@ public class Detect extends AppCompatActivity {
         String confidence = null;
 
         for(Recognition recognition: recognitions){
-            if(recognition.getConfidence() > 0.45
+            if(recognition.getConfidence() > 0.50
             ){
                 RectF location = recognition.getLocation();
                 canvas.drawRect(location,boxpaint);

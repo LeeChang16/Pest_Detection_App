@@ -88,7 +88,7 @@
          android:layout_centerHorizontal="true"
          android:layout_marginTop="30dp"
          android:background="@drawable/background_btn_intro"
-         android:text="Gallery"
+         android:text="Pest Library"
          app:icon="@drawable/ic_library" />
 
      <Button
