@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_intro"
+    tools:context=".SignUp">
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:text="Sign Up"
+        android:textStyle="bold"
+        android:textSize="35sp"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="25dp"/>
+
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="330dp"
+        android:layout_height="600dp"
+        android:layout_below="@+id/text1"
+        android:layout_centerInParent="true"
+        android:alpha="0.6"
+        android:background="@drawable/background_btn_intro"
+        android:orientation="vertical" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview1"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_below="@id/text1"
+        android:layout_marginBottom="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        app:cardCornerRadius="10dp"
+        android:elevation="10dp">
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@drawable/gallery_white"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/profile_pic"
+            android:scaleType="centerCrop"
+            android:onClick="selectImage"/>
+    </androidx.cardview.widget.CardView>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textlayout1"
+            android:layout_width="280dp"
+            android:layout_height="60dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/cardview1"
+            android:layout_marginTop="0dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fullname"
+                android:layout_width="270dp"
+                android:layout_height="50dp"
+                android:hint="Full Name"
+                android:maxLength="30"
+                android:inputType="text"/>
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textlayout2"
+            android:layout_width="280dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="2dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/textlayout1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/province"
+                android:layout_width="270dp"
+                android:layout_height="50dp"
+                android:hint="Province"
+                android:maxLength="20"
+                android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textlayout3"
+            android:layout_width="280dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="2dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/textlayout2">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/town"
+                android:layout_width="270dp"
+                android:layout_height="50dp"
+                android:hint="Town"
+                android:maxLength="20"
+                android:inputType="text"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textlayout4"
+            android:layout_width="280dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="2dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/textlayout3">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/occupation"
+                android:layout_width="270dp"
+                android:layout_height="50dp"
+                android:hint="Occupation"
+                android:maxLength="20"
+                android:inputType="text"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textlayout6"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textlayout5">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password"
+            android:layout_width="270dp"
+            android:layout_height="50dp"
+            android:hint="Password"
+            android:maxLength="20"
+            android:inputType="textPassword"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textlayout5"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textlayout4">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/username"
+            android:layout_width="270dp"
+            android:layout_height="50dp"
+            android:hint="Username"
+            android:maxLength="20"
+            android:inputType="text"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="Sign Up"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textlayout6"
+        android:onClick="signUp"
+        />
+
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/rice"
+        android:layout_alignParentBottom="true"
+        />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/leaflogo"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:background="@drawable/leaf_logo"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        />-->
+</RelativeLayout>

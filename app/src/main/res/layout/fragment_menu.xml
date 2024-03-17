@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ricefield"
+    tools:context=".MenuFragment">
+
+ <RelativeLayout
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
+
+     <androidx.cardview.widget.CardView
+         android:id="@+id/cardview1"
+         android:layout_width="130dp"
+         android:layout_height="130dp"
+         android:layout_alignParentTop="true"
+         android:layout_marginBottom="15dp"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="50dp"
+         app:cardCornerRadius="10dp"
+         android:elevation="10dp">
+         <ImageView
+             android:id="@+id/profile_images"
+             android:layout_width="130dp"
+             android:layout_height="130dp"
+             android:scaleType="centerCrop"/>
+     </androidx.cardview.widget.CardView>
+
+     <ImageView
+         android:layout_width="400dp"
+         android:layout_height="250dp"
+         android:layout_below="@id/cardview1"
+         android:layout_marginTop="10dp"
+         android:layout_centerHorizontal="true"
+         android:id="@+id/bgn1"
+         android:src="@drawable/background_btn_intro"
+         android:alpha="0.5" />
+
+     <TextView
+         android:id="@+id/name"
+         android:layout_width="300dp"
+         android:layout_height="40dp"
+         android:text="Name:"
+         android:textSize="25sp"
+         android:layout_below="@id/cardview1"
+         android:layout_marginTop="20dp"
+         android:layout_marginStart="20dp"
+         />
+     <TextView
+         android:id="@+id/address"
+         android:layout_width="300dp"
+         android:layout_height="40dp"
+         android:text="Address:"
+         android:textSize="25sp"
+         android:layout_below="@id/name"
+         android:layout_marginTop="5dp"
+         android:layout_marginStart="20dp"
+         />
+     <TextView
+         android:id="@+id/occupation"
+         android:layout_width="300dp"
+         android:layout_height="40dp"
+         android:text="Occupation:"
+         android:textSize="25sp"
+         android:layout_below="@id/address"
+         android:layout_marginTop="5dp"
+         android:layout_marginStart="20dp"
+         />
+
+
+     <ImageView
+         android:layout_width="400dp"
+         android:layout_height="220dp"
+         android:id="@+id/bgn2"
+         android:layout_centerHorizontal="true"
+         android:layout_below="@id/bgn1"
+         android:layout_marginTop="10dp"
+         android:alpha="0.5"
+         android:src="@drawable/background_btn_intro"/>
+
+     <Button
+         android:id="@+id/Gallery"
+         android:layout_width="380dp"
+         android:layout_height="50dp"
+         android:layout_below="@id/bgn1"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="30dp"
+         android:background="@drawable/background_btn_intro"
+         android:text="Gallery"
+         app:icon="@drawable/ic_library" />
+
+     <Button
+         android:id="@+id/About_app"
+         android:layout_width="380dp"
+         android:layout_height="50dp"
+         android:layout_below="@id/Gallery"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="15dp"
+         android:background="@drawable/background_btn_intro"
+         android:text="About the App"
+         app:icon="@drawable/baseline_perm_device_information_24" />
+
+     <Button
+         android:id="@+id/Developers"
+         android:layout_width="380dp"
+         android:layout_height="50dp"
+         android:layout_below="@id/About_app"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="15dp"
+         android:background="@drawable/background_btn_intro"
+         android:text="Developers"
+         app:icon="@drawable/baseline_info_outline_24" />
+
+     <Button
+         android:id="@+id/logout"
+         android:layout_width="130dp"
+         android:layout_height="50dp"
+         android:text="Logout"
+         app:icon ="@drawable/baseline_logout_24"
+         android:layout_alignParentRight="true"
+         android:layout_above="@id/Gallery"
+         android:layout_marginBottom="10dp"
+         android:layout_marginEnd="20dp"
+         android:onClick="logOut"
+         />
+
+ </RelativeLayout>
+
+</FrameLayout>
