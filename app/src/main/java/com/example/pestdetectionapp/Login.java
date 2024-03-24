@@ -35,7 +35,7 @@ public class Login extends AppCompatActivity {
         if(checkCredentials(user,pass)){
             int id = database.getId(user,pass);
                     database.turn_on_active_status(id);
-                    Intent intent = new Intent(Login.this, MainActivity.class);
+                    Intent intent = new Intent(Login.this, MainActivity1.class);
                     intent.putExtra("IdValue",id);
                     startActivity(intent);
 //                    Toast.makeText(getApplicationContext(),"Logging In", Toast.LENGTH_SHORT).show();

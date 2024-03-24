@@ -56,9 +56,16 @@ dependencies {
     implementation ("org.tensorflow:tensorflow-lite-gpu:2.14.0");
     implementation ("org.tensorflow:tensorflow-lite-support:0.4.4");
     implementation ("org.tensorflow:tensorflow-lite-metadata:0.4.4");
+    implementation ("org.tensorflow:tensorflow-lite:2.4.0")
 
 
 //    implementation ("com.android.support:design:29.0.0-alpha3");
 //    implementation ("com.android.support:design:29.0.0-alpha1");
+
+    implementation ("androidx.constraintlayout:constraintlayout:1.1.3")
+    implementation ("com.google.code.gson:gson:2.8.6")
+    androidTestImplementation ("androidx.test.ext:junit:1.1.1")
+    androidTestImplementation ("com.android.support.test:rules:1.0.2")
+    androidTestImplementation ("com.google.truth:truth:1.0.1")
 
 }

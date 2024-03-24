@@ -188,7 +188,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     public int get_active_user_Id(){
-        SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+Account_Table+" WHERE "+Account_Active+" = ?",new String[]{String.valueOf(1)});
         int Id = 0;
         if (cursor.moveToFirst()) {
@@ -198,6 +197,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return Id;
     }
 
+    public String getPestDetails (int id){
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+Pest_Info_Table+" WHERE "+Pest_Id+" = ?",new String[]{String.valueOf(id)});
+        return cursor.toString();
 
+        //Guba ni
+    }
 
 }

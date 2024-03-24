@@ -18,11 +18,11 @@ import android.widget.Toast;
 
 public class MenuFragment extends Fragment {
 
-    Button gallery, about_app, developers, signout;
+    Button gallery, about_app, edit, signout;
     ImageView profile_image;
     TextView name, address, occupation;
     DatabaseHandler database;
-
+    int id = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,15 +30,14 @@ public class MenuFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_menu, container, false);
 
         database = new DatabaseHandler(requireContext());
-        int id = 0;
         if (getArguments() != null) {
             id = getArguments().getInt("Id");
         }
 
         gallery = rootView.findViewById(R.id.Gallery);
         about_app = rootView.findViewById(R.id.About_app);
-        developers = rootView.findViewById(R.id.Developers);
         signout = rootView.findViewById(R.id.logout);
+        edit = rootView.findViewById(R.id.edit);
 
         profile_image = rootView.findViewById(R.id.profile_images);
         name = rootView.findViewById(R.id.name);
@@ -71,21 +70,17 @@ public class MenuFragment extends Fragment {
         profile_image.setImageBitmap(bitmap);
 
 
-        signout.setOnClickListener(v -> logout());
-        gallery.setOnClickListener(v -> tolibrary());
+        signout.setOnClickListener(v -> toLogout());
+        gallery.setOnClickListener(v -> toLibrary());
+        about_app.setOnClickListener(v -> toAbout());
+        edit.setOnClickListener(v -> toEdit());
+
 
         return rootView;
     }
 
-    public void logout() {
+    public void toLogout() {
         database = new DatabaseHandler(requireContext());
-
-        int id = 0;
-        if (getArguments() != null) {
-            id = getArguments().getInt("Id");
-            Toast.makeText(requireContext(),""+id,Toast.LENGTH_SHORT).show();
-        }
-
 
             database.turn_off_active_status(id);
 
@@ -96,9 +91,19 @@ public class MenuFragment extends Fragment {
 
     }
 
-    public void tolibrary(){
+    public void toLibrary(){
         Intent intent = new Intent(requireContext(), pestLibrary.class);
         startActivity(intent);
+    }
+
+    public void toAbout(){
+        Intent intent = new Intent(requireContext(), about.class);
+        startActivity(intent);
+    }
+
+    public void toEdit(){
+//        Intent intent = new Intent(requireContext(), about.class);
+//        startActivity(intent);
     }
 
 }

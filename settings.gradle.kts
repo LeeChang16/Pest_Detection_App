@@ -15,5 +15,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "PestDetectionApp"
-include(":app")
+include(":app", ":tensorflow-lite")
+
  

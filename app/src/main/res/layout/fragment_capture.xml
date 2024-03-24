@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/frameLayout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CaptureFragment">
 
@@ -12,51 +13,16 @@
 
         <androidx.camera.view.PreviewView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="460dp"
             android:id="@+id/cameraPreview">
         </androidx.camera.view.PreviewView>
 
-<!--        <ImageButton-->
-<!--            android:layout_width="60sp"-->
-<!--            android:layout_height="57dp"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:layout_alignParentBottom="true"-->
-<!--            android:layout_marginBottom="90sp"-->
-<!--            android:id="@+id/capture"-->
-<!--            android:contentDescription="NULL"-->
-<!--            android:src="@drawable/ic_baseline_camera_24"-->
-<!--            android:scaleType="centerCrop"-->
-<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
-<!--            app:tint="#fff"/>-->
-
-<!--        <ImageButton-->
-<!--            android:layout_width="60sp"-->
-<!--            android:layout_height="57dp"-->
-<!--            android:layout_toRightOf="@id/capture"-->
-<!--            android:layout_alignParentBottom="true"-->
-<!--            android:layout_marginStart="60dp"-->
-<!--            android:layout_marginBottom="80sp"-->
-<!--            android:id="@+id/gallery"-->
-<!--            android:contentDescription="NULL"-->
-<!--            android:src="@drawable/gallery"-->
-<!--            android:scaleType="centerCrop"-->
-<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
-<!--            app:tint="#fff"/>-->
-
-
-<!--        <ImageButton-->
-<!--            android:layout_width="60sp"-->
-<!--            android:layout_height="57dp"-->
-<!--            android:layout_toLeftOf="@id/capture"-->
-<!--            android:layout_alignParentBottom="true"-->
-<!--            android:layout_marginEnd="60dp"-->
-<!--            android:layout_marginBottom="80sp"-->
-<!--            android:id="@+id/realtime"-->
-<!--            android:contentDescription="NULL"-->
-<!--            android:src="@drawable/baseline_center_focus_strong_24"-->
-<!--            android:scaleType="centerCrop"-->
-<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
-<!--            app:tint="#fff"/>-->
+        <ImageView
+        android:id="@+id/images"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@id/cameraPreview"
+        android:background="@color/black"/>
 
         <ImageButton
             android:layout_width="60sp"

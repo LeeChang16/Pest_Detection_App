@@ -10,9 +10,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background_square_2"
-        android:alpha="1">
+        android:layout_height="match_parent">
+
+
         <TextView
             android:id="@+id/about"
             android:layout_width="match_parent"
@@ -93,11 +93,10 @@
             android:text="Jhunde Donasco"
             android:textAlignment="center"/>
 
-
-
-
-
     </RelativeLayout>
+
+
+
 
 
 </ScrollView>

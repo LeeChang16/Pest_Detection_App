@@ -5,6 +5,8 @@ import static androidx.core.content.ContentProviderCompat.requireContext;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -80,6 +82,18 @@ public class SignUp extends AppCompatActivity {
             database.insertClient(name,provinces,towns,occupations,image);
             database.insertAccount(user, pass, 0);
             Toast.makeText(getApplicationContext(),"Account Created!",Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(this, Login.class);
+            new AlertDialog.Builder(this)
+                    .setTitle("Account Created! ")
+                    .setMessage("Please Login")
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            startActivity(intent);
+                        }
+                    }).create().show();
+
+
         }
     }
 

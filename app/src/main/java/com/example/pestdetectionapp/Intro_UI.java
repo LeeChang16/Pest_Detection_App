@@ -20,7 +20,7 @@ public class Intro_UI extends AppCompatActivity {
 
         if(db.active_user()){
             int id = db.get_active_user_Id();
-            Intent intent = new Intent(Intro_UI.this, MainActivity.class);
+            Intent intent = new Intent(Intro_UI.this, MainActivity1.class);
             intent.putExtra("IdValue",id);
             startActivity(intent);
         }else {

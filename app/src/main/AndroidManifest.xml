@@ -35,8 +35,14 @@
             android:name=".Login"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".DetectorActivity"
             android:exported="false" />
+        <activity
+            android:name=".MainActivity1"
+            android:exported="false"/>
+        <activity
+            android:name=".CameraActivity"
+            android:exported="false"/>
         <activity
             android:name=".Intro_UI"
             android:exported="true">
