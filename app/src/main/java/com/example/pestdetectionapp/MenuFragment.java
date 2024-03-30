@@ -22,6 +22,7 @@ public class MenuFragment extends Fragment {
     ImageView profile_image;
     TextView name, address, occupation;
     DatabaseHandler database;
+    id_Holder idHolder = id_Holder.getInstance();
     int id = 0;
 
     @Override
@@ -81,7 +82,7 @@ public class MenuFragment extends Fragment {
 
     public void toLogout() {
         database = new DatabaseHandler(requireContext());
-
+            idHolder.hold_id(0);
             database.turn_off_active_status(id);
 
             Intent intent = new Intent(requireContext(), Intro_UI.class);

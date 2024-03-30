@@ -9,7 +9,12 @@
     <color name="white">#FFFFFFFF</color>
     <color name="lavender">#001a00</color>
     <color name="lightgreen">#b3ffb3</color>
-
+    <color name="charcoal">#36454F</color>
+    <color name="dark_gray">#A9A9A9</color>
+    <color name="dark_white">#d9dbd9</color>
+    <color name="gray">#808080</color>
+    <color name="steel_gray">#71797E</color>
+    <color name="sage_green">#8A9A5B</color>
 
     <color name="tfe_color_primary">#ffa800</color>
     <color name="tfe_color_primary_dark">#ff6f00</color>

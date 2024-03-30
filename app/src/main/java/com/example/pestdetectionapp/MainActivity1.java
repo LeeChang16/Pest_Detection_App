@@ -47,6 +47,8 @@ public class MainActivity1 extends AppCompatActivity {
     private static final int TIME_INTERVAL = 2000; // Desired time to wait between back presses, in milliseconds
     private long mBackPressed;
 
+    id_Holder idHolder = id_Holder.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +63,14 @@ public class MainActivity1 extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-        Intent intent = getIntent();
-        user_universal_id = intent.getIntExtra("IdValue",0);
+        if(idHolder.has_value()) {
+            user_universal_id = idHolder.retrieve_id();
+        }
+        else {
+            Toast.makeText(this, "Error: Attempting to login without user Id.",Toast.LENGTH_SHORT).show();
+        }
+//        Intent intent = getIntent();
+//        user_universal_id = intent.getIntExtra("IdValue",0);
 
 
         bottomNavigation = findViewById(R.id.bottom_navi);

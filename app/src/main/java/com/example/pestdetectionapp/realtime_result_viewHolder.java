@@ -4,25 +4,21 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.WindowDecorActionBar;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.sql.Blob;
+public class realtime_result_viewHolder extends RecyclerView.ViewHolder {
 
-public class result_viewHolder extends RecyclerView.ViewHolder {
-
+     TextView id;
      TextView name;
-     TextView scientificName;
-     ImageView Image;
+     TextView confidence;
      View view;
 
-     result_viewHolder(View itemView) {
+     realtime_result_viewHolder(View itemView) {
         super(itemView);
 
-        name = (TextView) itemView.findViewById(R.id.pest_name);
-        scientificName = (TextView) itemView.findViewById(R.id.pest_scientific_name);
-        Image = (ImageView) itemView.findViewById(R.id.pest_image);
+        id = (TextView) itemView.findViewById(R.id.pest_ID);
+        name = (TextView) itemView.findViewById(R.id.pest_NAME);
+        confidence = (TextView) itemView.findViewById(R.id.pest_CONFIDENCE);
         view = itemView;
 
     }

@@ -81,7 +81,8 @@
                 android:id="@+id/dev2_image"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/ondi"/>
         </androidx.cardview.widget.CardView>
 
         <TextView

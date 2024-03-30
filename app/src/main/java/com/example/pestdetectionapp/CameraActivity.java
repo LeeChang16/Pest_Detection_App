@@ -56,6 +56,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pestdetectionapp.env.ImageUtils;
 import com.example.pestdetectionapp.env.Logger;
@@ -64,6 +66,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public abstract class CameraActivity extends AppCompatActivity
@@ -94,17 +97,17 @@ public abstract class CameraActivity extends AppCompatActivity
   private Runnable imageConverter;
   protected ArrayList<String> modelStrings = new ArrayList<String>();
 
-  private LinearLayout bottomSheetLayout;
-  private LinearLayout gestureLayout;
-  private BottomSheetBehavior<LinearLayout> sheetBehavior;
 
-  protected TextView frameValueTextView, cropValueTextView, inferenceTimeTextView;
-  protected ImageView bottomSheetArrowImageView;
-  private ImageView plusImageView, minusImageView;
-  protected ListView deviceView;
-  protected TextView threadsTextView;
-  protected ListView modelView;
-  /** Current indices of device and model. */
+  RecyclerView recyclerView;
+  realtime_resultAdapter adapter;
+  realtime_resultClicklistener clickListener;
+
+  String Id;
+  String Title;
+  Float Confidence;
+
+
+  protected TextView frameValueTextView, cropValueTextView, inferenceTimeTextView, label1;
   int currentDevice = -1;
   int currentModel = -1;
   int currentNumThreads = -1;
@@ -125,113 +128,17 @@ public abstract class CameraActivity extends AppCompatActivity
       requestPermission();
     }
 
-    threadsTextView = findViewById(R.id.threads);
-    currentNumThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
-    plusImageView = findViewById(R.id.plus);
-    minusImageView = findViewById(R.id.minus);
-    deviceView = findViewById(R.id.device_list);
-
-    // Device Listview
-    deviceStrings.add("CPU");
-    deviceStrings.add("GPU");
-    deviceStrings.add("NNAPI");
-    deviceView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
-    // Device Listview
     ArrayAdapter<String> deviceAdapter =
             new ArrayAdapter<>(
                     CameraActivity.this , R.layout.deviceview_row, R.id.deviceview_row_text, deviceStrings);
-    deviceView.setAdapter(deviceAdapter);
-    deviceView.setItemChecked(defaultDeviceIndex, true);
     currentDevice = defaultDeviceIndex;
-    deviceView.setOnItemClickListener(
-            new AdapterView.OnItemClickListener() {
-              @Override
-              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                updateActiveModel();
-              }
-            });
-
-    bottomSheetLayout = findViewById(R.id.bottom_sheet_layout);
-//    gestureLayout = findViewById(R.id.gesture_layout);
-    sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
-//    bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
-    modelView = findViewById((R.id.model_list));
-
-    modelStrings = getModelStrings(getAssets(), ASSET_PATH);
-    modelView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     ArrayAdapter<String> modelAdapter =
             new ArrayAdapter<>(
                     CameraActivity.this , R.layout.listview_row, R.id.listview_row_text, modelStrings);
-    modelView.setAdapter(modelAdapter);
-    modelView.setItemChecked(defaultModelIndex, true);
-    currentModel = defaultModelIndex;
-    modelView.setOnItemClickListener(
-            new AdapterView.OnItemClickListener() {
-              @Override
-              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                updateActiveModel();
-              }
-            });
 
-
-    // make the bottom sheet GONE
-    bottomSheetLayout.setVisibility(View.GONE);
-
-//    ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
-//    vto.addOnGlobalLayoutListener(
-//        new ViewTreeObserver.OnGlobalLayoutListener() {
-//          @Override
-//          public void onGlobalLayout() {
-//            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-//              gestureLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-//            } else {
-//              gestureLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//            }
-//            //                int width = bottomSheetLayout.getMeasuredWidth();
-//            int height = gestureLayout.getMeasuredHeight();
-//
-//            sheetBehavior.setPeekHeight(height);
-//          }
-//        });
-    sheetBehavior.setHideable(false);
-
-    sheetBehavior.setBottomSheetCallback(
-        new BottomSheetBehavior.BottomSheetCallback() {
-          @Override
-          public void onStateChanged(@NonNull View bottomSheet, int newState) {
-            switch (newState) {
-              case BottomSheetBehavior.STATE_HIDDEN:
-                break;
-              case BottomSheetBehavior.STATE_EXPANDED:
-                {
-//                  bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_down);
-                }
-                break;
-              case BottomSheetBehavior.STATE_COLLAPSED:
-                {
-//                  bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_up);
-                }
-                break;
-              case BottomSheetBehavior.STATE_DRAGGING:
-                break;
-              case BottomSheetBehavior.STATE_SETTLING:
-//                bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_up);
-                break;
-            }
-          }
-
-          @Override
-          public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
-        });
-
-    frameValueTextView = findViewById(R.id.frame_info);
-    cropValueTextView = findViewById(R.id.crop_info);
-    inferenceTimeTextView = findViewById(R.id.inference_info);
-
-    plusImageView.setOnClickListener(this);
-    minusImageView.setOnClickListener(this);
-
+    inferenceTimeTextView = findViewById(R.id.label2);
+    recyclerView = findViewById(R.id.result_recycler);
+    label1 = findViewById(R.id.label1);
 
 
     DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -243,19 +150,54 @@ public abstract class CameraActivity extends AppCompatActivity
     System.out.println("SIZE:    Width: " + width + ", Height: " + height);
 
 
-  }
 
-//  public void getsize(){
-//
-//    DisplayMetrics displayMetrics = new DisplayMetrics();
-//    getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//    int height = displayMetrics.heightPixels;
-//    int width = displayMetrics.widthPixels;
-//
-//
-//    System.out.println("Width: " + width + ", Height: " + height);
-//
-//  }
+  valueTracker value = new valueTracker();
+
+
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        // Perform long-running operation here...
+        // Switch to UI thread to update UI
+        List<realtime_resultData> list = new ArrayList<>();
+
+        if(value.hasValueChanged()){
+          list.add(new realtime_resultData(value.get_idValue()+"", value.get_nameValue()+"", value.get_confidenceValue()+""));
+
+          adapter = new realtime_resultAdapter(list, CameraActivity.this.getApplication(),clickListener);
+          recyclerView.setAdapter(adapter);
+          recyclerView.setLayoutManager(
+                  new LinearLayoutManager(CameraActivity.this));
+        }
+        clickListener = new realtime_resultClicklistener() {
+          @Override
+          public void click(int index){
+            Toast.makeText(CameraActivity.this,"clicked item index is "+index, Toast.LENGTH_SHORT).show();
+          }
+        };
+
+
+
+
+        runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+
+
+
+
+
+
+            // Update UI here...
+          }
+        });
+      }
+    }).start();
+
+
+  }// END ONCREATE
+
+
 
 
 
@@ -615,24 +557,10 @@ public abstract class CameraActivity extends AppCompatActivity
 
   @Override
   public void onClick(View v) {
-    if (v.getId() == R.id.plus) {
-      String threads = threadsTextView.getText().toString().trim();
-      int numThreads = Integer.parseInt(threads);
-      if (numThreads >= 9) return;
-      numThreads++;
-      threadsTextView.setText(String.valueOf(numThreads));
-      setNumThreads(numThreads);
-    } else if (v.getId() == R.id.minus) {
-      String threads = threadsTextView.getText().toString().trim();
-      int numThreads = Integer.parseInt(threads);
-      if (numThreads == 1) {
-        return;
-      }
-      numThreads--;
-      threadsTextView.setText(String.valueOf(numThreads));
+      int numThreads = 8;
       setNumThreads(numThreads);
     }
-  }
+
 
   protected void showFrameInfo(String frameInfo) {
     frameValueTextView.setText(frameInfo);
@@ -645,6 +573,36 @@ public abstract class CameraActivity extends AppCompatActivity
   protected void showInference(String inferenceTime) {
     inferenceTimeTextView.setText(inferenceTime);
   }
+  protected void showPestId(String id, String title) {
+    label1.setText(title+" "+id);
+  }
+  protected void data(String id, String title, Float confidence){
+     Id = id;
+     Title = title;
+     Confidence = confidence;
+  }
+  protected void displayRecycler(String Id, String name, float confidence){
+
+  }
+  private List<realtime_resultData> getData()
+  {
+    valueTracker value = new valueTracker();
+
+    List<realtime_resultData> list = new ArrayList<>();
+
+    if (value.hasValueChanged()){
+
+      list.add(new realtime_resultData(value.get_idValue()+"", value.get_nameValue()+"", value.get_confidenceValue()+""));
+    }
+
+
+
+    return list;
+  }
+
+
+
+
 
   protected abstract void updateActiveModel();
   protected abstract void processImage();

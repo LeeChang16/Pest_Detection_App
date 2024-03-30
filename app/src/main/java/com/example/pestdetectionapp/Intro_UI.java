@@ -11,22 +11,27 @@ import android.widget.Toast;
 public class Intro_UI extends AppCompatActivity {
     Button login,signup;
     DatabaseHandler db;
+    id_Holder idHolder = id_Holder.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro_ui);
 
-        db = new DatabaseHandler(Intro_UI.this);
 
-        if(db.active_user()){
-            int id = db.get_active_user_Id();
-            Intent intent = new Intent(Intro_UI.this, MainActivity1.class);
-            intent.putExtra("IdValue",id);
-            startActivity(intent);
-        }else {
-            Toast.makeText(Intro_UI.this,"Failed to Auto Login. Please Login Manually", Toast.LENGTH_SHORT).show();
+//        if(db.active_user()){
+//            int id = db.get_active_user_Id();
+//            Intent intent1 = new Intent(this, MainActivity1.class);
+//            intent1.putExtra("IdValue",id);
+//            startActivity(intent1);
+//            finish();
+//        }else {
+//
+//        }
+
+        if(idHolder.has_value()){
+            Intent intent1 = new Intent(this, MainActivity1.class);
+            startActivity(intent1);
         }
-
 
         login = findViewById(R.id.login);
         signup = findViewById(R.id.signup);

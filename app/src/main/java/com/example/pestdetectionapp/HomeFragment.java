@@ -11,7 +11,10 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,6 +37,7 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
@@ -42,11 +46,13 @@ public class HomeFragment extends Fragment {
     public Bitmap capturedImage;
 
     TextView temp_reading;
-
+    bitmapHolder holder;
 
     recentAdapter adapter;
     RecyclerView recyclerView;
     recentClicklistener clickListener;
+
+    DatabaseHandler db;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -62,6 +68,9 @@ public class HomeFragment extends Fragment {
 
         GalleryButton.setOnClickListener(v ->selectGallery());
         CameraButton.setOnClickListener(v ->openCamera());
+
+        db = new DatabaseHandler(requireContext());
+
 
         int id =0;
         if (getArguments() != null) {
@@ -120,29 +129,29 @@ public class HomeFragment extends Fragment {
             if(requestCode == 1) {
 
                 // Get the selected image and store it in a bitmap
+                assert data != null;
                 Uri dat = data.getData();
 
                 // Pass the image Uri to Detect.java
                 Intent intent = new Intent(requireContext(), Detect.class);
+                assert dat != null;
                 intent.putExtra("imageUri", dat.toString());
                 startActivity(intent);
             }
 
             else if (requestCode == 3) {
                 // Get the Captured image and store it in a Bitmap Variable
-                capturedImage = (Bitmap) data.getExtras().get("data");
+                assert data != null;
+                capturedImage = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
+                assert capturedImage != null;
                 int dimension = Math.min(capturedImage.getWidth(), capturedImage.getHeight());
                 capturedImage = ThumbnailUtils.extractThumbnail(capturedImage, dimension, dimension);
 
                 Intent i = new Intent(requireContext(), Detect.class);
                 ByteArrayOutputStream bs = new ByteArrayOutputStream();
-                capturedImage.compress(Bitmap.CompressFormat.PNG, 50, bs);
+                capturedImage.compress(Bitmap.CompressFormat.PNG, 100, bs);
                 i.putExtra("byteArray", bs.toByteArray());
                 startActivity(i);
-
-                Intent intent = new Intent(requireContext(),Detect.class);
-                startActivity(intent);
-
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -158,28 +167,29 @@ public class HomeFragment extends Fragment {
     }
 
 
-//    @Override
-//    public void onBackPressed() {
-//        // Handle the back button press in your fragment
-//        // Implement your custom logic here
-//        super.getActivity().onBackPressed(); // Call the default behavior
-//    }
-
-
-    // Sample data for RecyclerView
     private List<recentdetectionData> getData()
     {
         List<recentdetectionData> list = new ArrayList<>();
-        list.add(new recentdetectionData("StemBorer", "June 10, 2024"));
-        list.add(new recentdetectionData("Aphids", "June 09, 2015"));
-        list.add(new recentdetectionData("Rice Bug", "April 27, 2017"));
-        list.add(new recentdetectionData("StemBorer", "June 10, 2024"));
-        list.add(new recentdetectionData("StemBorer", "June 10, 2024"));
-        list.add(new recentdetectionData("Zigzag Leafhopper", "June 09, 2015"));
-        list.add(new recentdetectionData("Golden Apple Snail", "April 27, 2017"));
-        list.add(new recentdetectionData("Armyworm", "June 10, 2024"));
+        db.getReadableDatabase();
+        Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM Detected_Pest ORDER BY Pest_Id DESC", null);
+
+        if(cursor.moveToFirst()){
+            do {
+                //Specify Which Column to get
+                String name = cursor.getString(1);
+                String confidence = cursor.getString(2);
 
 
+                byte[] imageBytes = cursor.getBlob(3);
+                String time = cursor.getString(4);
+                String date = cursor.getString(5);
+
+                Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+
+
+                list.add(new recentdetectionData(name,confidence+" %",bitmap,time,date));
+            }while(cursor.moveToNext());
+        }
         return list;
     }
 

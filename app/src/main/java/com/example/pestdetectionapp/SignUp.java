@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 public class SignUp extends AppCompatActivity {
 
@@ -54,7 +55,7 @@ public class SignUp extends AppCompatActivity {
 
     }
 
-    public void signUp(View view) {
+    public void signUp(View view) throws NoSuchAlgorithmException {
 
         database = new DatabaseHandler(getApplicationContext());
 
@@ -65,23 +66,24 @@ public class SignUp extends AppCompatActivity {
         String user = username.getText().toString();
         String pass = password.getText().toString();
 
-//        ByteArrayOutputStream bs = new ByteArrayOutputStream();
-//        capturedImage.compress(Bitmap.CompressFormat.PNG, 50, bs);
 
-        // Convert the bitmap image to a byte array
+        String hashed_Password = hash.hashString(pass);
 
 
-        if(checkCredentials(user,pass)){
-            Toast.makeText(getApplicationContext(),"Credential Already Exist!",Toast.LENGTH_SHORT).show();
-        }else{
-
+        if (hashed_Password.equals(database.get_hash(hashed_Password))) {
+            if (user.equals(database.get_user(user))) {
+                Toast.makeText(getApplicationContext(), "Credentials Already Exist!", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(getApplicationContext(), "Password Already Exist!", Toast.LENGTH_SHORT).show();
+            }
+        } else {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             reducedSize.compress(Bitmap.CompressFormat.PNG, 50, stream);
             image = stream.toByteArray();
 
-            database.insertClient(name,provinces,towns,occupations,image);
-            database.insertAccount(user, pass, 0);
-            Toast.makeText(getApplicationContext(),"Account Created!",Toast.LENGTH_SHORT).show();
+            database.insertClient(name, provinces, towns, occupations, image);
+            database.insertAccount(user, hashed_Password, 0);
+            Toast.makeText(getApplicationContext(), "Account Created!", Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(this, Login.class);
             new AlertDialog.Builder(this)
@@ -92,31 +94,15 @@ public class SignUp extends AppCompatActivity {
                             startActivity(intent);
                         }
                     }).create().show();
-
-
         }
     }
-
-    public boolean checkCredentials(String user, String pass){
-
-        database = new DatabaseHandler(getApplicationContext());
-        Cursor cursor = database.getReadableDatabase().rawQuery("SELECT * FROM Account WHERE Username = ? AND Password = ?", new String[]{user, pass});
-
-        boolean validCredentials = cursor.getCount() > 0;
-
-        return validCredentials;
-    }
-
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
-
         if (resultCode == RESULT_OK) {
-
             if (requestCode == 2) {
-
                 // Get the selected image and store it in a bitmap
                 Uri dat = data.getData();
                 try {
@@ -129,28 +115,19 @@ public class SignUp extends AppCompatActivity {
             reducedSize = reduceImageSize(bitmap,240,240);
             profile_pic.setImageBitmap(reducedSize);
         }
-
         super.onActivityResult(requestCode, resultCode, data);
-
     }
 
     public Bitmap reduceImageSize(Bitmap originalBitmap, int maxWidth, int maxHeight) {
         int originalWidth = originalBitmap.getWidth();
         int originalHeight = originalBitmap.getHeight();
-
         // Calculate the correct scale size
         float scale = Math.min(((float)maxWidth / originalWidth), ((float)maxHeight / originalHeight));
-
         // Create a matrix for manipulation
         Matrix matrix = new Matrix();
         matrix.postScale(scale, scale);
-
         // Create a new bitmap with the same color model as the original bitmap, but scaled down.
         Bitmap scaledBitmap = Bitmap.createBitmap(originalBitmap, 0, 0, originalWidth, originalHeight, matrix, true);
-
         return scaledBitmap;
     }
-
-
-
 }

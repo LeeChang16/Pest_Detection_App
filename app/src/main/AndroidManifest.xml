@@ -10,15 +10,20 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:fullBackupOnly="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PestDetectionApp"
         tools:targetApi="31">
+
+        <activity
+            android:name=".Pest_info"
+            android:exported="false" />
         <activity
             android:name=".about"
             android:exported="false" />
@@ -39,12 +44,15 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity1"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".CameraActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".Intro_UI"
+            android:exported="false"/>
+        <activity
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

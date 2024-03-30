@@ -9,6 +9,10 @@ import android.graphics.Bitmap;
 
 import androidx.annotation.Nullable;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.sql.Blob;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -54,6 +58,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String Detected_Pest_Picture = "Sample_Picture";
     private static final String Detected_Pest_Name = "Pest_Name";
     private static final String Detected_Pest_Confidence = "Confidence_Level";
+    private static final String Detected_Pest_Date = "Date";
+    private static final String Detected_Pest_Time = "Time";
 
 
     public DatabaseHandler(@Nullable Context context) {
@@ -84,10 +90,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + Picture + " BLOB)";
 
         String query3 = "CREATE TABLE " + Detected_Pest_Table + " ("
-                + Detected_Pest_Id + " INTEGER PRIMARY KEY,"
+                + Detected_Pest_Id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + Detected_Pest_Name + " TEXT,"
                 + Detected_Pest_Confidence + " TEXT,"
-                + Detected_Pest_Picture + " BLOB)";
+                + Detected_Pest_Picture + " BLOB,"
+                + Detected_Pest_Time + " TEXT,"
+                + Detected_Pest_Date + " TEXT)";
 
         String query4 = "CREATE TABLE " + Account_Table + " ("
                 + Account_Id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -115,15 +123,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void insertPest(String pestId, String pestname, String confidencelevel, Bitmap image){
+    public void insertPest( String pestname, String confidencelevel, byte[] image, String time, String date){
 
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues insertValues = new ContentValues();
-        insertValues.put(Detected_Pest_Id, pestId);
         insertValues.put(Detected_Pest_Name, pestname);
         insertValues.put(Detected_Pest_Confidence, confidencelevel);
-        insertValues.put(Detected_Pest_Picture, image.toString());
+        insertValues.put(Detected_Pest_Picture, image);
+        insertValues.put(Detected_Pest_Time, time);
+        insertValues.put(Detected_Pest_Date, date);
         db.insert(Detected_Pest_Table, null, insertValues);
 
         db.close();
@@ -158,10 +167,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public int getId(String user, String pass){
+    public int getId(String pass){
         SQLiteDatabase db = getReadableDatabase();
 
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT Account_Id FROM Account WHERE Username = ? AND Password = ?",new String[]{user,pass});
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT Account_Id FROM Account WHERE Password = ?",new String[]{pass});
         int Id = 0;
         if (cursor.moveToFirst()) {
             Id = cursor.getInt(0);
@@ -181,27 +190,60 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     public boolean active_user(){
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+Account_Table+" WHERE "+Account_Active+" = ?", new String[]{String.valueOf(1)});
-        boolean active = cursor.getCount()==1;
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+Account_Table+" WHERE "+Account_Active+" = '1'",null);
+        boolean active = cursor.getCount()>0;
 
         return active;
     }
 
     public int get_active_user_Id(){
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+Account_Table+" WHERE "+Account_Active+" = ?",new String[]{String.valueOf(1)});
-        int Id = 0;
-        if (cursor.moveToFirst()) {
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT "+Account_Id+" FROM "+Account_Table+" WHERE "+Account_Active+"= '1'",null);
+        int Id =0;
+
+        if(cursor.moveToFirst()) {
             Id = cursor.getInt(0);
+            cursor.close();
+
         }
-        cursor.close();
         return Id;
     }
+
+
+    public String get_hash(String pass){
+
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " +Account_Table+ " WHERE " +Account_Password+ "= ?", new String[]{pass});
+        String hash = null;
+        if (cursor.moveToFirst()) {
+            hash = cursor.getString(2);
+        }
+        cursor.close();
+
+
+        return hash;
+    }
+
+    public String get_user(String user){
+
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " +Account_Table+ " WHERE " +Account_Username+ "= ?", new String[]{user});
+        user = null;
+        if (cursor.moveToFirst()) {
+            user = cursor.getString(1);
+        }
+        cursor.close();
+
+
+        return user;
+    }
+
 
     public String getPestDetails (int id){
         Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+Pest_Info_Table+" WHERE "+Pest_Id+" = ?",new String[]{String.valueOf(id)});
         return cursor.toString();
 
-        //Guba ni
     }
+
+
+
+
 
 }

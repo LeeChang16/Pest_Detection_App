@@ -24,25 +24,58 @@
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:id="@+id/pest_name"
-        android:text="Name"
-        android:textSize="20sp"
-        android:layout_toRightOf="@+id/image_holder"
+    <LinearLayout
+        android:id="@+id/line10"
+        android:layout_width="190dp"
+        android:layout_height="100dp"
+        android:layout_toEndOf="@id/image_holder"
+        android:orientation="vertical"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp">
 
-    <TextView
+            <TextView
+                android:layout_width="190dp"
+                android:layout_height="30dp"
+                android:id="@+id/pest_name"
+                android:text="Name"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                />
+
+            <TextView
+                android:id="@+id/pest_confidence"
+                android:layout_width="120dp"
+                android:layout_marginStart="0dp"
+                android:textColor="@color/black"
+                android:layout_height="30dp"
+                android:text="Confidence"
+                android:textSize="20sp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/line11"
         android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:id="@+id/pest_scientific_name"
-        android:text="Scientific Name"
-        android:textSize="20sp"
-        android:layout_toRightOf="@+id/image_holder"
-        android:layout_below="@id/pest_name"
+        android:layout_height="100dp"
+        android:orientation="vertical"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"/>
+        android:layout_toEndOf="@+id/line10"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:text="Time: "
+            android:textColor="@color/black"
+            android:textAlignment="textStart"/>
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:textColor="@color/black"
+            android:text="Date: "
+            android:textAlignment="textStart"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

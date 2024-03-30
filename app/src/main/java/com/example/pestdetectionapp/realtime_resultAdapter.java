@@ -8,50 +8,46 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pestdetectionapp.ClickListener;
-import com.example.pestdetectionapp.R;
-import com.example.pestdetectionapp.pest_data_recycler;
-import com.example.pestdetectionapp.result_viewHolder;
-
 import java.util.Collections;
 import java.util.List;
 
-public class recyclerAdapter extends RecyclerView.Adapter<result_viewHolder> {
+public class realtime_resultAdapter extends RecyclerView.Adapter<realtime_result_viewHolder> {
 
 
-    List<pest_data_recycler> list = Collections.emptyList();
+    List<realtime_resultData> list = Collections.emptyList();
     Context context;
-    ClickListener listener;
+    realtime_resultClicklistener listener;
 
-    public recyclerAdapter(List<pest_data_recycler> list, Context context, ClickListener listener){
+    public realtime_resultAdapter(List<realtime_resultData> list, Context context, realtime_resultClicklistener listener){
         this.list = list;
         this.context = context;
         this.listener = listener;
     }
     @NonNull
     @Override
-    public result_viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public realtime_result_viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the layout
-        View photoView = inflater.inflate(R.layout.result_recycler_layout, parent, false);
-        result_viewHolder viewHolder = new result_viewHolder(photoView);
+        View photoView = inflater.inflate(R.layout.realtime_result, parent, false);
+        realtime_result_viewHolder viewHolder = new realtime_result_viewHolder(photoView);
         return viewHolder;
     }
 
+
     @Override
-    public void onBindViewHolder(@NonNull final result_viewHolder viewHolder,final int position) {
-//        final index = viewHolder.getAdapterPosition();
-        viewHolder.name.setText(list.get(position).name);
-        viewHolder.scientificName.setText(list.get(position).scientific_name);
-//        viewHolder.Image.setImageBitmap(list.get(position).Image);
-        viewHolder.view.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(@NonNull final realtime_result_viewHolder sviewHolder,final int position) {
+        final int index = sviewHolder.getAdapterPosition();
+        sviewHolder.id.setText(list.get(position).result_id);
+        sviewHolder.name.setText(list.get(position).result_name);
+        sviewHolder.confidence.setText(list.get(position).result_confidence);
+        sviewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-//                listener.click(index);
+                listener.click(index);
             }
         });
     }

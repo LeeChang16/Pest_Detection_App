@@ -16,6 +16,8 @@
 
 package com.example.pestdetectionapp;
 
+import static java.lang.Integer.parseInt;
+
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -57,7 +59,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     private static final DetectorMode MODE = DetectorMode.TF_OD_API;
     private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.3f;
     private static final boolean MAINTAIN_ASPECT = true;
-    private static final Size DESIRED_PREVIEW_SIZE = new Size(1920,1080 ); //3840x2160, 3264x2448
+    private static final Size DESIRED_PREVIEW_SIZE = new Size(640,640 ); //3840x2160, 3264x2448
 //    public final class Size DESIRED_PREVIEW_SIZE = new Size(0,0);
     private static final boolean SAVE_PREVIEW_BITMAP = false;
     private static final float TEXT_SIZE_DIP = 10;
@@ -82,6 +84,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     private BorderedText borderedText;
 
+    valueTracker value;
+
 
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
@@ -93,8 +97,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
         tracker = new MultiBoxTracker(this);
 
-        final int modelIndex = modelView.getCheckedItemPosition();
-        final String modelString = modelStrings.get(modelIndex);
+        final int modelIndex = 0;
+        final String modelString = "best-fp16.tflite";
 
         try {
             detector = DetectorFactory.getDetector(getAssets(), modelString);
@@ -146,10 +150,10 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     protected void updateActiveModel() {
         // Get UI information before delegating to background
-        final int modelIndex = modelView.getCheckedItemPosition();
-        final int deviceIndex = deviceView.getCheckedItemPosition();
-        String threads = threadsTextView.getText().toString().trim();
-        final int numThreads = Integer.parseInt(threads);
+        final int modelIndex = 1;
+        final int deviceIndex = 1;
+        String threads = "8";
+        final int numThreads = 8;
 
         handler.post(() -> {
             if (modelIndex == currentModel && deviceIndex == currentDevice
@@ -244,6 +248,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 new Runnable() {
                     @Override
                     public void run() {
+                        //value tracker class
+                        value = new valueTracker();
+
                         LOGGER.i("Running detection on image " + currTimestamp);
                         final long startTime = SystemClock.uptimeMillis();
                         final List<Classifier.Recognition> results = detector.recognizeImage(croppedBitmap);
@@ -274,9 +281,15 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                 canvas.drawRect(location, paint);
 
                                 cropToFrameTransform.mapRect(location);
-
+                                // To get Id of the Detected Pest
+                                showPestId(result.getId(), result.getTitle());
                                 result.setLocation(location);
                                 mappedRecognitions.add(result);
+                                value.set_id(result.getId());
+                                value.set_name(result.getTitle());
+                                value.set_confidence(result.getConfidence());
+//                                displayRecycler(result.getId(),result.getTitle(),result.getConfidence());
+
                             }
                         }
 
@@ -289,9 +302,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                 new Runnable() {
                                     @Override
                                     public void run() {
-                                        showFrameInfo(previewWidth + "x" + previewHeight);
-                                        showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
-                                        showInference(lastProcessingTimeMs + "ms");
+//                                        showFrameInfo(previewWidth + "x" + previewHeight);
+//                                        showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
+                                        showInference(lastProcessingTimeMs + " ms");
                                     }
                                 });
                     }

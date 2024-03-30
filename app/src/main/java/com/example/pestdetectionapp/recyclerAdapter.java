@@ -43,7 +43,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<result_viewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final result_viewHolder viewHolder,final int position) {
-//        final index = viewHolder.getAdapterPosition();
+        final int index = viewHolder.getAdapterPosition();
         viewHolder.name.setText(list.get(position).name);
         viewHolder.scientificName.setText(list.get(position).scientific_name);
 //        viewHolder.Image.setImageBitmap(list.get(position).Image);
@@ -51,7 +51,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<result_viewHolder> {
             @Override
             public void onClick(View view)
             {
-//                listener.click(index);
+                listener.click(index);
             }
         });
     }

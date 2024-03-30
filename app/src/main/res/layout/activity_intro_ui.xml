@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_intro"
-    tools:context=".Intro_UI">
+    tools:context=".Intro_UI"
+    tools:ignore="PrivateResource">
 
 
     <TextView
@@ -38,7 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/leaf_logo"></ImageView>
+        app:srcCompat="@drawable/leaf_logo"/>
 
     <LinearLayout
         android:layout_width="407dp"

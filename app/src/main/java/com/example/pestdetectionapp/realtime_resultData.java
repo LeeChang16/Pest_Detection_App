@@ -1,19 +1,17 @@
 package com.example.pestdetectionapp;
 
-import android.graphics.Bitmap;
+public class realtime_resultData {
 
-import java.sql.Blob;
-
-public class pest_data_recycler {
-
-     String name;
-     String scientific_name;
+     String result_id;
+     String result_name;
+     String result_confidence;
 //     Bitmap Image;
 
-    pest_data_recycler(String name, String scientific_name){
+    realtime_resultData(String id, String name, String confidence){
 
-        this.name = name;
-        this.scientific_name = scientific_name;
+        this. result_id = name;
+        this.result_name = name;
+        this.result_confidence = confidence;
 //        this.Image = Image;
 
     }
