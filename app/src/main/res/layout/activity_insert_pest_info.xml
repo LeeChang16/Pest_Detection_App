@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InsertPestInfo"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/pestImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:onClick="selectPest"
+        />
+
+    <EditText
+        android:id="@+id/pesId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Id"
+        android:layout_below="@id/pestImage" />
+
+    <EditText
+        android:id="@+id/pestName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Name"
+        android:layout_below="@id/pesId" />
+
+    <EditText
+        android:id="@+id/pestScientific"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Scientific Name"
+        android:layout_below="@id/pestName" />
+
+    <EditText
+        android:id="@+id/pestOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Order"
+        android:layout_below="@id/pestScientific" />
+
+    <EditText
+        android:id="@+id/pestFamily"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Family"
+        android:layout_below="@id/pestOrder" />
+
+    <EditText
+        android:id="@+id/pestDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Description"
+        android:layout_below="@id/pestFamily" />
+
+    <EditText
+        android:id="@+id/pestIntervention"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Intervention"
+        android:layout_below="@id/pestDescription" />
+    <Button
+        android:id="@+id/insert"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/pestIntervention"
+        android:text="insert"
+        android:onClick="Insert"/>
+    </RelativeLayout>
+
+</ScrollView>

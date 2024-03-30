@@ -1,11 +1,14 @@
 package com.example.pestdetectionapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -34,6 +37,7 @@ import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class Detect extends AppCompatActivity {
@@ -41,18 +45,22 @@ public class Detect extends AppCompatActivity {
 
     ImageView detectImage;
     TextView prediction, confidences, result;
-
     int imageSize = 640;
     Bitmap bitmap;
     Bitmap result_bitmap;
     Blob image;
-
     YOLOv5TFLiteDetector yolOv5TFLiteDetector;
     Paint boxpaint = new Paint();
     Paint texpaint = new Paint();
     DatabaseHandler database;
     String currentDate;
     String currentTime;
+
+    String Id = null;
+    id_Holder idHolder = id_Holder.getInstance();
+    Detect_Result_Adapter adapter;
+    RecyclerView recyclerView;
+    Detect_Result_Clicklistener clickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +127,22 @@ public class Detect extends AppCompatActivity {
         else{
             predict();
         }
+
+        //Recyclers View
+        List<Detect_Result_Data> list = new ArrayList<>();
+        list = getData();
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_View);
+        clickListener = new Detect_Result_Clicklistener() {
+            @Override
+            public void click(int index){
+                Toast.makeText(Detect.this,"clicked item index is "+index, Toast.LENGTH_SHORT).show();
+            }
+        };
+        adapter = new Detect_Result_Adapter(list, this.getApplication(),clickListener);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(
+                new LinearLayoutManager(this));
         
     }
 
@@ -128,7 +152,7 @@ public class Detect extends AppCompatActivity {
         ArrayList<Recognition>recognitions = yolOv5TFLiteDetector.detect(bitmap);
         Bitmap mutableBitmap = bitmap.copy(Bitmap.Config.ARGB_8888,true);
         Canvas canvas = new Canvas(mutableBitmap);
-        String Id = null;
+
         String pestname = "Not a pest";
         String confidence = null;
         String confidence2 = null;
@@ -169,11 +193,10 @@ public class Detect extends AppCompatActivity {
         //insert to Database
 
         if(highest_confidence>40){
-        database.insertPest(pestname, confidenceStr, image, currentTime, currentDate );
+            String id = String.valueOf(idHolder.retrieve_id());
+        database.insertPest(pestname, confidenceStr, image, currentTime, currentDate, id);
         }
     }
-
-
 
     @Override
     public void onBackPressed() {
@@ -182,10 +205,36 @@ public class Detect extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-//    @Override
-//    public void onBackPressed() {
-//        Detect.super.onBackPressed();
-//
-//    }
+
+    private List<Detect_Result_Data> getData()
+    {
+        int current_id = Integer.parseInt(Id);
+        current_id += 1;
+        System.out.println("CURRENT ID: "+Id);
+        List<Detect_Result_Data> list = new ArrayList<>();
+        Cursor cursor = database.getReadableDatabase().rawQuery("SELECT * FROM Pest_Information WHERE Pest_Id = "+current_id+" ", null);
+
+        if(cursor.moveToFirst()){
+            do {
+                //Specify Which Column to get
+                String name = cursor.getString(1);
+                String scientific = cursor.getString(2);
+                byte[] imageBytes = cursor.getBlob(7);
+                // Decode the byte array stored in sqlite
+                Bitmap bitmap = null;
+                //Checking if the byte array is not null
+                if(imageBytes!=null){
+                        bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);}
+                // adding all the data to the list array
+                list.add(new Detect_Result_Data(name,scientific,bitmap));
+            }while(cursor.moveToNext());
+        }
+
+        cursor.close();
+        return list;
+    }
+
+
+
 
 }

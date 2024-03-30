@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment {
     recentAdapter adapter;
     RecyclerView recyclerView;
     recentClicklistener clickListener;
-
+    int id =0;
     DatabaseHandler db;
 
     @SuppressLint("WrongViewCast")
@@ -72,7 +72,7 @@ public class HomeFragment extends Fragment {
         db = new DatabaseHandler(requireContext());
 
 
-        int id =0;
+
         if (getArguments() != null) {
             id = getArguments().getInt("Id");
         }
@@ -170,26 +170,23 @@ public class HomeFragment extends Fragment {
     private List<recentdetectionData> getData()
     {
         List<recentdetectionData> list = new ArrayList<>();
-        db.getReadableDatabase();
-        Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM Detected_Pest ORDER BY Pest_Id DESC", null);
+        Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM Detected_Pest WHERE User_Id = "+id+" ORDER BY Pest_Id DESC", null);
 
         if(cursor.moveToFirst()){
             do {
                 //Specify Which Column to get
                 String name = cursor.getString(1);
                 String confidence = cursor.getString(2);
-
-
                 byte[] imageBytes = cursor.getBlob(3);
                 String time = cursor.getString(4);
                 String date = cursor.getString(5);
-
+                // Decode the byte array stored in sqlite
                 Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-
-
+                // adding all the data to the list array
                 list.add(new recentdetectionData(name,confidence+" %",bitmap,time,date));
             }while(cursor.moveToNext());
         }
+        cursor.close();
         return list;
     }
 

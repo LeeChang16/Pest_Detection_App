@@ -20,7 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PestDetectionApp"
         tools:targetApi="31">
-
+        <activity
+            android:name=".InsertPestInfo"
+            android:exported="false" />
         <activity
             android:name=".Pest_info"
             android:exported="false" />
@@ -50,7 +52,7 @@
             android:exported="false" />
         <activity
             android:name=".Intro_UI"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".SplashActivity"
             android:exported="true">

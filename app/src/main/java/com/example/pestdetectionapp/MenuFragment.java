@@ -103,8 +103,8 @@ public class MenuFragment extends Fragment {
     }
 
     public void toEdit(){
-//        Intent intent = new Intent(requireContext(), about.class);
-//        startActivity(intent);
+        Intent intent = new Intent(requireContext(), InsertPestInfo.class);
+        startActivity(intent);
     }
 
 }

@@ -60,6 +60,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String Detected_Pest_Confidence = "Confidence_Level";
     private static final String Detected_Pest_Date = "Date";
     private static final String Detected_Pest_Time = "Time";
+    private static final String Detected_Pest_User = "User_Id";
 
 
     public DatabaseHandler(@Nullable Context context) {
@@ -80,7 +81,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // Creation of Pest Information Table
         String query2 = "CREATE TABLE " + Pest_Info_Table + " ("
-                + Pest_Id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + Pest_Id + " INTEGER PRIMARY KEY, "
                 + Pest_Name + " TEXT,"
                 + Scientific_Name + " TEXT,"
                 + Order + " TEXT,"
@@ -95,7 +96,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + Detected_Pest_Confidence + " TEXT,"
                 + Detected_Pest_Picture + " BLOB,"
                 + Detected_Pest_Time + " TEXT,"
-                + Detected_Pest_Date + " TEXT)";
+                + Detected_Pest_Date + " TEXT,"
+                + Detected_Pest_User + " TEXT)";
 
         String query4 = "CREATE TABLE " + Account_Table + " ("
                 + Account_Id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -123,7 +125,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void insertPest( String pestname, String confidencelevel, byte[] image, String time, String date){
+    public void insertPest( String pestname, String confidencelevel, byte[] image, String time, String date, String user_id){
 
         SQLiteDatabase db = getWritableDatabase();
 
@@ -133,6 +135,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         insertValues.put(Detected_Pest_Picture, image);
         insertValues.put(Detected_Pest_Time, time);
         insertValues.put(Detected_Pest_Date, date);
+        insertValues.put(Detected_Pest_User, user_id);
         db.insert(Detected_Pest_Table, null, insertValues);
 
         db.close();
@@ -239,6 +242,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public String getPestDetails (int id){
         Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+Pest_Info_Table+" WHERE "+Pest_Id+" = ?",new String[]{String.valueOf(id)});
         return cursor.toString();
+
+    }
+
+    public void insertPestDetails(String id, String name, String sci, String order, String family,String desc, String inter, byte[] image){
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues insertValues = new ContentValues();
+        insertValues.put(Pest_Id, id);
+        insertValues.put(Pest_Name, name);
+        insertValues.put(Scientific_Name, sci);
+        insertValues.put(Order, order);
+        insertValues.put(Family, family);
+        insertValues.put(Description, desc);
+        insertValues.put(Intervention, inter);
+        insertValues.put(Picture, image);
+        db.insert(Pest_Info_Table, null, insertValues);
+
+        db.close();
+
 
     }
 
