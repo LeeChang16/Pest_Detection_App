@@ -4,4 +4,237 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tfe_od_camera_error" translation_description="Error regarding camera support[CHAR_LIMIT=40]">This device doesn\'t support Camera2 API.</string>
     <string name="tfe_od_app_name" translation_description="Object Detection demo app [CHAR_LIMIT=40]">TFL Detect</string>
+
+
+    // id
+    <string name="one1">1</string>
+    <string name="two1">2</string>
+    <string name="three1">3</string>
+    <string name="four1">4</string>
+    <string name="five1">5</string>
+    <string name="six1">6</string>
+    <string name="seven1">7</string>
+    <string name="eight1">8</string>
+    <string name="nine1">9</string>
+    <string name="ten1">10</string>
+    <string name="eleven1">11</string>
+    <string name="twelve1">12</string>
+    <string name="thirteen1">13</string>
+    <string name="fourteen1">14</string>
+    <string name="fifteen1">15</string>
+    <string name="sixteen1">16</string>
+    <string name="seventeen1">17</string>
+    <string name="eighteen1">18</string>
+    <string name="nineteen1">19</string>
+    <string name="twenty1">20</string>
+    <string name="twentyone1">21</string>
+    <string name="twentytwo1">22</string>
+    <string name="twentythree1">23</string>
+
+
+
+    // name
+    <string name="one">Adult Seedling Maggot</string>
+    <string name="two">Adult Stemborer</string>
+    <string name="three">Aphids</string>
+    <string name="four">Black Army Worm</string>
+    <string name="five">Black Bug</string>
+    <string name="six">Brown Planthopper</string>
+    <string name="seven">Cotton Stainer</string>
+    <string name="eight">Diamond-back Moth</string>
+    <string name="nine">Diamond-back Moth Larvae</string>
+    <string name="ten">Fruitworm</string>
+    <string name="eleven">Golden Apple Snail</string>
+    <string name="twelve">Grain Weevil</string>
+    <string name="thirteen">Grass Armyworm</string>
+    <string name="fourteen">Green Planthopper</string>
+    <string name="fifteen">June Beetle</string>
+    <string name="sixteen">Ladybird Beetle</string>
+    <string name="seventeen">Oriental Migratory Locust</string>
+    <string name="eighteen">Rice Bug</string>
+    <string name="nineteen">Seedling Maggot</string>
+    <string name="twenty">Stemborer Larvae</string>
+    <string name="twentyone">True Armyworm</string>
+    <string name="twentytwo">White Grub</string>
+    <string name="twentythree">Zigzag Leafhopper</string>
+
+
+// Scientific name
+    <string name="sone">Adult Seedling Maggot</string>
+    <string name="stwo">Scirpophaga innotata (White), Scirpophaga incertulas (Yellow), Chilo suppressalis ( Striped), Sesamia inferens (Pink)</string>
+    <string name="sthree">Aphids</string>
+    <string name="sfour">Spodoptera exempta</string>
+    <string name="sfive">Scotinophara Coarctata (Fabricius)</string>
+    <string name="ssix">Nilaparvata lugens (Stal)</string>
+    <string name="sseven">Cotton Stainer</string>
+    <string name="seight">Diamond-back Moth</string>
+    <string name="snine">Diamond-back Moth Larvae</string>
+    <string name="sten">Fruitworm</string>
+    <string name="seleven">Pomacea Canaliculate</string>
+    <string name="stwelve">Sitophilus zeamais Motsch</string>
+    <string name="sthirteen">Spodoptera mauritia</string>
+    <string name="sfourteen">Nephotettix virescens (Distant)</string>
+    <string name="sfifteen">June Beetle</string>
+    <string name="ssixteen">Ladybird Beetle</string>
+    <string name="sseventeen">Oriental Migratory Locust</string>
+    <string name="seighteen">Leptocorisa oratorius (Fabricius)</string>
+    <string name="snineteen">Seedling Maggot</string>
+    <string name="stwenty">Stemborer Larvae</string>
+    <string name="stwentyone">Mythimna separata</string>
+    <string name="stwentytwo">White Grub</string>
+    <string name="stwentythree">Recilia dorsalis (Motschulsky)</string>
+
+    //ORDEr
+    <string name="oneO">Adult Seedling Maggot</string>
+    <string name="twoO">Lepidoptera</string>
+    <string name="threeO">Aphids</string>
+    <string name="fourO">Lepidoptera</string>
+    <string name="fiveO">Hemiptera</string>
+    <string name="sixO">Hemiptera</string>
+    <string name="sevenO">Cotton Stainer</string>
+    <string name="eightO">Diamond-back Moth</string>
+    <string name="nineO">Diamond-back Moth Larvae</string>
+    <string name="tenO">Fruitworm</string>
+    <string name="elevenO">Architaenioglossa</string>
+    <string name="twelveO">Coleoptera</string>
+    <string name="thirteenO">Lepidoptera</string>
+    <string name="fourteenO">Hemiptera</string>
+    <string name="fifteenO">June Beetle</string>
+    <string name="sixteenO">Ladybird Beetle</string>
+    <string name="seventeenO">Oriental Migratory Locust</string>
+    <string name="eighteenO">Hemiptera</string>
+    <string name="nineteenO">Seedling Maggot</string>
+    <string name="twentyO">Stemborer Larvae</string>
+    <string name="twentyoneO">Lepidoptera</string>
+    <string name="twentytwoO">White Grub</string>
+    <string name="twentythreeO">Hemiptera</string>
+
+    //family
+    <string name="oneF">Adult Seedling Maggot</string>
+    <string name="twoF">Crambidae</string>
+    <string name="threeF">Aphids</string>
+    <string name="fourF">Noctuidae</string>
+    <string name="fiveF">Pentatomidae</string>
+    <string name="sixF">Delphacidae</string>
+    <string name="sevenF">Cotton Stainer</string>
+    <string name="eightF">Diamond-back Moth</string>
+    <string name="nineF">Diamond-back Moth Larvae</string>
+    <string name="tenF">Fruitworm</string>
+    <string name="elevenF">Ampullariidae</string>
+    <string name="twelveF">Curculionidae</string>
+    <string name="thirteenF">Noctuidae</string>
+    <string name="fourteenF">Cicadellidae</string>
+    <string name="fifteenF">June Beetle</string>
+    <string name="sixteenF">Ladybird Beetle</string>
+    <string name="seventeenF">Oriental Migratory Locust</string>
+    <string name="eighteenF">Alydidae</string>
+    <string name="nineteenF">Seedling Maggot</string>
+    <string name="twentyF">Stemborer Larvae</string>
+    <string name="twentyoneF">Noctuidae</string>
+    <string name="twentytwoF">White Grub</string>
+    <string name="twentythreeF">Cicadellidae</string>
+
+    //Description
+    <string name="oneD">Adult Seedling Maggot</string>
+    <string name="twoD"> Adults differ in color between the sexes. Males are light brown with numerous small brownish dots, along the sub-terminal area and near the tip of the forewing. The female is yellow, the colour deepening toward the tip, with a very distinct black spot in the centre of each forewing.</string>
+    <string name="threeD">Aphids</string>
+    <string name="fourD">S. exempta are stout-bodied moths of typical noctuid appearance, 14-18 mm long and with a 29-32 mm wing span. The abdomen is covered with pale grey-brown scales except for the tip in the female which has black hair-scales characteristic for this species. Forewings are dark-brown with distinctive grey-black markings. An inner (orbicular) spot is elongated and pale in both sexes but more pronounced in the female. An outer (reniform) spot is arrow/kidney shaped in both sexes but much less apparent in the female. Hindwings are white with dark veins</string>
+    <string name="fiveD">Rice black bug (Scotinophara coarctata) is an insect pest of rice, especially in the southern part of the Philippines. Rice black bug infestation has increasingly been recorded in the northern parts of the country.</string>
+    <string name="sixD">Nilaparvata lugens Stål, commonly known as brown planthopper (BPH), is one dreadful pest of rice that causes severe damage. This monophagous insect feeds on the rice phloem sap, causing direct damage to rice plants. In addition, BPH acts as a vector for two rice viruses, including rice grassy and rice-ragged stunt viruses, causing indirect damage.</string>
+    <string name="sevenD">Cotton Stainer</string>
+    <string name="eightD">Diamond-back Moth</string>
+    <string name="nineD">Diamond-back Moth Larvae</string>
+    <string name="tenD">Fruitworm</string>
+    <string name="elevenD">A freshwater snail listed among the world\'s top 100 worst invasive species and is considered an agricultural and quarantine pest worldwide and a noted agricultural and quarantine pest that causes great economic losses. It is characterized by fast growth, strong stress tolerance, a high reproduction rate, and adaptation to a broad range of environments.</string>
+    <string name="twelveD">The weevil is polished red brown to black with ridged wing-covers and a well-marked thorax with oval pits. Unlike the rice and maize weevils, the granery weevil cannot fly. The egg hatches in a few days into a soft, white, legless, fleshy grub which feeds on the interior of the grain kernel.</string>
+    <string name="thirteenD">Moth is medium sized, stout built dark brown with a conspicuous triangular black spot on the forewings. Hind wings are brownish white with thin black margins.</string>
+    <string name="fourteenD"> Medium size, slightly robust species. Length of male 4.30—4.50 mm. female 4.90—5.50 mm. General color light yellowish green to green. Crown and pronotum light yellowish green, immaculate; elytra green with small brown or black spot at middle, brown or black band on apex in male, female unmarked. Vertex usually unmarked with distinct furrow, and longer in middle than next to eye, appearing quite pointed in most specimens. Head, pronotum and scutellum usually green but some males have black markings adjacent to ocelli. Forewing with distinct spot that does not touch claval suture but this spot may be absent or only partially represented. Apical third of tegmen black in males; females with unmarked head, pronotum and clavus. Male genitalia: Subgenital plate off– white or partly black. Corners of male pygofer rounded, with 1 long and 4 smaller spines. Aedeagus with 3-5 pairs of spines located in the middle of the shaft. N. virescens is usually one of the easiest Nephotettix species to identify, with its unmarked vertex and distinctly pointed head. Occasionally males are found with a partial submarginal band present on the vertex. These may be distinguished by the genitalia; in particular the number of spines on the aedeagus, which is far less than in N. nigropictus.</string>
+    <string name="fifteenD">June Beetle</string>
+    <string name="sixteenD">Ladybird Beetle</string>
+    <string name="seventeenD">Oriental Migratory Locust</string>
+    <string name="eighteenD">There are several species of rice bugs, or rice seed bugs. Adults are about 15 mm long and 3 mm wide, have long legs, and a brownish-green body. An infested field can be recognized by the rice bugs’ offensive odor. Adults are active in the late afternoon and early morning, and rest in shaded areas. Each female lays hundreds of eggs during a lifetime of two to five months. Younger nymphs are pale in color with long antennae, and they become yellowish-green later. Adults have long legs with a slender body, and are active during the early morning and late afternoon.</string>
+    <string name="nineteenD">Seedling Maggot</string>
+    <string name="twentyD">Stemborer Larvae</string>
+    <string name="twentyoneD">Vary in color from dark greenish-brown to black. On each side, there are long, pale white, orange, and dark brown
+Stripes along the length of the abdomen. Mature larvae are approximately 1 ½ inches long. The head capsule is yellowish brown with a
+Brown network of veins, giving it a mottled appearance. True armyworm larvae may also be distinguished by a dark band on the outer side of
+Each proleg. Armyworm pupa stay in a brown earthen shell just below the soil surface. The armyworm moth, approximately an inch long with
+A 1 ½ inch wingspan, is tan to light brown, with a tiny white spot centered on each forewing. Eggs, which resemble small white glob
+</string>
+    <string name="twentytwoD">White Grub</string>
+    <string name="twentythreeD">The zigzag leafhopper feeds equally well on rice and some grassy weeds, and is an important vector of viral diseases, including tungro. It is more prevalent on rice in the vegetative phase.
+The zigzag leafhopper can be readily recognized by its characteristic wing markings Mature nymphs are white with brown markings. Zigzag and green leafhoppers rarely cause economic loss directly from their feeding, but are important in disease transmis-sion.
+</string>
+
+    //Intervention
+    <string name="oneI">Adult Seedling Maggot</string>
+    <string name="twoI">Stem-borers rarely occur at damaging levels in rice, and plants can often compensate for early damage. In areas where there may be chronic problems populations should be able to be suppressed through cultural control. Destroy stubble before pupation, for example by ploughing it into the field or flooding. Stubble is a major source of overwintering populations as larvae move from the stems into the soil to pupate. The use of pesticides would rarely, if ever, be justified. A systemic pesticide (dimethoate at 2 ml per litre of water) is necessary to reach the stem-boring larvae.</string>
+    <string name="threeI">Aphids</string>
+    <string name="fourI">Due to the variable regulations around (de)registration of pesticides, your national list of registered pesticides or relevant authority should be consulted to determine which products are legally allowed for use in your country when considering chemical control. Pesticides should always be used in a lawful manner, consistent with the product\'s label.</string>
+    <string name="fiveI">•	Use resistant varieties.
+•	Contact your local agriculture office for up-to-date lists of varieties available.
+•	Maintain a clean field by removing the weeds and drying the rice field after plowing.
+•	Plant rice varieties of the same maturity date to break the insect’s cycle.
+•	Use of mercury bulbs as light traps for egg-laying adults, light trapping of insects should start 5 days before and after the full moon.
+</string>
+    <string name="sixI">Outbreaks result from pesticides destroying natural enemies (BPH eggs hatch unchecked, and surviving BPH quickly build-up populations to damaging levels), or when longwinged planthoppers are being carried in by the wind. To prevent outbreaks of planthopper: •	Remove weeds from the field and surrounding areas.
+•	Avoid indiscriminate use of insecticide, which destroys natural enemies.
+•	Use a resistant variety. Contact your local agriculture office for an up-to-date list of available varities.
+•	Critical numbers: At a density of 1 BPH/stem or less there is still time to act in case the numbers increase.
+</string>
+    <string name="sevenI">Cotton Stainer</string>
+    <string name="eightI">Diamond-back Moth</string>
+    <string name="nineI">Diamond-back Moth Larvae</string>
+    <string name="tenI">Fruitworm</string>
+    <string name="elevenI">Can be controlled in low-risk fields by employing one or two cultural methods. Dapog or direct-seeded methods would benefit from drainage and mechanical control (hand-picking). If cultural methods cannot be carried out, snails can be controlled with molluscicide at low dosage. </string>
+    <string name="twelveI">Prevention is the best strategy to avoid insect problems in stored grains. Proper bin sanitation before introduction of new grain minimizes the need for pesticides. Good sanitation involves the removal of old grain and dust in and around the grain bin. This includes removal of old grain from corners, floors, and walls and grain that may have spilled on the exterior of the bin. Any grain remaining when a bin is emptied can harbor insect infestations which will move into the new grain. After the bin is cleaned, and all needed repairs have been made, the floor and wall surfaces both inside and outside the bin should be treated. Take special care to treat all cracks, crevices, and areas around doorways and other places where insects could hide or enter. Spray the bins about four to six weeks prior to storing grain. Before grain is placed in a bin, it should be screened to eliminate fine materials and broken kernels. Grain placed in a clean bin should be checked at two week intervals during warm months and at one month intervals during cooler months for the presence of hotspots, moldy areas, and live insects. If any of these conditions exist, the grain should be aerated to lower the moisture level and temperature. Grain that is to be stored for longer than six months may need a protective application of an approved insecticide. Treatments can be applied as the grain is loaded into the bin through the use of a metering device calibrated to apply the proper amounts. After the grain is binned and leveled, a surface dressing can be applied to prevent insects from entering the grain on the surface. If infestation occurs in spite of these precautions, fumigation of the grain will be necessary. Because of the high toxicity of registered fumigants and technical knowledge needed for their proper use, a qualified pesticide applicator should be contacted to perform the fumigation. </string>
+    <string name="thirteenI">Flood the nursery to expose the hiding larvae to the surface for birds to pick them up. Allow ducks into the field to feed on the larvae. Larvae perish in heavy rains, and are victims of various diseases, parasitism and predation. Dig trenches around the infested field and place ashes in the trenches to make it difficult for the larvae to escape. Insecticides should be the last resort for armyworm control. In nursery, drain the water and spray chlorpyriphos 20 EC @ 80ml + 20 lit of water for 8 cents. In main field, spary Chlorpyriphos 20% EC @ 500 ml/ac during late evening in case of severe infestation.
+</string>
+    <string name="fourteenI">•	Use GLH-resistant and tungro-resistant varieties. Contact your local agriculture office for an up-to-date list of available varieties.
+•	Reduce the number of rice crops to two per year and synchronized crop establishment across farms reduces leafhoppers and other insect vectors.
+•	Transplant older seedlings (>3 weeks) to reduce viral disease susceptibility transmitted by leafhoppers.
+•	Plant early within a given planting period, particularly in the dry season to reduce the risk of insect-vector disease.
+</string>
+    <string name="fifteenI">June Beetle</string>
+    <string name="sixteenI">Ladybird Beetle</string>
+    <string name="seventeenI">Oriental Migratory Locust</string>
+    <string name="eighteenI"> Remove host plants (weeds) from fields and surrounding areas to prevent the multiplication of rice bugs during fallow periods. Spray aromatic (like lemon grass) soap solution to expel the rice bug. Maintaining fields with even applications of fertilizer and water encourage rice to grow and develop at the same rate. Planting fields, within a village, at the same time (synchronous planting) also helps reduce rice bug problems. In case the measures mentioned above failed, use less harmful insecticide by following recommendations of a technical expert.</string>
+    <string name="nineteenI">Seedling Maggot</string>
+    <string name="twentyI">Stemborer Larvae</string>
+    <string name="twentyoneI">There are several species of armyworms that are present every year in the Midwest, however, economic infestation usually do not occur on
+An annual basis. The development of economically damaging populations depends on several factors, including, spring moth flights, cropping
+Practices, weather conditions, natural enemies, and others. Most years, armyworm populations are kept below damaging levels by several
+Predators, parasites, and pathogens.
+Naturally occurring predators such as ground beetles and rove beetles may be important in keeping
+Armyworm populations low each year. Research conducted by Michigan State University has found over
+12 species of parasitic wasps and several flies that commonly attack armyworm larvae.
+Tachinid flies, such as Nemosturimia rufopicta, lay eggs on the body of armyworm larvae. Eggs are
+Usually deposited on the thorax near the head so the armyworm can’t bite them off. Parasitic wasps also
+Parasitize armyworms. Cotesia marginiventris, a braconid wasp is one of the most common. The
+parasitoid, Glyphanteles militaris inserts as many as 60 eggs at a time and is known as a gregarious
+Parasitoid since many larvae develop in one host. On the other hand,
+Meteorus communus lays only one egg per host (solitary parasitoid) and
+Attacks second to fourth instar armyworms.
+There are several types of viruses, a microsporidium, and fungi that infect
+Armyworm larvae. A cool and wet spring favors armyworm development while
+Hindering parasite and predator populations.
+The risk of potential armyworm infestations can be minimized by
+Control or elimination of grassy weeds in from fields or field borders.
+Not only will moth egg laying activity be reduced, but so will the
+Migration of larvae into the field. Watch for movement of armyworms from
+Grass or weedy areas to field borders. If armyworms move into fields and
+Infest crop areas, and insecticide treatment may be necessary.
+In seedling corn, control may be justified when 25% of the plants are being damaged. After pollen shed, insecticide control may be justified
+When feeding occurs above the ear level.
+In small grains, treat for armyworms when there are 6 or more non-parasitized larvae (3/4 to 1 ¼ inches long) per linear foot or row before
+Extensive head cutting occurs. Mature larvae are approximately 1 ¼ to 1 ½ inches long. Armyworm larva complete six instars. The sixth
+Instar requires about 7 days to complete development, depending on temperature. The sixth instar consumes about 80% of all the foliage
+Eaten during larval development.
+</string>
+    <string name="twentytwoI">White Grub</string>
+    <string name="twentythreeI"> Encouraged biological control agents: mymarid wasp, mirid bug, dryinid wasp and pipunculid flies, spiders.</string>
+
+
+
+
 </resources>

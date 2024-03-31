@@ -5,6 +5,7 @@ import static android.app.ProgressDialog.show;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
@@ -26,13 +27,14 @@ public class SplashActivity extends AppCompatActivity {
     Handler handler;
     DatabaseHandler db;
     id_Holder idHolder = id_Holder.getInstance();
-    int id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
         db = new DatabaseHandler(SplashActivity.this);
+
 //
 //        RequestQueue queue = Volley.newRequestQueue(this);
 //        String url ="http://localhost/simple/insert.php";
@@ -76,6 +78,8 @@ public class SplashActivity extends AppCompatActivity {
 
         @Override
         public void run() {
+
+
             if(db.active_user()){
                 int id = db.get_active_user_Id();
                 idHolder.hold_id(id);

@@ -189,7 +189,7 @@ public abstract class CameraActivity extends AppCompatActivity
         adapter.notifyDataSetChanged();
 
         // Re-run it after the specified delay
-        handler.postDelayed(this, 100);
+        handler.postDelayed(this, 1000);
       }
     };
 
