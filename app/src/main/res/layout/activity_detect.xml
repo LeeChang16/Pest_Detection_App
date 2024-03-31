@@ -19,7 +19,9 @@
             android:layout_marginStart="30dp"
             android:textSize="25sp"
             android:text="Detection Result"
-            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="#023020"
             android:layout_centerHorizontal="true"/>
 
         <androidx.cardview.widget.CardView
@@ -67,6 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:text="No Pest Detected"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textAlignment="center"
                 android:textSize="20sp"

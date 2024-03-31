@@ -2,7 +2,10 @@ package com.example.pestdetectionapp;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
+
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -45,62 +49,71 @@ public class Detect_Result_Adapter extends RecyclerView.Adapter<Detect_Result_Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final Detect_Result_Viewholder viewHolder,final int position) {
+    public void onBindViewHolder(@NonNull final Detect_Result_Viewholder viewHolder, @SuppressLint("RecyclerView") final int position2) {
         final int index = viewHolder.getAdapterPosition();
-        viewHolder.name.setText(list.get(position).name);
-        viewHolder.scientific.setText(list.get(position).scientific);
-        viewHolder.Image.setImageBitmap(list.get(position).Image);
+
+        viewHolder.Image.setImageBitmap(list.get(position2).Image);
+        viewHolder.name.setText(list.get(position2).name);
+        viewHolder.scientific.setText(list.get(position2).scientific);
+
         viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
                 listener.click(index);
-//                recentdetectionData selectedItem = list.get(position);
-//
-//                //Dummy PopUp to darken the background when the actual popup is displayed
-//                //INflating the customlayout
-//                LayoutInflater inflater0 = (LayoutInflater) view.getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-//                View popupView0 = inflater0.inflate(R.layout.dummy_popup, null);
-//
-//                int windth0 = WindowManager.LayoutParams.MATCH_PARENT;
-//                int height0 = WindowManager.LayoutParams.MATCH_PARENT;
-//                PopupWindow dummyPopup = new PopupWindow(popupView0,windth0,height0,true);
-//                dummyPopup.showAtLocation(view, Gravity.CENTER, 0, 0);
-//
-//
-//
-//                // ACTUAL POPUP WINDOW
-//                //Inflating the customlayout
-//                LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-//                View popupView = inflater.inflate(R.layout.pop_up_layout1, null);
-//
-//                //Instantiating the views
-//                final RelativeLayout rootLayout = popupView.findViewById(R.id.root_layout);
-//                ImageView image = popupView.findViewById(R.id.pop_image);
-//                TextView pestname = popupView.findViewById(R.id.pop_name);
-//                TextView confidence = popupView.findViewById(R.id.pop_confidence);
-//                TextView date_time = popupView.findViewById(R.id.pop_time_detected);
-//
-//                image.setImageBitmap(selectedItem.Image);
-//                pestname.setText(selectedItem.name);
-//                confidence.setText(selectedItem.confidence);
-//                date_time.setText("Date & Time detected: "+selectedItem.date+" / "+selectedItem.time);
-//
-//                //Creating the pop up window
-//                int width = RelativeLayout.LayoutParams.WRAP_CONTENT;
-//                int height = RelativeLayout.LayoutParams.WRAP_CONTENT;
-//                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
-//                //Show the popUpwindow
-//                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-//
-//                popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-//                    @Override
-//                    public void onDismiss() {
-//                        if(dummyPopup.isShowing()){
-//                            dummyPopup.dismiss();
-//                        }
-//                    }
-//                });
+                Detect_Result_Data selectedItem = list.get(position2);
+
+                //Dummy PopUp to darken the background when the actual popup is displayed
+                //INflating the customlayout
+                LayoutInflater inflater0 = (LayoutInflater) view.getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView0 = inflater0.inflate(R.layout.dummy_popup, null);
+
+                int windth0 = WindowManager.LayoutParams.MATCH_PARENT;
+                int height0 = WindowManager.LayoutParams.MATCH_PARENT;
+                PopupWindow dummyPopup = new PopupWindow(popupView0,windth0,height0,true);
+                dummyPopup.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+
+                // ACTUAL POPUP WINDOW
+               //Inflating the customlayout
+                LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView = inflater.inflate(R.layout.pop_pest_info, null);
+
+              //Instantiating the views
+                ImageView image = popupView.findViewById(R.id.pestImage);
+                TextView name = popupView.findViewById(R.id.pestName);
+                TextView scientific = popupView.findViewById(R.id.pestScientific);
+                TextView order = popupView.findViewById(R.id.pestOrder);
+                TextView family = popupView.findViewById(R.id.pestFamily);
+                TextView description = popupView.findViewById(R.id.pestDescription);
+                TextView intervention = popupView.findViewById(R.id.pestIntervention);
+
+
+                image.setImageBitmap(selectedItem.Image);
+                name.setText(selectedItem.name);
+                scientific.setText(selectedItem.scientific);
+                order.setText(selectedItem.order);
+                family.setText(selectedItem.family);
+                description.setText(selectedItem.description);
+                intervention.setText(selectedItem.intervention);
+
+
+
+               //Creating the pop up window
+                int width = ScrollView.LayoutParams.WRAP_CONTENT;
+                int height = ScrollView.LayoutParams.WRAP_CONTENT;
+                final PopupWindow popupWindow = new PopupWindow(popupView, 1022, 1636, true);
+                //Show the popUpwindow
+                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+                popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        if(dummyPopup.isShowing()){
+                            dummyPopup.dismiss();
+                        }
+                    }
+                });
 
             }
         });
@@ -110,6 +123,7 @@ public class Detect_Result_Adapter extends RecyclerView.Adapter<Detect_Result_Vi
     public int getItemCount() {
         return list.size();
     }
+
 
     @Override
     public void onAttachedToRecyclerView(

@@ -2,31 +2,20 @@ package com.example.pestdetectionapp;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.pestdetectionapp.ClickListener;
-import com.example.pestdetectionapp.R;
-import com.example.pestdetectionapp.pest_data_recycler;
-import com.example.pestdetectionapp.result_viewHolder;
-
-import org.w3c.dom.Text;
 
 import java.util.Collections;
 import java.util.List;
@@ -57,7 +46,7 @@ public class recentAdapter extends RecyclerView.Adapter<recentViewholder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final recentViewholder viewHolder,final int position) {
+    public void onBindViewHolder(@NonNull final recentViewholder viewHolder, @SuppressLint("RecyclerView") final int position) {
         final int index = viewHolder.getAdapterPosition();
         viewHolder.name.setText(list.get(position).name);
         viewHolder.confidence.setText(list.get(position).confidence);

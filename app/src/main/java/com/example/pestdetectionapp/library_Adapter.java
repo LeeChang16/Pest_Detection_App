@@ -8,22 +8,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pestdetectionapp.ClickListener;
-import com.example.pestdetectionapp.R;
-import com.example.pestdetectionapp.pest_data_recycler;
-import com.example.pestdetectionapp.result_viewHolder;
-
 import java.util.Collections;
 import java.util.List;
 
-public class recyclerAdapter extends RecyclerView.Adapter<result_viewHolder> {
+public class library_Adapter extends RecyclerView.Adapter<result_viewHolder> {
 
 
-    List<pest_data_recycler> list = Collections.emptyList();
+    List<library_Data> list = Collections.emptyList();
     Context context;
     ClickListener listener;
 
-    public recyclerAdapter(List<pest_data_recycler> list, Context context, ClickListener listener){
+    public library_Adapter(List<library_Data> list, Context context, ClickListener listener){
         this.list = list;
         this.context = context;
         this.listener = listener;

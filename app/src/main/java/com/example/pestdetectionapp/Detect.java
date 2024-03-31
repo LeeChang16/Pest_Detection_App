@@ -219,6 +219,10 @@ public class Detect extends AppCompatActivity {
                 //Specify Which Column to get
                 String name = cursor.getString(1);
                 String scientific = cursor.getString(2);
+                String order = cursor.getString(3);
+                String family = cursor.getString(4);
+                String description = cursor.getString(5);
+                String intervention = cursor.getString(6);
                 byte[] imageBytes = cursor.getBlob(7);
                 // Decode the byte array stored in sqlite
                 Bitmap bitmap = null;
@@ -226,7 +230,7 @@ public class Detect extends AppCompatActivity {
                 if(imageBytes!=null){
                         bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);}
                 // adding all the data to the list array
-                list.add(new Detect_Result_Data(name,scientific,bitmap));
+                list.add(new Detect_Result_Data(bitmap, name,scientific,order, family, description, intervention));
             }while(cursor.moveToNext());
         }
 
