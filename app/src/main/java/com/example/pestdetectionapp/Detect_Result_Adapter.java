@@ -60,7 +60,6 @@ public class Detect_Result_Adapter extends RecyclerView.Adapter<Detect_Result_Vi
             @Override
             public void onClick(View view)
             {
-                listener.click(index);
                 Detect_Result_Data selectedItem = list.get(position2);
 
                 //Dummy PopUp to darken the background when the actual popup is displayed
