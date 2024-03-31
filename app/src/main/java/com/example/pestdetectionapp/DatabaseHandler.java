@@ -138,7 +138,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         insertValues.put(Detected_Pest_User, user_id);
         db.insert(Detected_Pest_Table, null, insertValues);
 
-        db.close();
     }
 
     public void insertAccount(String Username, String Password, int Active){
@@ -150,8 +149,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         insertValues.put(Account_Password, Password);
         insertValues.put(Account_Active, Active);
         db.insert(Account_Table, null, insertValues);
-
-        db.close();
 
     }
 
@@ -167,7 +164,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         insertValues.put(Profile_Picture, profile);
         db.insert(Personal_Info_Table, null, insertValues);
 
-        db.close();
     }
 
     public int getId(String pass){
@@ -258,9 +254,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         insertValues.put(Intervention, inter);
         insertValues.put(Picture, image);
         db.insert(Pest_Info_Table, null, insertValues);
-
-        db.close();
-
 
     }
 

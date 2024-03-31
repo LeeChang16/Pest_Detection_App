@@ -44,9 +44,13 @@ import com.example.pestdetectionapp.tflite.DetectorFactory;
 import com.example.pestdetectionapp.tflite.YoloV5Classifier;
 import com.example.pestdetectionapp.tracking.MultiBoxTracker;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -57,7 +61,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     private static final Logger LOGGER = new Logger();
 
     private static final DetectorMode MODE = DetectorMode.TF_OD_API;
-    private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.3f;
+    private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.4f;
     private static final boolean MAINTAIN_ASPECT = true;
     private static final Size DESIRED_PREVIEW_SIZE = new Size(640,640 ); //3840x2160, 3264x2448
 //    public final class Size DESIRED_PREVIEW_SIZE = new Size(0,0);
@@ -85,6 +89,10 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     private BorderedText borderedText;
 
     valueTracker value;
+    detection_Tracker track = detection_Tracker.getInstance();
+    id_Holder idHolder = id_Holder.getInstance();
+    String currentDate;
+    String currentTime;
 
 
     @Override
@@ -96,6 +104,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         borderedText.setTypeface(Typeface.MONOSPACE);
 
         tracker = new MultiBoxTracker(this);
+
 
         final int modelIndex = 0;
         final String modelString = "best-fp16.tflite";
@@ -146,6 +155,18 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 });
 
         tracker.setFrameConfiguration(previewWidth, previewHeight, sensorOrientation);
+    }
+    public void storeCurrentDateTime() {
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        Date now = new Date();
+
+        currentDate = sdfDate.format(now);
+        currentTime = sdfTime.format(now);
+
+        // Now 'currentDate' holds the current date and 'currentTime' holds the current time
+//        System.out.println("Current Date: " + currentDate);
+//        System.out.println("Current Time: " + currentTime);
     }
 
     protected void updateActiveModel() {
@@ -285,10 +306,23 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                 showPestId(result.getId(), result.getTitle());
                                 result.setLocation(location);
                                 mappedRecognitions.add(result);
-                                value.set_id(result.getId());
-                                value.set_name(result.getTitle());
-                                value.set_confidence(result.getConfidence());
-//                                displayRecycler(result.getId(),result.getTitle(),result.getConfidence());
+
+                                String pest_name = result.getTitle();
+                                float confidence = result.getConfidence();
+                                String confidenceStr = String.format("%.2f",confidence * 100.0f );
+                                storeCurrentDateTime();
+
+                                //Pass the result to the singleton
+                                track.set_pest(result.getTitle());
+                                System.out.println("PEST ID: "+result.getId()+ " PEST NAME: "+result.getTitle());
+
+                                    if(track.has_changed_value) {
+                                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                                        cropCopyBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                                        byte[] image = stream.toByteArray();
+                                        String id = String.valueOf(idHolder.retrieve_id());
+                                        database.insertPest(pest_name, confidenceStr, image, currentTime, currentDate, id);
+                                    }
 
                             }
                         }

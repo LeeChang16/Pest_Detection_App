@@ -132,7 +132,7 @@ public class Detect extends AppCompatActivity {
         List<Detect_Result_Data> list = new ArrayList<>();
         list = getData();
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_View);
+        recyclerView = findViewById(R.id.recycler_View);
         clickListener = new Detect_Result_Clicklistener() {
             @Override
             public void click(int index){

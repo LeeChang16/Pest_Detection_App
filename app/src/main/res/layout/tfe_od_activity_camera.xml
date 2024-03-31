@@ -49,6 +49,7 @@
                     android:id="@+id/label1"
                     android:text="Detected Pests"
                     android:textSize="20sp"
+                    android:textColor="@color/charcoal"
                     android:layout_marginStart="10dp"
                     android:layout_alignParentStart="true"
                     />

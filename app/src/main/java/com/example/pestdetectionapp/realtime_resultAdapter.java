@@ -40,9 +40,9 @@ public class realtime_resultAdapter extends RecyclerView.Adapter<realtime_result
     @Override
     public void onBindViewHolder(@NonNull final realtime_result_viewHolder sviewHolder,final int position) {
         final int index = sviewHolder.getAdapterPosition();
-        sviewHolder.id.setText(list.get(position).result_id);
-        sviewHolder.name.setText(list.get(position).result_name);
-        sviewHolder.confidence.setText(list.get(position).result_confidence);
+        sviewHolder.Image.setImageBitmap(list.get(position).Image);
+        sviewHolder.name.setText(list.get(position).name);
+        sviewHolder.scientific.setText(list.get(position).scientific);
         sviewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)

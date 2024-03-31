@@ -1,18 +1,28 @@
 package com.example.pestdetectionapp;
 
+import android.graphics.Bitmap;
+
 public class realtime_resultData {
+     Bitmap Image;
+     String name;
+     String scientific;
+     String order;
+     String family;
+     String description;
+     String intervention;
 
-     String result_id;
-     String result_name;
-     String result_confidence;
-//     Bitmap Image;
 
-    realtime_resultData(String id, String name, String confidence){
 
-        this. result_id = name;
-        this.result_name = name;
-        this.result_confidence = confidence;
-//        this.Image = Image;
+    realtime_resultData(Bitmap image, String name, String scientific, String order, String family, String description, String intervention){
+
+        this.Image = image;
+        this.name = name;
+        this.scientific = scientific;
+        this.order = order;
+        this.family = family;
+        this.description = description;
+        this.intervention = intervention;
+
 
     }
 }

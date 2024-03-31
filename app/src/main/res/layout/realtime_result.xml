@@ -1,30 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_btn_intro5"
+    android:padding="10dp">
 
-    <TextView
-        android:id="@+id/pest_ID"
-        android:layout_width="50dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginStart="10dp"
-        android:textAlignment="textStart"/>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:cardCornerRadius="10dp"
+        android:elevation="10dp">
+
+        <ImageView
+            android:id="@+id/pest_IMAGE"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/background_btn_intro5"
+            android:scaleType="centerCrop"/>
+    </androidx.cardview.widget.CardView>
+
     <TextView
         android:id="@+id/pest_NAME"
         android:layout_width="250dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="25dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/card1"
         android:layout_marginStart="10dp"
+        android:textSize="20sp"
+        android:textColor="@color/charcoal"
         android:textAlignment="textStart"/>
     <TextView
-        android:id="@+id/pest_CONFIDENCE"
-        android:layout_width="50dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginStart="20dp"
+        android:id="@+id/pest_SCIENTIFIC"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/card1"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="35dp"
+        android:textSize="18sp"
+        android:textColor="@color/charcoal"
         android:textAlignment="textStart"/>
 
 
-</LinearLayout>
+
+</RelativeLayout>

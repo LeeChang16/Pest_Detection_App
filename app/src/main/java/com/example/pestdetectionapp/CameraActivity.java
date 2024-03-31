@@ -25,6 +25,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
@@ -101,6 +104,9 @@ public abstract class CameraActivity extends AppCompatActivity
   RecyclerView recyclerView;
   realtime_resultAdapter adapter;
   realtime_resultClicklistener clickListener;
+  DatabaseHandler database;
+  List<realtime_resultData> list;
+  detection_Tracker track_pest;
 
   String Id;
   String Title;
@@ -119,15 +125,20 @@ public abstract class CameraActivity extends AppCompatActivity
     LOGGER.d("onCreate " + this);
     super.onCreate(null);
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
     setContentView(R.layout.tfe_od_activity_camera);
 
+    //Initialize database
+    database = new DatabaseHandler(this);
+    track_pest = detection_Tracker.getInstance();
+
+    //Ask permision for Camera usage
     if (hasPermission()) {
       setFragment();
     } else {
       requestPermission();
     }
 
+    //Don't delete this, even if is not used (it will broke bro).
     ArrayAdapter<String> deviceAdapter =
             new ArrayAdapter<>(
                     CameraActivity.this , R.layout.deviceview_row, R.id.deviceview_row_text, deviceStrings);
@@ -136,68 +147,55 @@ public abstract class CameraActivity extends AppCompatActivity
             new ArrayAdapter<>(
                     CameraActivity.this , R.layout.listview_row, R.id.listview_row_text, modelStrings);
 
+
+    //Initialize views
     inferenceTimeTextView = findViewById(R.id.label2);
     recyclerView = findViewById(R.id.result_recycler);
     label1 = findViewById(R.id.label1);
 
 
+    // Don't modify this. Leave it as it is.
     DisplayMetrics displayMetrics = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
     int height = displayMetrics.heightPixels;
     int width = displayMetrics.widthPixels;
-
-
     System.out.println("SIZE:    Width: " + width + ", Height: " + height);
 
 
+    // Result Recycler View
+     list = new ArrayList<>();
+    clickListener = new realtime_resultClicklistener() {
+      @Override
+      public void click(int index){
+        Toast.makeText(CameraActivity.this,"clicked item index is "+index, Toast.LENGTH_SHORT).show();
+      }
+    };
+    adapter = new realtime_resultAdapter(list, this.getApplication(),clickListener);
+    recyclerView.setAdapter(adapter);
+    recyclerView.setLayoutManager(
+            new LinearLayoutManager(this));
 
-  valueTracker value = new valueTracker();
+    startRepeatingTask();
+  }
+  //End of Oncreate Method
 
-
-    new Thread(new Runnable() {
+  private void startRepeatingTask() {
+    Handler handler = new Handler();
+    Runnable runnable = new Runnable() {
       @Override
       public void run() {
-        // Perform long-running operation here...
-        // Switch to UI thread to update UI
-        List<realtime_resultData> list = new ArrayList<>();
+        list = getData();
 
-        if(value.hasValueChanged()){
-          list.add(new realtime_resultData(value.get_idValue()+"", value.get_nameValue()+"", value.get_confidenceValue()+""));
+        adapter.notifyDataSetChanged();
 
-          adapter = new realtime_resultAdapter(list, CameraActivity.this.getApplication(),clickListener);
-          recyclerView.setAdapter(adapter);
-          recyclerView.setLayoutManager(
-                  new LinearLayoutManager(CameraActivity.this));
-        }
-        clickListener = new realtime_resultClicklistener() {
-          @Override
-          public void click(int index){
-            Toast.makeText(CameraActivity.this,"clicked item index is "+index, Toast.LENGTH_SHORT).show();
-          }
-        };
-
-
-
-
-        runOnUiThread(new Runnable() {
-          @Override
-          public void run() {
-
-
-
-
-
-
-            // Update UI here...
-          }
-        });
+        // Re-run it after the specified delay
+        handler.postDelayed(this, 100);
       }
-    }).start();
+    };
 
-
-  }// END ONCREATE
-
-
+    // Initial call
+    handler.post(runnable);
+  }
 
 
 
@@ -586,22 +584,43 @@ public abstract class CameraActivity extends AppCompatActivity
   }
   private List<realtime_resultData> getData()
   {
-    valueTracker value = new valueTracker();
+    String current_pest = null;
 
-    List<realtime_resultData> list = new ArrayList<>();
-
-    if (value.hasValueChanged()){
-
-      list.add(new realtime_resultData(value.get_idValue()+"", value.get_nameValue()+"", value.get_confidenceValue()+""));
+    if(track_pest.has_changed_value){
+        // get the latest pest contained by track_pest
+        current_pest = track_pest.get_pest();
+        track_pest.reset_to_false();
     }
 
+    System.out.println("CURRENT PEST: "+current_pest);
+//    List<realtime_resultData> list = new ArrayList<>();
+    Cursor cursor = database.getReadableDatabase().rawQuery("SELECT * FROM Pest_Information WHERE Pest_Name = '"+current_pest+"' ", null);
 
+    if(cursor.moveToFirst()){
 
+        System.out.println("NAAY NA DETECT");
+      do {
+        //Specify Which Column to get
+        String name = cursor.getString(1);
+        String scientific = cursor.getString(2);
+        String order = cursor.getString(3);
+        String family = cursor.getString(4);
+        String description = cursor.getString(5);
+        String intervention = cursor.getString(6);
+        byte[] imageBytes = cursor.getBlob(7);
+        // Decode the byte array stored in sqlite
+        Bitmap bitmap = null;
+        //Checking if the byte array is not null
+        if(imageBytes!=null){
+          bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);}
+        // adding all the data to the list array
+        list.add(new realtime_resultData(bitmap, name,scientific,order, family, description, intervention));
+      }while(cursor.moveToNext());
+    }
+
+    cursor.close();
     return list;
   }
-
-
-
 
 
   protected abstract void updateActiveModel();
@@ -629,6 +648,10 @@ public abstract class CameraActivity extends AppCompatActivity
             .setNegativeButton(android.R.string.no,null)
             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
               public void onClick(DialogInterface arg0, int arg1) {
+
+                //Reset the singleton Detection_tracker
+                track_pest.resetInstance();
+
                 startActivity(intent);
                 CameraActivity.super.onBackPressed();
               }

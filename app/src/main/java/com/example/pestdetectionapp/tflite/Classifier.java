@@ -81,12 +81,13 @@ public interface Classifier {
             this.detectedClass = detectedClass;
         }
 
-        public String getId() {
-            return id;
-        }
+
 
         public String getTitle() {
             return title;
+        }
+        public String getId() {
+            return id;
         }
 
         public Float getConfidence() {
