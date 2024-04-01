@@ -303,13 +303,14 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                                 cropToFrameTransform.mapRect(location);
                                 // To get Id of the Detected Pest
-                                showPestId(result.getId(), result.getTitle());
+
                                 result.setLocation(location);
                                 mappedRecognitions.add(result);
 
                                 String pest_name = result.getTitle();
                                 float confidence = result.getConfidence();
                                 String confidenceStr = String.format("%.2f",confidence * 100.0f );
+                                showPestId(confidenceStr,pest_name);
                                 storeCurrentDateTime();
 
                                 //Pass the result to the singleton

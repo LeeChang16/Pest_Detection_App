@@ -571,8 +571,8 @@ public abstract class CameraActivity extends AppCompatActivity
   protected void showInference(String inferenceTime) {
     inferenceTimeTextView.setText(inferenceTime);
   }
-  protected void showPestId(String id, String title) {
-    label1.setText(title+" "+id);
+  protected void showPestId(String confidence, String title) {
+    label1.setText(title+" "+confidence);
   }
   protected void data(String id, String title, Float confidence){
      Id = id;

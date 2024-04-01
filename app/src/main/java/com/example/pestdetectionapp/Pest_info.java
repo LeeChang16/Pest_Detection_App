@@ -20,7 +20,7 @@ public class Pest_info extends AppCompatActivity {
         family = findViewById(R.id.pest_Family);
         description = findViewById(R.id.pest_Description);
         intervention = findViewById(R.id.pest_Intervention);
-        image = findViewById(R.id.pest_image);
+        image = findViewById(R.id.pest_Image);
 
 
 

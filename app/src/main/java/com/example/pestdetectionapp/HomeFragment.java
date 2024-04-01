@@ -45,13 +45,14 @@ public class HomeFragment extends Fragment {
     int REQUEST_CODE = 100;
     public Bitmap capturedImage;
 
-    TextView temp_reading;
+    TextView temp_reading, town_name;
     bitmapHolder holder;
 
     recentAdapter adapter;
     RecyclerView recyclerView;
     recentClicklistener clickListener;
     int id =0;
+    location_Tracker location = location_Tracker.getInstance();
     DatabaseHandler db;
 
     @SuppressLint("WrongViewCast")
@@ -64,6 +65,7 @@ public class HomeFragment extends Fragment {
         GalleryButton = rootViews.findViewById(R.id.togallery);
         CameraButton = rootViews.findViewById(R.id.tocamera);
         temp_reading = rootViews.findViewById(R.id.temp_reading);
+        town_name = rootViews.findViewById(R.id.town_name);
 
 
         GalleryButton.setOnClickListener(v ->selectGallery());
@@ -76,7 +78,7 @@ public class HomeFragment extends Fragment {
         if (getArguments() != null) {
             id = getArguments().getInt("Id");
         }
-
+        town_name.setText(location.getAddressline());
         temp_reading.setText(""+id);
 
 

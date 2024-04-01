@@ -3,9 +3,12 @@ package com.example.pestdetectionapp;
 import static android.app.PendingIntent.getActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.CursorWindow;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -13,6 +16,9 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,11 +32,15 @@ import com.example.pestdetectionapp.env.Logger;
 import com.example.pestdetectionapp.tflite.Classifier;
 import com.example.pestdetectionapp.tflite.YoloV5Classifier;
 import com.example.pestdetectionapp.tracking.MultiBoxTracker;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -63,15 +73,13 @@ public class MainActivity1 extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
         if(idHolder.has_value()) {
             user_universal_id = idHolder.retrieve_id();
         }
         else {
             Toast.makeText(this, "Error: Attempting to login without user Id.",Toast.LENGTH_SHORT).show();
         }
-//        Intent intent = getIntent();
-//        user_universal_id = intent.getIntExtra("IdValue",0);
-
 
         bottomNavigation = findViewById(R.id.bottom_navi);
 
@@ -120,11 +128,6 @@ public class MainActivity1 extends AppCompatActivity {
                             Bundle bundle = new Bundle();
                             bundle.putInt("Id", user_universal_id); // replace 'id' with your actual ID variable
                             fragment.setArguments(bundle);
-
-                            //                } else if (model.getId() == 2) {
-                            ////                   fragment = new CaptureFragment();
-                            //                    startActivity(intent1);
-
 
                         } else if (model.getId() == 3) {
                             fragment = new MenuFragment();

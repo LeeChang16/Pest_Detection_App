@@ -3,9 +3,15 @@ package com.example.pestdetectionapp;
 import static android.app.ProgressDialog.show;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
@@ -16,10 +22,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -27,6 +40,9 @@ public class SplashActivity extends AppCompatActivity {
     Handler handler;
     DatabaseHandler db;
     id_Holder idHolder = id_Holder.getInstance();
+    private FusedLocationProviderClient fusedLocationClient;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    location_Tracker track = location_Tracker.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,42 +51,40 @@ public class SplashActivity extends AppCompatActivity {
 
         db = new DatabaseHandler(SplashActivity.this);
 
-//
-//        RequestQueue queue = Volley.newRequestQueue(this);
-//        String url ="http://localhost/simple/insert.php";
-//
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        try {
-//
-//                            JSONArray jsonArray = new JSONArray(response);
-//                            for (int i = 0; i < jsonArray.length(); i++) {
-//                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                                // Get data from jsonObject
-//                                String pestname = jsonObject.getString("firstName");
-//                                String lastName = jsonObject.getString("lastName");
-//                                // Store data in SQLite database
-//                                // You need to implement the method to store data in SQLite
-////                                db.insertAccount();
-////                                storeDataInSQLite(firstName, lastName);
-//                                System.out.println("Volley: "+i);
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        // Handle error
-//                    }
-//                });
-//         queue = Volley.newRequestQueue(this);
-//        queue.add(stringRequest);
-//
+        //for location
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Request the missing permissions
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+        } else {
+            // Permissions are granted, you can call getLastLocation()
+            fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    // Got last known location. In some rare situations, this can be null.
+                    if (location != null) {
+                        // Logic to handle location object
+//                        locationStr = "Latitude: " + location.getLatitude() + ", Longitude: " + location.getLongitude();
+//                        System.out.println("LOCATION: "+locationStr);
+
+                        Geocoder geocoder = new Geocoder(SplashActivity.this, Locale.getDefault());
+                        List<Address> addresses = null;
+                        try {
+                            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        assert addresses != null;
+                        Address address = addresses.get(0);
+                        track.set_location(address.getAddressLine(0),address.getLocality(),address.getAdminArea(),address.getCountryName());
+
+
+
+                    }
+                }
+            });
+        }
+
 
         handler = new Handler();
 
@@ -95,7 +109,7 @@ public class SplashActivity extends AppCompatActivity {
 
             }
         }
-    }, 3000);
+    }, 4000);
 
     }
 
