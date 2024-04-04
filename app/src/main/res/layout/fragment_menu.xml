@@ -95,11 +95,11 @@
          <TextView
              android:layout_width="110dp"
              android:layout_height="wrap_content"
-             android:text="Location:"
+             android:text="Occupation:"
              android:textSize="18sp"
              android:paddingStart="10dp"/>
          <TextView
-             android:id="@+id/location"
+             android:id="@+id/occupation"
              android:layout_width="250dp"
              android:layout_height="wrap_content"
              android:text="Address:"
@@ -117,11 +117,11 @@
          <TextView
              android:layout_width="110dp"
              android:layout_height="wrap_content"
-             android:text="Occupation:"
+             android:text="Location:"
              android:textSize="18sp"
              android:paddingStart="10dp"/>
          <TextView
-             android:id="@+id/occupation"
+             android:id="@+id/location"
              android:layout_width="250dp"
              android:layout_height="wrap_content"
              android:text="Address:"
@@ -140,63 +140,76 @@
          android:clickable="true"/>
 
 
-     <ImageView
+     <RelativeLayout
          android:layout_width="400dp"
-         android:layout_height="220dp"
+         android:layout_height="wrap_content"
          android:id="@+id/bgn2"
-         android:layout_centerHorizontal="true"
          android:layout_below="@id/bgn1"
-         android:layout_marginTop="10dp"
-         android:alpha="0.5"
-         android:src="@drawable/background_btn_intro"/>
-
-     <Button
-         android:id="@+id/Gallery"
-         android:layout_width="380dp"
-         android:layout_height="50dp"
-         android:layout_below="@id/bgn1"
-         android:layout_centerHorizontal="true"
          android:layout_marginTop="30dp"
-         android:background="@drawable/background_btn_intro"
-         android:text="Pest Library"
-         app:icon="@drawable/ic_library" />
+         android:alpha="0.8"
+         android:padding="10dp"
+         android:background="@drawable/background_btn_intro">
 
-     <Button
-         android:id="@+id/About_app"
-         android:layout_width="380dp"
-         android:layout_height="50dp"
-         android:layout_below="@id/Gallery"
-         android:layout_centerHorizontal="true"
-         android:layout_marginTop="15dp"
-         android:background="@drawable/background_btn_intro"
-         android:text="About"
-         app:icon="@drawable/baseline_perm_device_information_24" />
+         <Button
+             android:id="@+id/Analysis"
+             android:layout_width="380dp"
+             android:layout_height="50dp"
+             android:layout_centerHorizontal="true"
+             android:layout_marginTop="0dp"
+             android:background="@drawable/background_btn_intro"
+             android:text="Analysis"
+             app:icon="@drawable/linechart" />
 
-     <Button
-         android:id="@+id/logout"
-         android:layout_width="170dp"
-         android:layout_height="50dp"
-         android:text="Logout"
-         app:icon ="@drawable/baseline_logout_24"
-         android:layout_alignParentRight="true"
-         android:layout_below="@id/About_app"
-         android:layout_marginTop="15dp"
-         android:layout_marginEnd="20dp"
+         <Button
+             android:id="@+id/Gallery"
+             android:layout_width="380dp"
+             android:layout_height="50dp"
+             android:layout_centerHorizontal="true"
+             android:layout_below="@id/Analysis"
+             android:layout_marginTop="15dp"
+             android:background="@drawable/background_btn_intro"
+             android:text="Pest Library"
+             app:icon="@drawable/ic_library" />
 
-         />
+         <Button
+             android:id="@+id/About_app"
+             android:layout_width="380dp"
+             android:layout_height="50dp"
+             android:layout_below="@id/Gallery"
+             android:layout_centerHorizontal="true"
+             android:layout_marginTop="15dp"
+             android:background="@drawable/background_btn_intro"
+             android:text="About"
+             app:icon="@drawable/baseline_perm_device_information_24" />
 
-     <Button
-         android:id="@+id/edit"
-         android:layout_width="170dp"
-         android:layout_height="50dp"
-         android:text="Edit Profile"
-         app:icon ="@drawable/baseline_edit_24"
-         android:layout_alignParentLeft="true"
-         android:layout_below="@id/About_app"
-         android:layout_marginTop="15dp"
-         android:layout_marginStart="20dp"
+         <Button
+             android:id="@+id/logout"
+             android:layout_width="170dp"
+             android:layout_height="50dp"
+             android:text="Logout"
+             android:background="@drawable/background_btn_intro"
+             app:icon ="@drawable/baseline_logout_24"
+             android:layout_alignParentEnd="true"
+             android:layout_below="@id/About_app"
+             android:layout_marginTop="15dp"
+             android:layout_marginEnd="0dp"
 
-         />
+             />
+
+         <Button
+             android:id="@+id/edit"
+             android:layout_width="170dp"
+             android:layout_height="50dp"
+             android:text="Edit Profile"
+             app:icon ="@drawable/baseline_edit_24"
+             android:layout_alignParentStart="true"
+             android:layout_below="@id/About_app"
+             android:background="@drawable/background_btn_intro"
+             android:layout_marginTop="15dp"
+             android:layout_marginStart="0dp"
+             />
+
+     </RelativeLayout>
 
 
  </RelativeLayout>

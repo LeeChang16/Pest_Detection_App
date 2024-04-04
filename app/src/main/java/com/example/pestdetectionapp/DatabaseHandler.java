@@ -257,6 +257,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    public boolean updateData(String id, String newName, String newProvince, String newTown, String newOccupation, byte [] newPic) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(FullName, newName);
+        contentValues.put(Province, newProvince);
+        contentValues.put(Town, newTown);
+        contentValues.put(Occupation, newOccupation);
+        contentValues.put(Profile_Picture, newPic);
+
+
+        int result = db.update(Personal_Info_Table, contentValues, "Client_Id = ?", new String[] { id });
+        db.close();
+
+        // If result is greater than 0, update was successful
+        return result > 0;
+    }
+    public boolean updateAccountData(String id, String newUser, String newPass) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Account_Username, newUser);
+        contentValues.put(Account_Password, newPass);
+
+        int result = db.update(Account_Table, contentValues, "Account_Id = ?", new String[] { id });
+        db.close();
+
+        // If result is greater than 0, update was successful
+        return result > 0;
+    }
+
 
 
 

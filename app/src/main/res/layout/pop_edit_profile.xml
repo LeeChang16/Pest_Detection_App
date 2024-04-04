@@ -17,43 +17,47 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardviews"
-            android:layout_width="290dp"
-            android:layout_height="250dp"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             app:cardCornerRadius="10dp">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/change"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="250dp"
-                android:layout_marginBottom="10dp"/>
 
             <ImageView
                 android:id="@+id/pop_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/change_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="190dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/editpic"
+                android:elevation="30dp" />
         </androidx.cardview.widget.CardView>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout1"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_below="@id/cardviews"
-            app:endIconMode = "clear_text"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            app:endIconMode="clear_text">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Full Name"
                 android:inputType="text"
-                android:maxLength="20" />
+                android:maxLength="30" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <LinearLayout
             android:id="@+id/linear"
             android:layout_width="match_parent"
@@ -63,11 +67,12 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout2"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:endIconMode = "clear_text"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                app:endIconMode="clear_text">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editprovince"
                     android:layout_width="145dp"
@@ -76,14 +81,16 @@
                     android:inputType="text"
                     android:maxLength="20" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout3"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:endIconMode = "clear_text"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                app:endIconMode="clear_text">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edittown"
                     android:layout_width="145dp"
@@ -93,30 +100,34 @@
                     android:maxLength="20" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout4"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_below="@id/linear"
-            app:endIconMode = "clear_text"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            app:endIconMode="clear_text">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editoccupation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Occupation"
                 android:inputType="text"
-                android:maxLength="20" />
+                android:maxLength="30" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout5"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_below="@id/layout4"
-            app:endIconMode = "clear_text"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            app:endIconMode="clear_text">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edituser"
                 android:layout_width="match_parent"
@@ -125,22 +136,50 @@
                 android:inputType="text"
                 android:maxLength="20" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout6"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_below="@id/layout5"
-            app:endIconMode = "password_toggle"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            app:endIconMode="password_toggle">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editpass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:hint="New Password"
                 android:inputType="text"
                 android:maxLength="20" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout7"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout6"
+            android:layout_marginTop="5dp"
+            app:endIconMode="password_toggle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/confirmpass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirm Password"
+                android:inputType="text"
+                android:maxLength="20" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/edit_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout7"
+            android:text="Confirm"
+            android:layout_marginTop="10dp"/>
 
 
     </RelativeLayout>

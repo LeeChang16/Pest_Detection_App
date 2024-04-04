@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/ricefield"
     tools:context=".about"
+    android:padding="10dp"
     android:alpha="1">
 
     <RelativeLayout
@@ -23,24 +24,32 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textAlignment="center"/>
+        <RelativeLayout
+            android:id="@+id/relative1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/about"
+            android:padding="20dp"
+            android:background="@drawable/background_btn_intro6">
         <TextView
             android:id="@+id/about_content"
             android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:layout_below="@+id/about"
-            android:layout_marginTop="20dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textAlignment="center"/>
+            android:layout_height="wrap_content"
+            android:text="\t PesteLens is an android application developed by the researchers from Bohol Island State University - Calape campus, which is intended for farm pest detection. Leveraging the power of YOLOv5, an advanced machine learning algorithm trained on a custom dataset, PesteLens offers real-time identification of pests in agricultural fields. With its user-friendly interface, farmers can easily capture images of their crops using their mobile devices, and the app promptly provides accurate pest detection results. This invaluable tool assists in the timely management of pests, ensuring crop health and contributing to sustainable agriculture practices."
+            android:textSize="18sp"
+            android:textColor="@color/charcoal"
+            android:justificationMode="inter_word"
+            android:textStyle="normal"
+            android:textAlignment="textStart"/>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/developers"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_below="@id/about_content"
-            android:layout_marginTop="20dp"
-            android:text="App Developer and Researchers"
+            android:layout_below="@id/relative1"
+            android:layout_marginTop="30dp"
+            android:text="Developers"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textAlignment="center"/>

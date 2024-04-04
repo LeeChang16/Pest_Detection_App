@@ -30,7 +30,7 @@ public class SignUp extends AppCompatActivity {
     Bitmap reducedSize;
     byte [] image;
     ImageView profile_pic;
-    EditText fullname,province,town,occupation,username,password;
+    EditText fullname,province,town,occupation,username,password,match;
     DatabaseHandler database;
 
     @Override
@@ -45,6 +45,7 @@ public class SignUp extends AppCompatActivity {
         occupation = findViewById(R.id.occupation);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
+        match = findViewById(R.id.matchpassword);
 
         database = new DatabaseHandler(getApplicationContext());
 
@@ -68,6 +69,7 @@ public class SignUp extends AppCompatActivity {
             String occupations = occupation.getText().toString();
             String user = username.getText().toString();
             String pass = password.getText().toString();
+            String confirm = match.getText().toString();
 
 
             String hashed_Password = hash.hashString(pass);
@@ -144,6 +146,8 @@ public class SignUp extends AppCompatActivity {
         String occupations = occupation.getText().toString();
         String user = username.getText().toString();
         String pass = password.getText().toString();
+        String confirm = match.getText().toString();
+
 
         if(TextUtils.isEmpty(name)){
             fullname.setError("This field is required!");
@@ -174,6 +178,14 @@ public class SignUp extends AppCompatActivity {
             password.setError("Password must be at least 6 Characters");
             valid = false;
         }else{password.setError(null);}
+
+        if(TextUtils.isEmpty(confirm)){
+            match.setError("Please confirm password!");
+            valid = false;
+        } else if (!confirm.equals(pass)){
+            match.setError("Passwords doesn't match!");
+            valid = false;
+        }else{match.setError(null);}
 
         if(bitmap == null){
             Toast.makeText(SignUp.this,"Please Upload an Image as Profile!", Toast.LENGTH_SHORT).show();
