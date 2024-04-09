@@ -18,12 +18,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:onClick="selectPest"
+        android:contentDescription="Insert Pest Image"
         />
 
     <EditText
         android:id="@+id/pesId"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:hint="Id"
         android:layout_below="@id/pestImage" />
@@ -31,7 +32,7 @@
     <EditText
         android:id="@+id/pestName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:hint="Name"
         android:layout_below="@id/pesId" />
@@ -39,7 +40,7 @@
     <EditText
         android:id="@+id/pestScientific"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:hint="Scientific Name"
         android:layout_below="@id/pestName" />
@@ -47,7 +48,7 @@
     <EditText
         android:id="@+id/pestOrder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:hint="Order"
         android:layout_below="@id/pestScientific" />
@@ -55,7 +56,7 @@
     <EditText
         android:id="@+id/pestFamily"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:hint="Family"
         android:layout_below="@id/pestOrder" />
@@ -63,7 +64,7 @@
     <EditText
         android:id="@+id/pestDescription"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:hint="Description"
         android:layout_below="@id/pestFamily" />
@@ -71,7 +72,7 @@
     <EditText
         android:id="@+id/pestIntervention"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:hint="Intervention"
         android:layout_below="@id/pestDescription" />

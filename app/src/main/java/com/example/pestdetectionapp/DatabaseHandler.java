@@ -234,9 +234,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return user;
     }
 
-    public String get_MostDetectedPest(){
+    public String get_MostDetectedPest(String id){
 
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT "+Detected_Pest_Name+" FROM "+Detected_Pest_Table+" GROUP BY "+Detected_Pest_Name+" ORDER BY COUNT("+Detected_Pest_Name+") DESC LIMIT 1", null);
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT "+Detected_Pest_Name+" FROM "+Detected_Pest_Table+" WHERE "+Detected_Pest_User+"= ? GROUP BY "+Detected_Pest_Name+" ORDER BY COUNT("+Detected_Pest_Name+") DESC LIMIT 1", new String[]{id});
         String pestname = null;
         if (cursor.moveToFirst()) {
             pestname = cursor.getString(0);
@@ -247,9 +247,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return pestname;
     }
 
-    public int get_TotalPestCount(){
+    public int get_TotalPestCount(String id){
 
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT COUNT(*) FROM "+Detected_Pest_Table, null);
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT COUNT(*) FROM "+Detected_Pest_Table+" WHERE "+Detected_Pest_User+"= ?", new String[]{id});
         int count = 0;
         if (cursor.moveToFirst()) {
             count = cursor.getInt(0);
@@ -258,6 +258,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
         return count;
+    }
+
+    public boolean check_DataAvailable(String id){
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+Detected_Pest_Table+" WHERE "+Detected_Pest_User+"= ?", new String[]{id});
+        boolean available = cursor.getCount()>0;
+        cursor.close();
+        System.out.println("CHECK: "+cursor.getCount());
+        return available;
     }
 
     public String get_Recommendation(String name){

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -19,6 +20,8 @@ public class Analysis extends AppCompatActivity {
     String pest;
     String intervention;
     int count;
+
+    id_Holder id = id_Holder.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,12 +33,19 @@ public class Analysis extends AppCompatActivity {
         recommendation = findViewById(R.id.recommendation);
 
         db = new DatabaseHandler(Analysis.this);
-        pest = db.get_MostDetectedPest();
-        count = db.get_TotalPestCount();
-        intervention = db.get_Recommendation(pest);
-        most_detected_pest.setText(pest);
-        total_pest.setText(""+count);
-        recommendation.setText(intervention);
+
+
+
+        if(db.check_DataAvailable(String.valueOf(id.retrieve_id()))){
+
+            pest = db.get_MostDetectedPest(String.valueOf(id.retrieve_id()));
+            count = db.get_TotalPestCount(String.valueOf(id.retrieve_id()));
+            most_detected_pest.setText(pest);
+            total_pest.setText(""+count);
+            intervention = db.get_Recommendation(pest);
+            recommendation.setText(intervention);
+        }
+
 
         // on below line we are adding data to our graph view.
         LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[]{

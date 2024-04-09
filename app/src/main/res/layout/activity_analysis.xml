@@ -12,8 +12,6 @@
         android:layout_height="wrap_content"
         android:padding="20dp"
         >
-
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/card1"
                 android:layout_width="match_parent"
@@ -62,10 +60,10 @@
                     android:textAlignment="center"
                     android:textColor="@color/charcoal"
                     android:layout_below="@id/label1"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:layout_centerHorizontal="true"
                     android:textSize="50sp"
-                    android:text="10"/>
+                    android:text="0"/>
 
             </RelativeLayout>
 
@@ -101,7 +99,7 @@
                     android:layout_marginTop="30dp"
                     android:layout_centerHorizontal="true"
                     android:textSize="25sp"
-                    android:text="Stemborer"/>
+                    android:text="__"/>
 
             </RelativeLayout>
 
@@ -148,7 +146,8 @@
                 android:id="@+id/ranking_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/label12"/>
+                android:layout_below="@id/label12"
+                />
 
         </RelativeLayout>
 
@@ -180,6 +179,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
+                    android:text=""
                     android:layout_below="@id/label"
                     android:textColor="@color/charcoal"
                     android:justificationMode="inter_word"
