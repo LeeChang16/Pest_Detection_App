@@ -69,9 +69,14 @@ dependencies {
     androidTestImplementation ("com.android.support.test:rules:1.0.2")
     androidTestImplementation ("com.google.truth:truth:1.0.1")
 
-    implementation ("com.android.volley:volley:1.1.1")
+
+    implementation ("com.squareup.retrofit2:retrofit:2.1.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.1.0")
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
 //    implementation ("com.squareup.retrofit2:retrofit:2.1.0")
 //    implementation ("com.squareup.retrofit2:converter-gson:2.1.0")
 //    implementation ("com.github.VishnuSivadasVS:Advanced-HttpURLConnection:1.2")
+
+    implementation ("com.jjoe64:graphview:4.2.2")
 
 }

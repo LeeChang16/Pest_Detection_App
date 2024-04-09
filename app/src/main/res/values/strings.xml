@@ -4,7 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tfe_od_camera_error" translation_description="Error regarding camera support[CHAR_LIMIT=40]">This device doesn\'t support Camera2 API.</string>
     <string name="tfe_od_app_name" translation_description="Object Detection demo app [CHAR_LIMIT=40]">TFL Detect</string>
-
+    <string name="profile">See <a href="https://profile.thezionlab.com/chandleerey.belarmino/"> Profile</a>…</string>
 
     // id
     <string name="one1">1</string>
@@ -30,7 +30,6 @@
     <string name="twentyone1">21</string>
     <string name="twentytwo1">22</string>
     <string name="twentythree1">23</string>
-
 
 
     // name
@@ -59,7 +58,7 @@
     <string name="twentythree">Zigzag Leafhopper</string>
 
 
-// Scientific name
+    // Scientific name
     <string name="sone">Adult Seedling Maggot</string>
     <string name="stwo">Scirpophaga innotata (White), Scirpophaga incertulas (Yellow), Chilo suppressalis ( Striped), Sesamia inferens (Pink)</string>
     <string name="sthree">Aphids</string>
@@ -232,8 +231,6 @@ Eaten during larval development.
 </string>
     <string name="twentytwoI">White Grub</string>
     <string name="twentythreeI"> Encouraged biological control agents: mymarid wasp, mirid bug, dryinid wasp and pipunculid flies, spiders.</string>
-
-
 
 
 </resources>

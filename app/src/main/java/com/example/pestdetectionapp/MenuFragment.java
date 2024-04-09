@@ -37,7 +37,7 @@ import java.util.Objects;
 
 public class MenuFragment extends Fragment {
 
-    Button gallery, about_app, edit, signout;
+    Button gallery, about_app, edit, signout, analysis;
     ImageView profile_image,editdetails, edit_image;
     TextView name, address, occupation, location;
     DatabaseHandler database;
@@ -71,6 +71,7 @@ public class MenuFragment extends Fragment {
         about_app = rootView.findViewById(R.id.About_app);
         signout = rootView.findViewById(R.id.logout);
         edit = rootView.findViewById(R.id.edit);
+        analysis = rootView.findViewById(R.id.Analysis);
 
         profile_image = rootView.findViewById(R.id.profile_images);
         name = rootView.findViewById(R.id.name);
@@ -110,6 +111,7 @@ public class MenuFragment extends Fragment {
         gallery.setOnClickListener(v -> toLibrary());
         about_app.setOnClickListener(v -> toAbout());
         edit.setOnClickListener(v -> toEdit());
+        analysis.setOnClickListener(v -> toAnalysis());
         editdetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -229,6 +231,12 @@ public class MenuFragment extends Fragment {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             getActivity().finish();
+
+    }
+
+    public void toAnalysis() {
+        Intent intent = new Intent(requireContext(), Analysis.class);
+        startActivity(intent);
 
     }
     private void selectGallery(){

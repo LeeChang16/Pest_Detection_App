@@ -2,47 +2,55 @@ package com.example.pestdetectionapp;
 
 import static android.app.ProgressDialog.show;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SplashActivity extends AppCompatActivity {
 
 
     Handler handler;
     DatabaseHandler db;
+    byte[] imagebyte = null;
+    Bitmap Image;
+
     id_Holder idHolder = id_Holder.getInstance();
     private FusedLocationProviderClient fusedLocationClient;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     location_Tracker track = location_Tracker.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +58,13 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         db = new DatabaseHandler(SplashActivity.this);
+        if (isNetworkConnected()) {
+            processdata();
+        } else {
+            Toast.makeText(SplashActivity.this,"Sync Paused: No internet",Toast.LENGTH_SHORT).show();
+        }
+
+
 
         //for location
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -76,8 +91,7 @@ public class SplashActivity extends AppCompatActivity {
                         }
                         assert addresses != null;
                         Address address = addresses.get(0);
-                        track.set_location(address.getAddressLine(0),address.getLocality(),address.getAdminArea(),address.getCountryName());
-
+                        track.set_location(address.getAddressLine(0), address.getLocality(), address.getAdminArea(), address.getCountryName());
 
 
                     }
@@ -88,29 +102,99 @@ public class SplashActivity extends AppCompatActivity {
 
         handler = new Handler();
 
-    handler.postDelayed(new Runnable() {
+        handler.postDelayed(new Runnable() {
 
-        @Override
-        public void run() {
+            @Override
+            public void run() {
 
 
-            if(db.active_user()){
-                int id = db.get_active_user_Id();
-                idHolder.hold_id(id);
+                if (db.active_user()) {
+                    int id = db.get_active_user_Id();
+                    idHolder.hold_id(id);
 
 //                Toast.makeText(SplashActivity.this, "User Id: "+id, Toast.LENGTH_SHORT).show();
-                Intent intent1 = new Intent(SplashActivity.this, MainActivity1.class);
-                startActivity(intent1);
-                finish();
-            }else {
-                Intent intent2 = new Intent(SplashActivity.this, Intro_UI.class);
-                startActivity(intent2);
-                finish();
+                    Intent intent1 = new Intent(SplashActivity.this, MainActivity1.class);
+                    startActivity(intent1);
+                    finish();
+                } else {
+                    Intent intent2 = new Intent(SplashActivity.this, Intro_UI.class);
+                    startActivity(intent2);
+                    finish();
 
+                }
             }
-        }
-    }, 4000);
+        }, 4000);
 
     }
+
+
+//    public interface MyApi {
+//
+//        @GET("http://192.168.100.10/MyAdmin/RestApi.php") // Replace with URL if using an API
+//        Call<List<mydata>> getData(); // Replace MyData with your data model class
+//
+//    }
+
+    public void processdata() {
+
+        db.getWritableDatabase();
+        Call<List<mydata>> call = apicontroller
+                .getInstance()
+                .getapi().getData();
+
+        call.enqueue(new Callback<List<mydata>>() {
+            @Override
+            public void onResponse(Call<List<mydata>> call, Response<List<mydata>> response) {
+                List<mydata> data = response.body();
+                for (mydata item : data) {
+
+                    String Id = item.getId();
+                    String Name = item.getName();
+                    String ScientificName = item.getScientificName();
+                    String PestOrder = item.getPestOrder();
+                    String PestFamily = item.getPestFamily();
+                    String Description = item.getDescription();
+                    String Intervention = item.getIntervention();
+                    String ImagePath = item.getImagePath();
+                    String ImageUrl = "http://192.168.100.10/MyAdmin/"+ImagePath;
+
+                    Glide.with(getApplication()).asBitmap().load(ImageUrl).into(new CustomTarget<Bitmap>() {
+                                @Override
+                                public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
+                                    // Handle the downloaded bitmap here (e.g., store it in a variable)
+                                    // 'bitmap' contains the image data
+                                    // For example:
+                                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                                    imagebyte = stream.toByteArray();
+                                    db.insertPestDetails(Id, Name, ScientificName, PestOrder, PestFamily, Description, Intervention, imagebyte);
+
+                                }
+
+                                @Override
+                                public void onLoadCleared(@Nullable Drawable placeholder) {
+                                    // Called when the image load is cleared (e.g., view recycled)
+                                }
+                            });
+
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<mydata>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_LONG).show();
+                System.out.println("NAY ERROR: " + t.toString());
+            }
+        });
+    }
+
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
+
 
 }

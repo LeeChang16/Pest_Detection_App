@@ -234,6 +234,44 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return user;
     }
 
+    public String get_MostDetectedPest(){
+
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT "+Detected_Pest_Name+" FROM "+Detected_Pest_Table+" GROUP BY "+Detected_Pest_Name+" ORDER BY COUNT("+Detected_Pest_Name+") DESC LIMIT 1", null);
+        String pestname = null;
+        if (cursor.moveToFirst()) {
+            pestname = cursor.getString(0);
+        }
+        cursor.close();
+
+
+        return pestname;
+    }
+
+    public int get_TotalPestCount(){
+
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT COUNT(*) FROM "+Detected_Pest_Table, null);
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+
+
+        return count;
+    }
+
+    public String get_Recommendation(String name){
+
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT "+Intervention+" FROM "+Pest_Info_Table+" WHERE "+Pest_Name+"= ?", new String[]{name});
+        String intervention = null;
+        if (cursor.moveToFirst()) {
+            intervention = cursor.getString(0);
+        }
+        cursor.close();
+
+
+        return intervention;
+    }
 
     public String getPestDetails (int id){
         Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+Pest_Info_Table+" WHERE "+Pest_Id+" = ?",new String[]{String.valueOf(id)});
