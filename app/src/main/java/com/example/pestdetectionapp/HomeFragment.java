@@ -31,6 +31,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,7 +55,8 @@ public class HomeFragment extends Fragment {
     int id =0;
     location_Tracker location = location_Tracker.getInstance();
     DatabaseHandler db;
-
+    RelativeLayout errmsg;
+    RelativeLayout loading;
     @SuppressLint("WrongViewCast")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,6 +68,8 @@ public class HomeFragment extends Fragment {
         CameraButton = rootViews.findViewById(R.id.tocamera);
         temp_reading = rootViews.findViewById(R.id.temp_reading);
         town_name = rootViews.findViewById(R.id.town_name);
+        errmsg = rootViews.findViewById(R.id.errormsg);
+        loading = rootViews.findViewById(R.id.loading);
 
 
         GalleryButton.setOnClickListener(v ->selectGallery());
@@ -86,6 +90,7 @@ public class HomeFragment extends Fragment {
         List<recentdetectionData> list = new ArrayList<>();
         list = getData();
 
+
         recyclerView = (RecyclerView)rootViews.findViewById(R.id.recent);
         clickListener = new recentClicklistener() {
             @Override
@@ -100,7 +105,9 @@ public class HomeFragment extends Fragment {
 
 
 
-
+        if(list.isEmpty()){
+            errmsg.setVisibility(View.VISIBLE);
+        }
         return rootViews;
 
     }
@@ -116,6 +123,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void selectGallery(){
+
         Intent i = new Intent();
         i.setType("image/*");
         i.setAction(Intent.ACTION_GET_CONTENT);
@@ -126,7 +134,7 @@ public class HomeFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         if(resultCode == RESULT_OK){
-
+            loading.setVisibility(View.VISIBLE);
             //Use 3 for RequestCode in capturing image.
             if(requestCode == 1) {
 

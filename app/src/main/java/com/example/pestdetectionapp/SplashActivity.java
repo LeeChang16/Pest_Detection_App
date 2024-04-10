@@ -59,45 +59,48 @@ public class SplashActivity extends AppCompatActivity {
 
         db = new DatabaseHandler(SplashActivity.this);
         if (isNetworkConnected()) {
+
             processdata();
-        } else {
-            Toast.makeText(SplashActivity.this,"Sync Paused: No internet",Toast.LENGTH_SHORT).show();
-        }
 
 
-
-        //for location
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // Request the missing permissions
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
-        } else {
-            // Permissions are granted, you can call getLastLocation()
-            fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    // Got last known location. In some rare situations, this can be null.
-                    if (location != null) {
-                        // Logic to handle location object
+            //for location
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // Request the missing permissions
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+            } else {
+                // Permissions are granted, you can call getLastLocation()
+                fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations, this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
 //                        locationStr = "Latitude: " + location.getLatitude() + ", Longitude: " + location.getLongitude();
 //                        System.out.println("LOCATION: "+locationStr);
 
-                        Geocoder geocoder = new Geocoder(SplashActivity.this, Locale.getDefault());
-                        List<Address> addresses = null;
-                        try {
-                            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+                            Geocoder geocoder = new Geocoder(SplashActivity.this, Locale.getDefault());
+                            List<Address> addresses = null;
+                            try {
+                                addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            assert addresses != null;
+                            Address address = addresses.get(0);
+                            track.set_location(address.getAddressLine(0), address.getLocality(), address.getAdminArea(), address.getCountryName());
+
+
                         }
-                        assert addresses != null;
-                        Address address = addresses.get(0);
-                        track.set_location(address.getAddressLine(0), address.getLocality(), address.getAdminArea(), address.getCountryName());
-
-
                     }
-                }
-            });
+                });
+            }
+
+        } else {
+            Toast.makeText(SplashActivity.this,"Entering Offline Mode",Toast.LENGTH_SHORT).show();
         }
+
+
 
 
         handler = new Handler();

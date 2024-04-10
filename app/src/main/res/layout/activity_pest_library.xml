@@ -38,4 +38,26 @@
         android:nestedScrollingEnabled="false"
         />
 
+    <RelativeLayout
+        android:id="@+id/errormsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="10dp"
+        android:visibility="invisible"
+        android:background="@drawable/background_btn_intro6">
+
+        <TextView
+            android:id="@+id/label2"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="No data available. Check network connection then restart the app."
+            android:textAlignment="center"
+            android:textColor="@color/charcoal"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:typeface="monospace" />
+    </RelativeLayout>
+
 </RelativeLayout>

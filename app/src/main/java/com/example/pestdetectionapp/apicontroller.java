@@ -1,5 +1,8 @@
 package com.example.pestdetectionapp;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -8,9 +11,16 @@ public class apicontroller {
     private static apicontroller clientobject;
     private static Retrofit retrofit;
 
+    OkHttpClient okHttpClient = new OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS) // Increase connection timeout
+            .readTimeout(30, TimeUnit.SECONDS)    // Increase read timeout
+            .writeTimeout(30, TimeUnit.SECONDS)   // Increase write timeout
+            .build();
     apicontroller(){
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(url)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

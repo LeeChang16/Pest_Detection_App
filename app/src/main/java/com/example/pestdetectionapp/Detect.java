@@ -208,8 +208,10 @@ public class Detect extends AppCompatActivity {
 
     private List<Detect_Result_Data> getData()
     {
-        int current_id = Integer.parseInt(Id);
-        current_id += 1;
+        int current_id = 0;
+        if(Id != null){
+            current_id = Integer.parseInt(Id) + 1;
+        }
         System.out.println("CURRENT ID: "+Id);
         List<Detect_Result_Data> list = new ArrayList<>();
         Cursor cursor = database.getReadableDatabase().rawQuery("SELECT * FROM Pest_Information WHERE Pest_Id = "+current_id+" ", null);

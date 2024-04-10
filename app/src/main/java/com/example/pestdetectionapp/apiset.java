@@ -9,4 +9,5 @@ public interface apiset {
 
     @GET("RestApi.php")
     Call<List<mydata>> getData();
+
 }

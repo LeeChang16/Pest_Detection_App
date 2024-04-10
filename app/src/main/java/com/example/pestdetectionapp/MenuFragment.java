@@ -37,7 +37,7 @@ import java.util.Objects;
 
 public class MenuFragment extends Fragment {
 
-    Button gallery, about_app, edit, signout, analysis;
+    Button gallery, about_app, signout, analysis;
     ImageView profile_image,editdetails, edit_image;
     TextView name, address, occupation, location;
     DatabaseHandler database;
@@ -70,7 +70,6 @@ public class MenuFragment extends Fragment {
         gallery = rootView.findViewById(R.id.Gallery);
         about_app = rootView.findViewById(R.id.About_app);
         signout = rootView.findViewById(R.id.logout);
-        edit = rootView.findViewById(R.id.edit);
         analysis = rootView.findViewById(R.id.Analysis);
 
         profile_image = rootView.findViewById(R.id.profile_images);
@@ -107,10 +106,83 @@ public class MenuFragment extends Fragment {
         profile_image.setImageBitmap(bitmap);
         location.setText(track.getAddressline());
 
-        signout.setOnClickListener(v -> toLogout());
+        signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //        Dummy PopUp to darken the background when the actual popup is displayed
+                //INflating the customlayout
+                LayoutInflater inflater0 = (LayoutInflater) view.getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView0 = inflater0.inflate(R.layout.dummy_popup, null);
+
+                int windth0 = WindowManager.LayoutParams.MATCH_PARENT;
+                int height0 = WindowManager.LayoutParams.MATCH_PARENT;
+                PopupWindow dummyPopup = new PopupWindow(popupView0,windth0,height0,true);
+                dummyPopup.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+
+                // ACTUAL POPUP WINDOW
+                //Inflating the customlayout
+                LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView = inflater.inflate(R.layout.pop_up_dialog, null);
+
+                //Instantiating the views
+                Button yes = popupView.findViewById(R.id.yes);
+                Button no = popupView.findViewById(R.id.no);
+
+
+
+
+
+
+                //Creating the pop up window
+//                int width = ScrollView.LayoutParams.WRAP_CONTENT;
+//                int height = ScrollView.LayoutParams.WRAP_CONTENT;
+                final PopupWindow popupWindow = new PopupWindow(popupView, 1022, 1636, true);
+                //Show the popUpwindow
+                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+                popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        if(dummyPopup.isShowing()){
+                            dummyPopup.dismiss();
+                        }
+                    }
+                });
+
+
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        database = new DatabaseHandler(requireContext());
+                        idHolder.hold_id(0);
+                        database.turn_off_active_status(id);
+
+                        Intent intent = new Intent(requireContext(), Intro_UI.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        getActivity().finish();
+
+                    }
+                });
+                no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popupWindow.dismiss();
+
+                    }
+                });
+
+            }
+        });
+
+
+
+
         gallery.setOnClickListener(v -> toLibrary());
         about_app.setOnClickListener(v -> toAbout());
-        edit.setOnClickListener(v -> toEdit());
         analysis.setOnClickListener(v -> toAnalysis());
         editdetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,14 +295,6 @@ public class MenuFragment extends Fragment {
     }
 
     public void toLogout() {
-        database = new DatabaseHandler(requireContext());
-            idHolder.hold_id(0);
-            database.turn_off_active_status(id);
-
-            Intent intent = new Intent(requireContext(), Intro_UI.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            getActivity().finish();
 
     }
 
@@ -254,11 +318,6 @@ public class MenuFragment extends Fragment {
 
     public void toAbout(){
         Intent intent = new Intent(requireContext(), about.class);
-        startActivity(intent);
-    }
-
-    public void toEdit(){
-        Intent intent = new Intent(requireContext(), InsertPestInfo.class);
         startActivity(intent);
     }
 

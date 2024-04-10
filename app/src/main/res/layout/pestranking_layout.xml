@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_btn_intro5"
+        android:background="@drawable/new_background_lightgreen"
         android:padding="10dp">
         <TextView
             android:id="@+id/pestname"
@@ -16,14 +16,16 @@
             android:textSize="18sp"
             android:textColor="@color/charcoal"
             android:layout_alignParentLeft="true"/>
+
         <TextView
-            android:id="@+id/frequency"
+            android:id="@+id/pestfrequency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textColor="@color/charcoal"
             android:layout_alignParentRight="true"
-            android:layout_marginEnd="70dp"/>
+            android:layout_marginEnd="60dp"/>
+
     </RelativeLayout>
 
 </RelativeLayout>

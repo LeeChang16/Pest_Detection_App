@@ -133,11 +133,61 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="70dp"/>
+    <RelativeLayout
+        android:id="@+id/errormsg"
+        android:layout_width="370dp"
+        android:layout_height="230dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="70dp"
+        android:padding="10dp"
+        android:visibility="invisible"
+        android:background="@drawable/background_btn_intro6"
+        android:alpha="0.7">
+
+        <TextView
+            android:id="@+id/label2"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="No recent activities to show."
+            android:textAlignment="center"
+            android:textColor="@color/charcoal"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:typeface="monospace" />
+    </RelativeLayout>
+
 
 
 
 
 </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:background="@drawable/background_btn_intro7">
+
+        <TextView
+            android:id="@+id/preparing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Preparing Image"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="250dp"/>
+        <ProgressBar
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_below="@id/preparing"
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
 
 
 

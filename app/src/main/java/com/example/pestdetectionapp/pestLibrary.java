@@ -8,6 +8,8 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import retrofit2.Response;
 public class pestLibrary extends AppCompatActivity {
 
     library_Adapter adapter;
+    RelativeLayout errormsg;
     RecyclerView recyclerView;
     library_ClickListener clickListener;
     DatabaseHandler database;
@@ -34,7 +37,13 @@ public class pestLibrary extends AppCompatActivity {
         List<library_Data> list = new ArrayList<>();
         list = getDatas();
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.recyclerview);
+        errormsg = findViewById(R.id.errormsg);
+
+        if (list.isEmpty()){
+            errormsg.setVisibility(View.VISIBLE);
+        }
+
         clickListener = new library_ClickListener() {
             @Override
             public void click(int index) {

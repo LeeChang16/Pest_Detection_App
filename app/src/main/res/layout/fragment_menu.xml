@@ -184,30 +184,29 @@
 
          <Button
              android:id="@+id/logout"
-             android:layout_width="170dp"
+             android:layout_width="380dp"
              android:layout_height="50dp"
              android:text="Logout"
              android:background="@drawable/background_btn_intro"
-             app:icon ="@drawable/baseline_logout_24"
-             android:layout_alignParentEnd="true"
+             android:layout_centerHorizontal="true"
              android:layout_below="@id/About_app"
              android:layout_marginTop="15dp"
              android:layout_marginEnd="0dp"
-
+             app:icon="@drawable/baseline_logout_24"
              />
 
-         <Button
-             android:id="@+id/edit"
-             android:layout_width="170dp"
-             android:layout_height="50dp"
-             android:text="Edit Profile"
-             app:icon ="@drawable/baseline_edit_24"
-             android:layout_alignParentStart="true"
-             android:layout_below="@id/About_app"
-             android:background="@drawable/background_btn_intro"
-             android:layout_marginTop="15dp"
-             android:layout_marginStart="0dp"
-             />
+<!--         <Button-->
+<!--             android:id="@+id/edit"-->
+<!--             android:layout_width="170dp"-->
+<!--             android:layout_height="50dp"-->
+<!--             android:text="Edit Profile"-->
+<!--             app:icon ="@drawable/baseline_edit_24"-->
+<!--             android:layout_alignParentStart="true"-->
+<!--             android:layout_below="@id/About_app"-->
+<!--             android:background="@drawable/background_btn_intro"-->
+<!--             android:layout_marginTop="15dp"-->
+<!--             android:layout_marginStart="0dp"-->
+<!--             />-->
 
      </RelativeLayout>
 
