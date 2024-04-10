@@ -9,12 +9,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -22,6 +31,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -31,12 +41,15 @@ public class Analysis extends AppCompatActivity {
     RecyclerView recyclerView;
     Ranking_Adapter adapter;
     Ranking_Clicklistener clickListener;
-    GraphView graphView;
+    LineChart linechart;
+    private List<String>xValues;
+    private List<Entry>Yentries;
     TextView most_detected_pest, total_pest, recommendation;
     DatabaseHandler db;
     String pest;
     String intervention;
     int count;
+
     String str_id;
     RelativeLayout errormsg;
     id_Holder id = id_Holder.getInstance();
@@ -45,7 +58,7 @@ public class Analysis extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analysis);
 
-        graphView = findViewById(R.id.linegraph);
+        linechart = findViewById(R.id.lineChart);
         most_detected_pest = findViewById(R.id.most_detected);
         total_pest = findViewById(R.id.total_pest);
         recommendation = findViewById(R.id.recommendation);
@@ -53,6 +66,65 @@ public class Analysis extends AppCompatActivity {
 
         db = new DatabaseHandler(Analysis.this);
         str_id = String.valueOf(id.retrieve_id());
+
+
+        // Line Chart
+        Description description = new Description();
+        description.setText("");
+        description.setPosition(300f,15f);
+        description.setTextSize(15f);
+//
+        linechart.setDescription(description);
+        linechart.getAxisRight().setDrawLabels(false);
+
+//        xValues = Arrays.asList("08-Apr","09-Apr","10-Apr","11-Apr");
+        xValues = new ArrayList<>();
+        xValues = getxValues();
+
+
+
+        int dateCount = xValues.size() +1;
+
+//        xValues.add(new String("08-Apr"));
+//        xValues.add(new String("09-Apr"));
+//        xValues.add(new String("10-Apr"));
+//        xValues.add(new String("12-Apr"));
+
+        XAxis xAxis = linechart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(xValues));
+        xAxis.setLabelCount(dateCount);
+        xAxis.setGranularity(1f);
+
+
+        YAxis yAxis = linechart.getAxisLeft();
+        yAxis.setAxisMinimum(0f);
+        yAxis.setAxisMaximum(10f);
+        yAxis.setAxisLineWidth(2f);
+        yAxis.setAxisLineColor(Color.BLACK);
+        yAxis.setLabelCount(10);
+
+        Yentries = new ArrayList<>();
+        Yentries = getYentries();
+//        entries1.add(new Entry(1,3f));
+
+
+//        List<Entry> entries2 = new ArrayList<>();
+//        entries2.add(new Entry(0,0f));
+//        entries2.add(new Entry(1,8f));
+
+
+//        LineDataSet dataSet1 = new LineDataSet(entries1,"Stemborer");
+//        dataSet1.setColor(Color.GREEN);
+
+        LineDataSet dataSet = new LineDataSet(Yentries,"Total Detection");
+        dataSet.setColor(Color.BLUE);
+
+        LineData lineData = new LineData(dataSet);
+        linechart.setData(lineData);
+        linechart.invalidate();
+
+
 
 
         if(db.check_DataAvailable(String.valueOf(id.retrieve_id()))){
@@ -64,74 +136,6 @@ public class Analysis extends AppCompatActivity {
             intervention = db.get_Recommendation(pest);
             recommendation.setText(intervention);
         }
-
-        DataPoint[] dataPoints = new DataPoint[]{
-//                new DataPoint(0, 1),
-//                new DataPoint(1, 3),
-//                new DataPoint(2, 1),
-//                new DataPoint(3, 3),
-//                new DataPoint(4, 1),
-//                new DataPoint(5, 3),
-                // Add more data points...
-        };
-
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
-        graphView.addSeries(series);
-
-// Customize the x-axis labels as day-month
-        graphView.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
-            @Override
-            public String formatLabel(double value, boolean isValueX) {
-                if (isValueX) {
-                    // Convert the value (assumed to be an integer) to a Date
-                    Date date = new Date((long) value);
-                    // Format the date as "dd-MMMM" (e.g., "09-April")
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM", Locale.getDefault());
-                    return sdf.format(date);
-                }
-                return super.formatLabel(value, isValueX);
-            }
-        });
-
-// Set the viewport bounds (optional)
-        graphView.getViewport().setMinX(0);
-        graphView.getViewport().setMaxX(12);
-        graphView.getGridLabelRenderer().setNumHorizontalLabels(4);
-
-//        // on below line we are adding data to our graph view.
-//        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[]{
-//                // on below line we are adding
-//                // each point on our x and y axis.
-//                new DataPoint(0, 1),
-//                new DataPoint(1, 3),
-//                new DataPoint(2, 4),
-//                new DataPoint(3, 9),
-//                new DataPoint(4, 6),
-//                new DataPoint(5, 3),
-//                new DataPoint(6, 6),
-//                new DataPoint(7, 1),
-//                new DataPoint(8, 9),
-//                new DataPoint(9, 6),
-//                new DataPoint(10, 3),
-//                new DataPoint(11, 6),
-//                new DataPoint(12, 1),
-//        });
-
-        graphView.setTitle("Recent Detections");
-        graphView.animate();
-        graphView.getViewport().setScrollable(true);
-        graphView.getViewport().setScalableY(true);
-//        // on below line we are setting
-//        // text color to our graph view.
-        graphView.setTitleColor(R.color.charcoal);
-//
-//        // on below line we are setting
-//        // our title text size.
-        graphView.setTitleTextSize(50);
-//
-//        // on below line we are adding
-//        // data series to our graph view.
-//        graphView.addSeries(series);
 
 
         //Recyclers View
@@ -155,6 +159,43 @@ public class Analysis extends AppCompatActivity {
         }
     }
 
+    private List<String> getxValues(){
+        List<String> list = new ArrayList<>();
+        list.add(new String("0"));
+
+        Cursor cursor = db.getReadableDatabase().rawQuery("SELECT Date FROM Detected_Pest WHERE User_Id = ? GROUP BY Date ORDER BY Date ASC",new String[]{str_id});
+        if(cursor.moveToFirst()){
+            do {
+                String date = cursor.getString(0);
+
+                list.add(new String(date));
+            }while(cursor.moveToNext());
+        }
+
+        cursor.close();
+
+
+        return list;
+    }
+
+    private List<Entry> getYentries(){
+        List<Entry> list = new ArrayList<>();
+        list.add(new Entry(0,0f));
+        int i = 0;
+        Cursor cursor = db.getReadableDatabase().rawQuery("SELECT COUNT(Date) FROM Detected_Pest WHERE User_Id = ? GROUP BY Date ORDER BY Date ASC",new String[]{str_id});
+        if(cursor.moveToFirst()){
+            do {
+                float detection_bydate_Count = cursor.getFloat(0);
+                i+=1;
+                list.add(new Entry(i,detection_bydate_Count));
+            }while(cursor.moveToNext());
+        }
+
+        cursor.close();
+
+
+        return list;
+    }
 
     private List<Ranking_Data> getData()
     {

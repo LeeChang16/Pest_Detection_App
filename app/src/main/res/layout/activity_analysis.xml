@@ -14,26 +14,47 @@
         android:elevation="20dp"
         android:background="@drawable/background_btn_intro7"
         >
-            <androidx.cardview.widget.CardView
+            <RelativeLayout
                 android:id="@+id/card1"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:alpha="0.8"
                 android:elevation="30dp"
-                android:background="@drawable/new_background_darkgreen"
-                app:cardCornerRadius="30dp"
+                android:background="@drawable/background_btn_intro4"
                 android:layout_centerHorizontal="true"
+                android:paddingTop="10dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 >
-                
-                <com.jjoe64.graphview.GraphView
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/linegraph"
-                    android:layout_width="350dp"
-                    android:layout_height="375dp"
+
+                <TextView
+                    android:id="@+id/titlelabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Detection History"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textAlignment="center"
+                    android:textColor="@color/charcoal"
                     />
 
-            </androidx.cardview.widget.CardView>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/titlelabel"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/new_background_lightgreen">
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/lineChart"
+                        android:layout_width="350dp"
+                        android:layout_height="345dp"
+                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true" />
+                </RelativeLayout>
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_below="@id/card1"
@@ -155,12 +176,20 @@
                 android:layout_toRightOf="@id/label12"
                 android:textAlignment="textStart"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/ranking_recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
+
+            <RelativeLayout
                 android:layout_below="@id/label12"
-                />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/new_background_lightgreen"
+                android:padding="5dp">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/ranking_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+
+                    />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/errormsg"
