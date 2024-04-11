@@ -36,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -45,6 +46,7 @@ public class HomeFragment extends Fragment {
     ImageButton GalleryButton, CameraButton;
     int REQUEST_CODE = 100;
     public Bitmap capturedImage;
+    holdBitmap hold = holdBitmap.getInstance();
 
     TextView temp_reading, town_name;
     bitmapHolder holder;
@@ -76,6 +78,7 @@ public class HomeFragment extends Fragment {
         CameraButton.setOnClickListener(v ->openCamera());
 
         db = new DatabaseHandler(requireContext());
+
 
 
 
@@ -142,10 +145,19 @@ public class HomeFragment extends Fragment {
                 assert data != null;
                 Uri dat = data.getData();
 
+                Bitmap bitmap;
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), dat);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                hold.setImage(bitmap);
+
+
                 // Pass the image Uri to Detect.java
                 Intent intent = new Intent(requireContext(), Detect.class);
                 assert dat != null;
-                intent.putExtra("imageUri", dat.toString());
+//                intent.putExtra("imageUri", dat.toString()); //
                 startActivity(intent);
             }
 
@@ -154,13 +166,19 @@ public class HomeFragment extends Fragment {
                 assert data != null;
                 capturedImage = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
                 assert capturedImage != null;
+
+
+
                 int dimension = Math.min(capturedImage.getWidth(), capturedImage.getHeight());
                 capturedImage = ThumbnailUtils.extractThumbnail(capturedImage, dimension, dimension);
 
+
+                hold.setImage(capturedImage); // to hold the image for later use
+
                 Intent i = new Intent(requireContext(), Detect.class);
-                ByteArrayOutputStream bs = new ByteArrayOutputStream();
-                capturedImage.compress(Bitmap.CompressFormat.PNG, 100, bs);
-                i.putExtra("byteArray", bs.toByteArray());
+//                ByteArrayOutputStream bs = new ByteArrayOutputStream();
+//                capturedImage.compress(Bitmap.CompressFormat.PNG, 100, bs);
+//                i.putExtra("byteArray", bs.toByteArray());
                 startActivity(i);
             }
         }

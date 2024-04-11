@@ -50,6 +50,8 @@ public class SplashActivity extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationClient;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     location_Tracker track = location_Tracker.getInstance();
+    baseUrl url = baseUrl.getInstance();
+
 
 
     @Override
@@ -159,7 +161,7 @@ public class SplashActivity extends AppCompatActivity {
                     String Description = item.getDescription();
                     String Intervention = item.getIntervention();
                     String ImagePath = item.getImagePath();
-                    String ImageUrl = "http://192.168.100.10/MyAdmin/"+ImagePath;
+                    String ImageUrl = url.getUrl()+ImagePath;
 
                     Glide.with(getApplication()).asBitmap().load(ImageUrl).into(new CustomTarget<Bitmap>() {
                                 @Override

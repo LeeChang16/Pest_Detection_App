@@ -62,6 +62,8 @@ public class Detect extends AppCompatActivity {
     RecyclerView recyclerView;
     Detect_Result_Clicklistener clickListener;
 
+    holdBitmap hold = holdBitmap.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,37 +98,42 @@ public class Detect extends AppCompatActivity {
         texpaint.setStyle(Paint.Style.FILL);
 
 
-        if (getIntent().hasExtra("imageUri")) {
-            //receiving the URI path as String
-            String dat = getIntent().getStringExtra("imageUri");
-            //Converting the String back to Uri
-            Uri imageUri = Uri.parse(dat);
-                try {
-                    // Locating the image path using URI and store the image in bitmap
-                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            //Resize image according to the expected image size of the model
-            bitmap = Bitmap.createScaledBitmap(bitmap,imageSize,imageSize,false);
+//        if (getIntent().hasExtra("imageUri")) {
+//            //receiving the URI path as String
+//            String dat = getIntent().getStringExtra("imageUri");
+//            //Converting the String back to Uri
+//            Uri imageUri = Uri.parse(dat);
+//                try {
+//                    // Locating the image path using URI and store the image in bitmap
+//                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            //Resize image according to the expected image size of the model
+//            bitmap = Bitmap.createScaledBitmap(bitmap,imageSize,imageSize,false);
+//
+//        } else if (getIntent().hasExtra("byteArray")) {
+//            // receive captured image as bytearray and then converting bytearray to bitmap
+//            bitmap = BitmapFactory.decodeByteArray(
+//                    getIntent().getByteArrayExtra("byteArray"),0,getIntent().getByteArrayExtra("byteArray").length);
+//
+//            //Resize image according to the expected image size of the model
+//            bitmap = Bitmap.createScaledBitmap(bitmap,imageSize,imageSize,false);
+//        }
+//
+//        // Calling the predict function to process image and get results.
+//        if (bitmap.equals(null)) {
+//
+//            Toast.makeText(this, "Null Bitmap",Toast.LENGTH_SHORT).show();
+//        }
+//        else{
+//            predict();
+//        }
+        bitmap = hold.getImage();
+        bitmap = Bitmap.createScaledBitmap(bitmap,imageSize,imageSize,false);
 
-        } else if (getIntent().hasExtra("byteArray")) {
-            // receive captured image as bytearray and then converting bytearray to bitmap
-            bitmap = BitmapFactory.decodeByteArray(
-                    getIntent().getByteArrayExtra("byteArray"),0,getIntent().getByteArrayExtra("byteArray").length);
+        predict();
 
-            //Resize image according to the expected image size of the model
-            bitmap = Bitmap.createScaledBitmap(bitmap,imageSize,imageSize,false);
-        }
-
-        // Calling the predict function to process image and get results.
-        if (bitmap.equals(null)) {
-
-            Toast.makeText(this, "Null Bitmap",Toast.LENGTH_SHORT).show();
-        }
-        else{
-            predict();
-        }
 
         //Recyclers View
         List<Detect_Result_Data> list = new ArrayList<>();

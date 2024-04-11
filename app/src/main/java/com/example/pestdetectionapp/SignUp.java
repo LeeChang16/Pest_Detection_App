@@ -40,6 +40,8 @@ public class SignUp extends AppCompatActivity {
     ImageView profile_pic;
     EditText fullname,province,town,occupation,username,password,match;
     DatabaseHandler database;
+    private MyApi myApi;
+    baseUrl url = baseUrl.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,117 @@ public class SignUp extends AppCompatActivity {
 
     public void signUp(View view) throws NoSuchAlgorithmException {
 
+        insertData(view);
+
+//        if(validate()) {
+//
+//            String name = fullname.getText().toString();
+//            String provinces = province.getText().toString();
+//            String towns = town.getText().toString();
+//            String occupations = occupation.getText().toString();
+//            String user = username.getText().toString();
+//            String pass = password.getText().toString();
+//            String confirm = match.getText().toString();
+//
+//
+//            String hashed_Password = hash.hashString(pass);
+//
+//
+//            if (hashed_Password.equals(database.get_hash(hashed_Password))) {
+//                if (user.equals(database.get_user(user))) {
+//                    Toast.makeText(getApplicationContext(), "Credentials Already Exist!", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(getApplicationContext(), "Password Already Exist!", Toast.LENGTH_SHORT).show();
+//                }
+//            } else {
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//                reducedSize.compress(Bitmap.CompressFormat.PNG, 50, stream);
+//                image = stream.toByteArray();
+//
+//                database.insertClient(name, provinces, towns, occupations, image);
+//                database.insertAccount(user, hashed_Password, 0);
+////                Toast.makeText(getApplicationContext(), "Account Created!", Toast.LENGTH_SHORT).show();
+//
+////                Intent intent = new Intent(this, Login.class);
+////                new AlertDialog.Builder(this)
+////                        .setTitle("Account Created! ")
+////                        .setMessage("Please Login")
+////                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+////                            public void onClick(DialogInterface arg0, int arg1) {
+////                                startActivity(intent);
+////                            }
+////                        }).create().show();
+//
+//                //        Dummy PopUp to darken the background when the actual popup is displayed
+//                //INflating the customlayout
+//
+//                LayoutInflater inflater0 = (LayoutInflater) view.getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+//                View popupView0 = inflater0.inflate(R.layout.dummy_popup, null);
+//
+//                int windth0 = WindowManager.LayoutParams.MATCH_PARENT;
+//                int height0 = WindowManager.LayoutParams.MATCH_PARENT;
+//                PopupWindow dummyPopup = new PopupWindow(popupView0,windth0,height0,true);
+//                dummyPopup.showAtLocation(view, Gravity.CENTER, 0, 0);
+//
+//
+//                // ACTUAL POPUP WINDOW
+//                //Inflating the customlayout
+//                LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+//                View popupView = inflater.inflate(R.layout.pop_up_dialog, null);
+//
+//                //Instantiating the views
+//                Button yes = popupView.findViewById(R.id.yes);
+//                Button no = popupView.findViewById(R.id.no);
+//                TextView title = popupView.findViewById(R.id.popup_title);
+//                TextView msg = popupView.findViewById(R.id.popup_msg);
+//
+//                title.setText("Registered");
+//                msg.setText("Account successfuly created!\n You will be redirected to the login page. ");
+//                yes.setVisibility(View.GONE);
+//                no.setText("Ok");
+//
+//
+//                //Creating the pop up window
+////                int width = ScrollView.LayoutParams.WRAP_CONTENT;
+////                int height = ScrollView.LayoutParams.WRAP_CONTENT;
+//                final PopupWindow popupWindow = new PopupWindow(popupView, 1022, 1636, true);
+//                //Show the popUpwindow
+//                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+//
+//                popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+//                    @Override
+//                    public void onDismiss() {
+//                        if(dummyPopup.isShowing()){
+//                            dummyPopup.dismiss();
+//                        }
+//                    }
+//                });
+//
+//
+//                yes.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                    }
+//                });
+//                no.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        popupWindow.dismiss();
+//
+//                        Intent intent = new Intent(SignUp.this, Login.class);
+//                        startActivity(intent);
+//
+//                    }
+//                });
+//
+//
+//
+//
+//            }
+//        }
+    }
+
+    private void insertData(View view) throws NoSuchAlgorithmException {
         if(validate()) {
 
             String name = fullname.getText().toString();
@@ -175,6 +288,7 @@ public class SignUp extends AppCompatActivity {
 
             }
         }
+
     }
 
 

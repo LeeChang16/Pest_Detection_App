@@ -7,10 +7,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class apicontroller {
-    private static final String url="http://192.168.100.10/MyAdmin/";
+//    private static final String url="http://192.168.100.10/MyAdmin/";
     private static apicontroller clientobject;
     private static Retrofit retrofit;
-
+    baseUrl url =baseUrl.getInstance();
     OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS) // Increase connection timeout
             .readTimeout(30, TimeUnit.SECONDS)    // Increase read timeout
@@ -19,7 +19,7 @@ public class apicontroller {
     apicontroller(){
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(url)
+                .baseUrl(url.getUrl())
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
