@@ -322,7 +322,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                         cropCopyBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                                         byte[] image = stream.toByteArray();
                                         String id = String.valueOf(idHolder.retrieve_id());
-                                        database.insertPest(pest_name, confidenceStr, image, currentTime, currentDate, id);
+                                        database.insertPest(pest_name, confidenceStr, image, currentTime, currentDate, id,0);
                                     }
 
                             }

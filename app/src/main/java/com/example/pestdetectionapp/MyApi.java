@@ -8,8 +8,7 @@ import retrofit2.http.POST;
 public interface MyApi {
     @FormUrlEncoded
     @POST("AddUser.php")
-    Call<modelClass> inserData(
-            @Field("id")String Id,
+    Call<modelClass> insertData(
             @Field("fname")String Fullname,
             @Field("town")String Town,
             @Field("province")String Province,

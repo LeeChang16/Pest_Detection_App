@@ -11,6 +11,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.CursorWindow;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -19,6 +20,7 @@ import android.location.Location;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -30,6 +32,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Locale;
@@ -58,6 +61,16 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        try {
+            Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
+            field.setAccessible(true);
+            field.set(null, 100 * 1024 * 1024); //the 100MB is the new size
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
 
         db = new DatabaseHandler(SplashActivity.this);
         if (isNetworkConnected()) {
@@ -172,7 +185,6 @@ public class SplashActivity extends AppCompatActivity {
                                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                                     bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
                                     imagebyte = stream.toByteArray();
-                                    db.insertPestDetails(Id, Name, ScientificName, PestOrder, PestFamily, Description, Intervention, imagebyte);
 
                                 }
 
@@ -182,6 +194,11 @@ public class SplashActivity extends AppCompatActivity {
                                 }
                             });
 
+                    if(db.checkpest_id(Integer.parseInt(Id))) {
+                        db.insertPestDetails(Id, Name, ScientificName, PestOrder, PestFamily, Description, Intervention, imagebyte);
+                    }else{
+                        Log.d("PEST", "onResourceReady: PEST ALREADY EXISTED");
+                    }
 
                 }
 

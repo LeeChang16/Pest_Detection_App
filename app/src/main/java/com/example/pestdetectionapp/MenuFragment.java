@@ -157,8 +157,9 @@ public class MenuFragment extends Fragment {
                     public void onClick(View v) {
 
                         database = new DatabaseHandler(requireContext());
+
+                        database.delete_user_data(id);
                         idHolder.hold_id(0);
-                        database.turn_off_active_status(id);
 
                         Intent intent = new Intent(requireContext(), Intro_UI.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

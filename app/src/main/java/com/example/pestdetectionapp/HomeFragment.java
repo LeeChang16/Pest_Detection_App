@@ -151,6 +151,8 @@ public class HomeFragment extends Fragment {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+                int dimension = Math.min(bitmap.getWidth(), bitmap.getHeight());
+                bitmap = ThumbnailUtils.extractThumbnail(bitmap, dimension, dimension);
                 hold.setImage(bitmap);
 
 

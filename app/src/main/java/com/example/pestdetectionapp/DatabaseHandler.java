@@ -61,6 +61,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String Detected_Pest_Date = "Date";
     private static final String Detected_Pest_Time = "Time";
     private static final String Detected_Pest_User = "User_Id";
+    private static final String Detected_Pest_Uploaded = "Uploaded";
 
 
     public DatabaseHandler(@Nullable Context context) {
@@ -72,7 +73,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // Creation of Client Table
         String query1 = "CREATE TABLE " + Personal_Info_Table + " ("
-                + Client_Id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + Client_Id + " INTEGER PRIMARY KEY, "
                 + FullName + " TEXT,"
                 + Province + " TEXT,"
                 + Town + " TEXT,"
@@ -97,10 +98,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + Detected_Pest_Picture + " BLOB,"
                 + Detected_Pest_Time + " TEXT,"
                 + Detected_Pest_Date + " TEXT,"
+                + Detected_Pest_Uploaded + " INTEGER,"
                 + Detected_Pest_User + " TEXT)";
 
         String query4 = "CREATE TABLE " + Account_Table + " ("
-                + Account_Id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + Account_Id + " INTEGER PRIMARY KEY, "
                 + Account_Username + " TEXT,"
                 + Account_Password + " TEXT,"
                 + Account_Active + " INTEGER)";
@@ -125,7 +127,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void insertPest( String pestname, String confidencelevel, byte[] image, String time, String date, String user_id){
+    public void insertPest( String pestname, String confidencelevel, byte[] image, String time, String date, String user_id, int uploaded){
 
         SQLiteDatabase db = getWritableDatabase();
 
@@ -136,15 +138,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         insertValues.put(Detected_Pest_Time, time);
         insertValues.put(Detected_Pest_Date, date);
         insertValues.put(Detected_Pest_User, user_id);
+        insertValues.put(Detected_Pest_Uploaded, uploaded);
         db.insert(Detected_Pest_Table, null, insertValues);
 
     }
 
-    public void insertAccount(String Username, String Password, int Active){
+    public void insertAccount(int id, String Username, String Password, int Active){
 
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues insertValues = new ContentValues();
+        insertValues.put(Account_Id,id);
         insertValues.put(Account_Username, Username);
         insertValues.put(Account_Password, Password);
         insertValues.put(Account_Active, Active);
@@ -152,11 +156,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void insertClient(String fullname, String province, String town, String occupation, byte[] profile){
+    public void insertClient(int id, String fullname, String province, String town, String occupation, byte[] profile){
 
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues insertValues = new ContentValues();
+        insertValues.put(Client_Id,id);
         insertValues.put(FullName, fullname);
         insertValues.put(Province, province);
         insertValues.put(Town, town);
@@ -332,8 +337,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return result > 0;
     }
 
+    public void delete_user_data(int id){
+        SQLiteDatabase db = getWritableDatabase();
 
+        db.execSQL("DELETE FROM "+Detected_Pest_Table+" WHERE "+Detected_Pest_User+"="+ id);
+        db.execSQL("DELETE FROM "+Personal_Info_Table+" WHERE "+Client_Id+"="+ id);
+        db.execSQL("DELETE FROM "+Account_Table+" WHERE "+Account_Id+"="+ id);
 
+    }
+    public boolean checkpest_id(int id){
+        boolean doesnt_exist = true;
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+Pest_Info_Table+" WHERE "+Pest_Id+"=?",new String[]{String.valueOf(id)});
+        if(cursor.getCount()>0){
+            doesnt_exist =false;
+        }
+        return doesnt_exist;
+    }
 
 
 }

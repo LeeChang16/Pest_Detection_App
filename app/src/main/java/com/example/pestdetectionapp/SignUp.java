@@ -13,8 +13,11 @@ import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,11 +29,31 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParseException;
+import com.vishnusivadas.advanced_httpurlconnection.PutData;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class SignUp extends AppCompatActivity {
 
@@ -40,7 +63,7 @@ public class SignUp extends AppCompatActivity {
     ImageView profile_pic;
     EditText fullname,province,town,occupation,username,password,match;
     DatabaseHandler database;
-    private MyApi myApi;
+    private apiset Apiset;
     baseUrl url = baseUrl.getInstance();
 
     @Override
@@ -71,159 +94,77 @@ public class SignUp extends AppCompatActivity {
 
     public void signUp(View view) throws NoSuchAlgorithmException {
 
-        insertData(view);
+        if (validate()) {
 
-//        if(validate()) {
-//
-//            String name = fullname.getText().toString();
-//            String provinces = province.getText().toString();
-//            String towns = town.getText().toString();
-//            String occupations = occupation.getText().toString();
-//            String user = username.getText().toString();
-//            String pass = password.getText().toString();
-//            String confirm = match.getText().toString();
-//
-//
-//            String hashed_Password = hash.hashString(pass);
-//
-//
-//            if (hashed_Password.equals(database.get_hash(hashed_Password))) {
-//                if (user.equals(database.get_user(user))) {
-//                    Toast.makeText(getApplicationContext(), "Credentials Already Exist!", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(getApplicationContext(), "Password Already Exist!", Toast.LENGTH_SHORT).show();
-//                }
-//            } else {
-//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                reducedSize.compress(Bitmap.CompressFormat.PNG, 50, stream);
-//                image = stream.toByteArray();
-//
-//                database.insertClient(name, provinces, towns, occupations, image);
-//                database.insertAccount(user, hashed_Password, 0);
-////                Toast.makeText(getApplicationContext(), "Account Created!", Toast.LENGTH_SHORT).show();
-//
-////                Intent intent = new Intent(this, Login.class);
-////                new AlertDialog.Builder(this)
-////                        .setTitle("Account Created! ")
-////                        .setMessage("Please Login")
-////                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-////                            public void onClick(DialogInterface arg0, int arg1) {
-////                                startActivity(intent);
-////                            }
-////                        }).create().show();
-//
-//                //        Dummy PopUp to darken the background when the actual popup is displayed
-//                //INflating the customlayout
-//
-//                LayoutInflater inflater0 = (LayoutInflater) view.getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-//                View popupView0 = inflater0.inflate(R.layout.dummy_popup, null);
-//
-//                int windth0 = WindowManager.LayoutParams.MATCH_PARENT;
-//                int height0 = WindowManager.LayoutParams.MATCH_PARENT;
-//                PopupWindow dummyPopup = new PopupWindow(popupView0,windth0,height0,true);
-//                dummyPopup.showAtLocation(view, Gravity.CENTER, 0, 0);
-//
-//
-//                // ACTUAL POPUP WINDOW
-//                //Inflating the customlayout
-//                LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-//                View popupView = inflater.inflate(R.layout.pop_up_dialog, null);
-//
-//                //Instantiating the views
-//                Button yes = popupView.findViewById(R.id.yes);
-//                Button no = popupView.findViewById(R.id.no);
-//                TextView title = popupView.findViewById(R.id.popup_title);
-//                TextView msg = popupView.findViewById(R.id.popup_msg);
-//
-//                title.setText("Registered");
-//                msg.setText("Account successfuly created!\n You will be redirected to the login page. ");
-//                yes.setVisibility(View.GONE);
-//                no.setText("Ok");
-//
-//
-//                //Creating the pop up window
-////                int width = ScrollView.LayoutParams.WRAP_CONTENT;
-////                int height = ScrollView.LayoutParams.WRAP_CONTENT;
-//                final PopupWindow popupWindow = new PopupWindow(popupView, 1022, 1636, true);
-//                //Show the popUpwindow
-//                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-//
-//                popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-//                    @Override
-//                    public void onDismiss() {
-//                        if(dummyPopup.isShowing()){
-//                            dummyPopup.dismiss();
-//                        }
-//                    }
-//                });
-//
-//
-//                yes.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                    }
-//                });
-//                no.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        popupWindow.dismiss();
-//
-//                        Intent intent = new Intent(SignUp.this, Login.class);
-//                        startActivity(intent);
-//
-//                    }
-//                });
-//
-//
-//
-//
-//            }
-//        }
-    }
-
-    private void insertData(View view) throws NoSuchAlgorithmException {
-        if(validate()) {
-
-            String name = fullname.getText().toString();
-            String provinces = province.getText().toString();
-            String towns = town.getText().toString();
-            String occupations = occupation.getText().toString();
-            String user = username.getText().toString();
+            String Fullname = fullname.getText().toString();
+            String Province = province.getText().toString();
+            String Town = town.getText().toString();
+            String Occupation = occupation.getText().toString();
+            String Username = username.getText().toString();
             String pass = password.getText().toString();
-            String confirm = match.getText().toString();
+
+            // Hashing password using SHA256
+            String Password = hash.hashString(pass);
+
+            // converting image to bytearray
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            reducedSize.compress(Bitmap.CompressFormat.PNG, 50, stream);
+            byte[] image = stream.toByteArray();
+
+            // Convert image to base64 string (optional)
+            String pictureString = Base64.encodeToString(image, Base64.DEFAULT);
 
 
-            String hashed_Password = hash.hashString(pass);
+            Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    String[] field = new String[7];
+                    field[0] = "Fullname";
+                    field[1] = "Town";
+                    field[2] = "Province";
+                    field[3] = "Occupation";
+                    field[4] = "Username";
+                    field[5] = "Password";
+                    field[6] = "picture";
 
+                    String[] data = new String[7];
+                    data[0] = Fullname;
+                    data[1] = Town;
+                    data[2] = Province;
+                    data[3] = Occupation;
+                    data[4] = Username;
+                    data[5] = Password;
+                    data[6] = pictureString;
 
-            if (hashed_Password.equals(database.get_hash(hashed_Password))) {
-                if (user.equals(database.get_user(user))) {
-                    Toast.makeText(getApplicationContext(), "Credentials Already Exist!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Password Already Exist!", Toast.LENGTH_SHORT).show();
+                    PutData putData = new PutData(url.getUrl()+"Signup.php", "POST", field, data);
+
+                    if (putData.startPut()) {
+
+                        System.out.println("putData has started");
+
+                        if (putData.onComplete()) {
+                            String result = putData.getResult();
+                            System.out.println("Result:"+result);
+                            System.out.println("Result:"+result);
+                            System.out.println("Result:"+result);
+                            System.out.println("Result:"+result);
+                            System.out.println("Result:"+result);
+
+                        }else{
+                            String result = putData.getResult();
+                            System.out.println("Result:"+result);
+                            System.out.println("Result:"+result);
+                            System.out.println("Result:"+result);
+                            System.out.println("Result:"+result);
+                            System.out.println("Result:"+result);
+
+                        }
+                    }
                 }
-            } else {
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                reducedSize.compress(Bitmap.CompressFormat.PNG, 50, stream);
-                image = stream.toByteArray();
+            });
 
-                database.insertClient(name, provinces, towns, occupations, image);
-                database.insertAccount(user, hashed_Password, 0);
-//                Toast.makeText(getApplicationContext(), "Account Created!", Toast.LENGTH_SHORT).show();
-
-//                Intent intent = new Intent(this, Login.class);
-//                new AlertDialog.Builder(this)
-//                        .setTitle("Account Created! ")
-//                        .setMessage("Please Login")
-//                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface arg0, int arg1) {
-//                                startActivity(intent);
-//                            }
-//                        }).create().show();
-
-                //        Dummy PopUp to darken the background when the actual popup is displayed
-                //INflating the customlayout
-
+            //Inflating the customlayout
                 LayoutInflater inflater0 = (LayoutInflater) view.getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView0 = inflater0.inflate(R.layout.dummy_popup, null);
 
@@ -288,8 +229,6 @@ public class SignUp extends AppCompatActivity {
 
             }
         }
-
-    }
 
 
     @Override
@@ -380,5 +319,9 @@ public class SignUp extends AppCompatActivity {
             valid = false;
         }
         return valid;
+    }
+
+    private Gson getLenientGson() {
+        return new GsonBuilder().setLenient().create();
     }
 }

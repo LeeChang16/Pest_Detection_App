@@ -1,25 +1,13 @@
 package com.example.pestdetectionapp;
 
 public class modelClass {
-    String Id, Fullname, Town, Province, Occupation, Username, Password;
-
-    public modelClass(String id, String fullname, String town, String province, String occupation, String username, String password) {
-        Id = id;
-        Fullname = fullname;
-        Town = town;
-        Province = province;
-        Occupation = occupation;
-        Username = username;
-        Password = password;
-    }
-
-    public String getId() {
-        return Id;
-    }
-
-    public void setId(String id) {
-        Id = id;
-    }
+    String  Fullname;
+    String Town;
+    String Province;
+    String Occupation;
+    String Username;
+    String Password;
+    byte [] picture;
 
     public String getFullname() {
         return Fullname;
@@ -67,5 +55,13 @@ public class modelClass {
 
     public void setPassword(String password) {
         Password = password;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
     }
 }

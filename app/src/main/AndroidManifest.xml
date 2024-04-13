@@ -20,7 +20,7 @@
         android:fullBackupContent="@xml/backup_rules"
         android:fullBackupOnly="false"
         android:icon="@drawable/logo_with_background"
-        android:label="PesteLens"
+        android:label="PestLens"
         android:roundIcon="@drawable/img"
         android:supportsRtl="true"
         android:theme="@style/Theme.PestDetectionApp"
