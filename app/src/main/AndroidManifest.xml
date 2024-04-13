@@ -19,12 +19,13 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:fullBackupOnly="false"
-        android:icon="@drawable/logo_with_background"
+        android:icon="@mipmap/ic_launcher"
         android:label="PestLens"
-        android:roundIcon="@drawable/img"
+        android:roundIcon="@drawable/ic_launcher_foreground"
         android:supportsRtl="true"
         android:theme="@style/Theme.PestDetectionApp"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        tools:replace="android:label">
         <activity
             android:name=".Analysis"
             android:exported="false" />

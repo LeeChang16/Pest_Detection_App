@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,75 +9,118 @@
     tools:ignore="PrivateResource">
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="131dp"
-        android:layout_marginEnd="143dp"
-        android:layout_marginBottom="560dp"
-        android:text="Welcome"
-        android:textColor="#257425"
-        android:textSize="55sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+<!--    <TextView-->
+<!--        android:id="@+id/textView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="144dp"-->
+<!--        android:layout_marginTop="131dp"-->
+<!--        android:layout_marginEnd="143dp"-->
+<!--        android:layout_marginBottom="560dp"-->
+<!--        android:text="Welcome"-->
+<!--        android:textColor="#257425"-->
+<!--        android:textSize="55sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.504"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0" />-->
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="277dp"
-        android:layout_height="219dp"
-        android:layout_marginStart="67dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="67dp"
-        android:layout_marginBottom="322dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/leaf_logo"/>
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="277dp"-->
+<!--        android:layout_height="219dp"-->
+<!--        android:layout_marginStart="67dp"-->
+<!--        android:layout_marginTop="19dp"-->
+<!--        android:layout_marginEnd="67dp"-->
+<!--        android:layout_marginBottom="322dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView"-->
+<!--        app:srcCompat="@drawable/leaf_logo"/>-->
+    <com.synnapps.carouselview.CarouselView
+        android:id="@+id/carouselView"
+        android:layout_width="match_parent"
+        android:layout_height="560dp"
+        app:fillColor="#FFFFFFFF"
+        app:pageColor="#00000000"
+        app:radius="6dp"
+        app:indicatorVisibility="visible"
+        app:indicatorMarginHorizontal="10dp"
+        app:slideInterval="3000"
+        app:strokeColor="#FF777777"
+        app:strokeWidth="1dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="407dp"
-        android:layout_height="142dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="5dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        android:layout_height="250dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/background_btn_intro3"
+        android:padding="20dp">
+        <TextView
+            android:layout_alignParentTop="true"
+            android:id="@+id/lbel"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/charcoal"
+            android:text="Welcome to Pest Lens"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            />
 
-        <Button
+        <TextView
+            android:id="@+id/lbel2"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/lbel"
+            android:textColor="@color/charcoal"
+            android:text="A free tool for farm pests detection. Create account now or login now to continue. "
+            android:textAlignment="textStart"
+            android:justificationMode="inter_word"
+            android:textSize="16sp"
+            />
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/login"
             style="@android:style/Widget.Button"
-            android:layout_width="300dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_alignParentStart="true"
             android:background="@drawable/background_btn_intro"
+            android:layout_marginTop="40dp"
             android:text="Log In"
-            android:textColor="#269900"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:layout_below="@id/lbel2"
+            android:elevation="20dp"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/charcoal"
+            android:textSize="18sp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/signup"
             style="@android:style/Widget.Button"
-            android:layout_width="300dp"
+            android:layout_width="130dp"
+            android:layout_alignParentEnd="true"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_below="@id/lbel2"
+            android:elevation="20dp"
             android:background="@drawable/background_btn_intro"
             android:text="Sign Up"
-            android:textColor="#269900"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/charcoal"
+            android:layout_marginEnd="30dp"
+            android:textSize="18sp" />
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

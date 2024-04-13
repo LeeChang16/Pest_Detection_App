@@ -33,8 +33,8 @@ android {
 
 dependencies {
 
-    implementation("androidx.appcompat:appcompat:1.5.1")
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("org.tensorflow:tensorflow-lite-support:0.1.0")
     implementation("org.tensorflow:tensorflow-lite-metadata:0.1.0")
@@ -77,8 +77,10 @@ dependencies {
 //    implementation ("com.squareup.retrofit2:retrofit:2.1.0")
 //    implementation ("com.squareup.retrofit2:converter-gson:2.1.0")
 //    implementation ("com.github.VishnuSivadasVS:Advanced-HttpURLConnection:1.2")
-
+    implementation ("com.airbnb.android:lottie:4.2.2")
     implementation ("com.jjoe64:graphview:4.2.2")
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")//
+
+    implementation ("com.synnapps:carouselview:0.1.4")
 
 }
