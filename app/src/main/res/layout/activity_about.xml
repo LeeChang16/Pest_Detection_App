@@ -6,63 +6,71 @@
     android:layout_height="match_parent"
     android:background="@drawable/ricefield"
     tools:context=".about"
-    android:padding="20dp"
+    android:padding="10dp"
     android:alpha="1">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <TextView
-            android:id="@+id/about"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="20dp"
-            android:text="About the App"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textAlignment="center"/>
         <RelativeLayout
             android:id="@+id/relative1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/about"
+            android:layout_alignParentTop="true"
             android:padding="20dp"
             android:background="@drawable/background_btn_intro6">
+
+
+            <TextView
+                android:id="@+id/about"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:textColor="@color/charcoal"
+                android:layout_marginTop="0dp"
+                android:text="About the App"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textAlignment="center"/>
         <TextView
             android:id="@+id/about_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="\t PesteLens is an android application developed by the researchers from Bohol Island State University - Calape campus, which is intended for farm pest detection. Leveraging the power of YOLOv5, an advanced machine learning algorithm trained on a custom dataset, PesteLens offers real-time identification of pests in agricultural fields. With its user-friendly interface, farmers can easily capture images of their crops using their mobile devices, and the app promptly provides accurate pest detection results. This invaluable tool assists in the timely management of pests, ensuring crop health and contributing to sustainable agriculture practices."
             android:textSize="18sp"
+            android:layout_below="@id/about"
             android:textColor="@color/charcoal"
             android:justificationMode="inter_word"
             android:textStyle="normal"
             android:textAlignment="textStart"/>
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/developers"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_below="@id/relative1"
-            android:layout_marginTop="30dp"
-            android:text="Developers"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textAlignment="center"/>
+
 
 
         <RelativeLayout
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/developers"
+            android:layout_below="@id/relative1"
             android:focusableInTouchMode="false"
             android:background="@drawable/background_btn_intro6">
 
+
+            <TextView
+                android:id="@+id/developers"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/charcoal"
+                android:text="Developers"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textAlignment="center"/>
+
             <androidx.cardview.widget.CardView
+                android:layout_below="@id/developers"
                 android:id="@+id/cardview1"
                 android:layout_width="200dp"
                 android:layout_height="200dp"

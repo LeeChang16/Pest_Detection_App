@@ -20,6 +20,11 @@
     <color name="navgreen">#047511</color>
     <color name="links">#0000EE</color>
 
+    <color name="pallete1">#46A094</color>
+    <color name="pallete2">#6BBD99</color>
+    <color name="pallete3">#AECFA4</color>
+    <color name="pallete4">#C4E8C2</color>
+
     <color name="tfe_color_primary">#ffa800</color>
     <color name="tfe_color_primary_dark">#ff6f00</color>
     <color name="tfe_color_accent">#425066</color>

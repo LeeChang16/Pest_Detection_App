@@ -160,11 +160,12 @@ public class MenuFragment extends Fragment {
 
                         database.delete_user_data(id);
                         idHolder.hold_id(0);
-
+                        popupWindow.dismiss();
                         Intent intent = new Intent(requireContext(), Intro_UI.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         getActivity().finish();
+
 
                     }
                 });

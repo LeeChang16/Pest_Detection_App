@@ -54,7 +54,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Table for Detected Pest
     private static final String Detected_Pest_Table = "Detected_Pest";
-    private static final String Detected_Pest_Id = "Pest_Id";
+
     private static final String Detected_Pest_Picture = "Sample_Picture";
     private static final String Detected_Pest_Name = "Pest_Name";
     private static final String Detected_Pest_Confidence = "Confidence_Level";
@@ -62,6 +62,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String Detected_Pest_Time = "Time";
     private static final String Detected_Pest_User = "User_Id";
     private static final String Detected_Pest_Uploaded = "Uploaded";
+    private static final String Detected_Pest_Location = "Location";
+
 
 
     public DatabaseHandler(@Nullable Context context) {
@@ -92,13 +94,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + Picture + " BLOB)";
 
         String query3 = "CREATE TABLE " + Detected_Pest_Table + " ("
-                + Detected_Pest_Id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + Detected_Pest_Name + " TEXT,"
                 + Detected_Pest_Confidence + " TEXT,"
                 + Detected_Pest_Picture + " BLOB,"
                 + Detected_Pest_Time + " TEXT,"
                 + Detected_Pest_Date + " TEXT,"
                 + Detected_Pest_Uploaded + " INTEGER,"
+                + Detected_Pest_Location + " TEXT,"
                 + Detected_Pest_User + " TEXT)";
 
         String query4 = "CREATE TABLE " + Account_Table + " ("
@@ -127,7 +129,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void insertPest( String pestname, String confidencelevel, byte[] image, String time, String date, String user_id, int uploaded){
+    public void insertPest( String pestname, String confidencelevel, byte[] image, String time, String date, String user_id, int uploaded, String Location){
 
         SQLiteDatabase db = getWritableDatabase();
 
@@ -139,6 +141,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         insertValues.put(Detected_Pest_Date, date);
         insertValues.put(Detected_Pest_User, user_id);
         insertValues.put(Detected_Pest_Uploaded, uploaded);
+        insertValues.put(Detected_Pest_Location, Location);
         db.insert(Detected_Pest_Table, null, insertValues);
 
     }
@@ -348,6 +351,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public boolean checkpest_id(int id){
         boolean doesnt_exist = true;
         Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+Pest_Info_Table+" WHERE "+Pest_Id+"=?",new String[]{String.valueOf(id)});
+        if(cursor.getCount()>0){
+            doesnt_exist =false;
+        }
+        return doesnt_exist;
+    }
+
+    public boolean checkpest_id_recent(String date, String time){
+        boolean doesnt_exist = true;
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+Detected_Pest_Table+" WHERE "+Detected_Pest_Date+"=? AND " +Detected_Pest_Time+"=?",new String[]{date,time});
         if(cursor.getCount()>0){
             doesnt_exist =false;
         }

@@ -1,67 +1,58 @@
 package com.example.pestdetectionapp;
 
 public class modelClass {
-    String  Fullname;
-    String Town;
-    String Province;
-    String Occupation;
-    String Username;
-    String Password;
-    byte [] picture;
+    String  pestname;
+    String confidence;
+    String date;
+    String time;
+    String userid;
+    String uploaded;
+    String image;
+    String location;
 
-    public String getFullname() {
-        return Fullname;
+   public modelClass(){
+
+   }
+
+    public modelClass(String pestname, String confidence, String date, String time, String userid, String uploaded, String image, String location) {
+        this.pestname = pestname;
+        this.confidence = confidence;
+        this.date = date;
+        this.time = time;
+        this.userid = userid;
+        this.uploaded = uploaded;
+        this.image = image;
+        this.location = location;
     }
 
-    public void setFullname(String fullname) {
-        Fullname = fullname;
+    public String getPestname() {
+        return pestname;
     }
 
-    public String getTown() {
-        return Town;
+    public String getConfidence() {
+        return confidence;
     }
 
-    public void setTown(String town) {
-        Town = town;
+    public String getDate() {
+        return date;
     }
 
-    public String getProvince() {
-        return Province;
+    public String getTime() {
+        return time;
     }
 
-    public void setProvince(String province) {
-        Province = province;
+    public String getUserid() {
+        return userid;
     }
 
-    public String getOccupation() {
-        return Occupation;
+    public String getUploaded() {
+        return uploaded;
     }
 
-    public void setOccupation(String occupation) {
-        Occupation = occupation;
+    public String getImage() {
+        return image;
     }
-
-    public String getUsername() {
-        return Username;
-    }
-
-    public void setUsername(String username) {
-        Username = username;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
-    }
-
-    public byte[] getPicture() {
-        return picture;
-    }
-
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
+    public String getLocation() {
+        return location;
     }
 }

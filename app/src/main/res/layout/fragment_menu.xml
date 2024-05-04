@@ -147,47 +147,50 @@
          android:layout_below="@id/bgn1"
          android:layout_marginTop="30dp"
          android:alpha="0.8"
-         android:padding="10dp"
+         android:paddingTop="20dp"
+         android:paddingBottom="20dp"
+         android:paddingLeft="20dp"
+         android:paddingRight="20dp"
          android:background="@drawable/background_btn_intro">
 
-         <Button
+         <androidx.appcompat.widget.AppCompatButton
              android:id="@+id/Analysis"
              android:layout_width="380dp"
              android:layout_height="50dp"
              android:layout_centerHorizontal="true"
              android:layout_marginTop="0dp"
-             android:background="@drawable/background_btn_intro"
+             android:background="@drawable/background_button_round_white"
              android:text="Analysis"
              app:icon="@drawable/linechart" />
 
-         <Button
+         <androidx.appcompat.widget.AppCompatButton
              android:id="@+id/Gallery"
              android:layout_width="380dp"
              android:layout_height="50dp"
              android:layout_centerHorizontal="true"
              android:layout_below="@id/Analysis"
              android:layout_marginTop="15dp"
-             android:background="@drawable/background_btn_intro"
+             android:background="@drawable/background_button_round_white"
              android:text="Pest Library"
              app:icon="@drawable/ic_library" />
 
-         <Button
+         <androidx.appcompat.widget.AppCompatButton
              android:id="@+id/About_app"
              android:layout_width="380dp"
              android:layout_height="50dp"
              android:layout_below="@id/Gallery"
              android:layout_centerHorizontal="true"
              android:layout_marginTop="15dp"
-             android:background="@drawable/background_btn_intro"
+             android:background="@drawable/background_button_round_white"
              android:text="About"
              app:icon="@drawable/baseline_perm_device_information_24" />
 
-         <Button
+         <androidx.appcompat.widget.AppCompatButton
              android:id="@+id/logout"
              android:layout_width="380dp"
              android:layout_height="50dp"
              android:text="Logout"
-             android:background="@drawable/background_btn_intro"
+             android:background="@drawable/background_button_round_white"
              android:layout_centerHorizontal="true"
              android:layout_below="@id/About_app"
              android:layout_marginTop="15dp"

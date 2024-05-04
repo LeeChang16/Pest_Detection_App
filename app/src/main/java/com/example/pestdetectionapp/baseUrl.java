@@ -2,7 +2,7 @@ package com.example.pestdetectionapp;
 
 public class baseUrl {
     private static baseUrl instance;
-    private static final String url = "http://192.168.100.7/MyAdmin/";
+    private static final String url = "http://192.168.100.14/MyAdmin/";
 
     public String getUrl(){
         return url;

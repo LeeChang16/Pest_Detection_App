@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_intro"
+    android:background="@color/pallete2"
     tools:context=".Intro_UI"
     tools:ignore="PrivateResource">
 
@@ -60,7 +60,7 @@
         android:layout_width="407dp"
         android:layout_height="250dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/background_btn_intro3"
+        android:background="@drawable/background_round_upper"
         android:padding="20dp">
         <TextView
             android:layout_alignParentTop="true"
@@ -83,7 +83,7 @@
             android:layout_marginTop="10dp"
             android:layout_below="@id/lbel"
             android:textColor="@color/charcoal"
-            android:text="A free tool for farm pests detection. Create account now or login now to continue. "
+            android:text="A free tool for farm pests detection. Create account now or login to continue. "
             android:textAlignment="textStart"
             android:justificationMode="inter_word"
             android:textSize="16sp"

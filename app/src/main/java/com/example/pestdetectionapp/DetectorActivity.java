@@ -18,6 +18,7 @@ package com.example.pestdetectionapp;
 
 import static java.lang.Integer.parseInt;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -28,7 +29,10 @@ import android.graphics.Paint.Style;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
+import android.net.ConnectivityManager;
+import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Size;
@@ -43,6 +47,7 @@ import com.example.pestdetectionapp.tflite.Classifier;
 import com.example.pestdetectionapp.tflite.DetectorFactory;
 import com.example.pestdetectionapp.tflite.YoloV5Classifier;
 import com.example.pestdetectionapp.tracking.MultiBoxTracker;
+import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -89,10 +94,12 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     private BorderedText borderedText;
 
     valueTracker value;
+    location_Tracker loc = location_Tracker.getInstance();
     detection_Tracker track = detection_Tracker.getInstance();
     id_Holder idHolder = id_Holder.getInstance();
     String currentDate;
     String currentTime;
+    baseUrl url = baseUrl.getInstance();
 
 
     @Override
@@ -322,7 +329,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                         cropCopyBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                                         byte[] image = stream.toByteArray();
                                         String id = String.valueOf(idHolder.retrieve_id());
-                                        database.insertPest(pest_name, confidenceStr, image, currentTime, currentDate, id,0);
+
+//                                        database.insertPest(pest_name, confidenceStr, image, currentTime, currentDate, id,0,loc.Addressline);
+                                        Onlinedatabase(pest_name,confidenceStr,image,currentTime,currentDate,id,loc.Addressline);
                                     }
 
                             }
@@ -370,5 +379,80 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     @Override
     protected void setNumThreads(final int numThreads) {
         runInBackground(() -> detector.setNumThreads(numThreads));
+    }
+
+
+
+
+
+
+    public void Onlinedatabase(String name, String confidence, byte [] image, String time, String date,String userid, String location) {
+        Handler handler = new Handler();
+        String pictureString = Base64.encodeToString(image, Base64.DEFAULT);
+        if (isNetworkConnected()) {
+
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    String[] field = new String[8];
+
+                    field[0] = "name";
+                    field[1] = "confidence";
+                    field[2] = "image";
+                    field[3] = "time";
+                    field[4] = "date";
+                    field[5] = "userid";
+                    field[6] = "uploaded";
+                    field[7] = "location";
+
+
+                    String[] data = new String[8];
+
+                    data[0] = name;
+                    data[1] = confidence;
+                    data[2] = pictureString;
+                    data[3] = time;
+                    data[4] = date;
+                    data[5] = userid;
+                    data[6] = "1";
+                    data[7] = location ;
+
+
+                    PutData putData = new PutData(url.getUrl() + "detection.php", "POST", field, data);
+
+                    if (putData.startPut()) {
+                        if (putData.onComplete()) {
+                            String result = putData.getResult(); // Assuming the response is a JSON string
+                            System.out.println(result);
+                            database.insertPest(name, confidence, image, time, date, userid, 1,location);
+
+                        } else {
+                            Log.e("Login Error", "Failed to execute request.");
+                            // Handle request execution failures
+                            Toast.makeText(getApplicationContext(), "Can't connect to server", Toast.LENGTH_SHORT).show();
+
+                        }
+                    } else {
+                        Log.e("Login Error", "Failed to start request.");
+                        // Handle request initialization failures
+                    }
+
+                }
+            });
+
+        }else{
+            Log.d("ERROR", "Onlinedatabase: Can't connect to server ");
+            Toast.makeText(getApplicationContext(), "Results saved offline", Toast.LENGTH_SHORT).show();
+            database.insertPest(name, confidence, image, time, date, userid, 0, location);
+        }
+
+
+
+
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 }

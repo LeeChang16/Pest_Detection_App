@@ -614,7 +614,10 @@ public abstract class CameraActivity extends AppCompatActivity
         if(imageBytes!=null){
           bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);}
         // adding all the data to the list array
-        list.add(new realtime_resultData(bitmap, name,scientific,order, family, description, intervention));
+//        list.add(new realtime_resultData(bitmap, name,scientific,order, family, description, intervention));
+        realtime_resultData newItem = new realtime_resultData(bitmap, name, scientific, order, family, description, intervention);
+        list.add(0, newItem);
+
       }while(cursor.moveToNext());
     }
 

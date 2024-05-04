@@ -11,14 +11,16 @@ public class recentdetectionData {
     Bitmap Image;
     String time;
     String date;
+    String location;
 
-    recentdetectionData(String name, String confidence, Bitmap Image, String time, String date){
+    recentdetectionData(String name, String confidence, Bitmap Image, String time, String date, String location){
 
         this.name = name;
         this.confidence = confidence;
         this.Image = Image;
         this.time = time;
         this.date = date;
+        this.location = location;
 
 
     }

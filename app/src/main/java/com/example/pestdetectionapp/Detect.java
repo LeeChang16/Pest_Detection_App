@@ -71,6 +71,8 @@ public class Detect extends AppCompatActivity {
     String currentDate;
     String currentTime;
 
+    location_Tracker loc = location_Tracker.getInstance();
+
     String Id = null;
     id_Holder idHolder = id_Holder.getInstance();
     Detect_Result_Adapter adapter;
@@ -217,7 +219,7 @@ public class Detect extends AppCompatActivity {
         if(highest_confidence>40){
             String id = String.valueOf(idHolder.retrieve_id());
         //Save to server if connected
-        Onlinedatabase(pestname,confidenceStr,image,currentTime,currentDate,id);
+        Onlinedatabase(pestname,confidenceStr,image,currentTime,currentDate,id,loc.Addressline);
         }
     }
 
@@ -262,7 +264,7 @@ public class Detect extends AppCompatActivity {
         cursor.close();
         return list;
     }
-    public void Onlinedatabase(String name, String confidence, byte [] image, String time, String date,String userid) {
+    public void Onlinedatabase(String name, String confidence, byte [] image, String time, String date,String userid, String location) {
         Handler handler = new Handler();
         String pictureString = Base64.encodeToString(image, Base64.DEFAULT);
         if (isNetworkConnected()) {
@@ -270,7 +272,7 @@ public class Detect extends AppCompatActivity {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    String[] field = new String[7];
+                    String[] field = new String[8];
 
                     field[0] = "name";
                     field[1] = "confidence";
@@ -279,9 +281,10 @@ public class Detect extends AppCompatActivity {
                     field[4] = "date";
                     field[5] = "userid";
                     field[6] = "uploaded";
+                    field[7] = "location";
 
 
-                    String[] data = new String[7];
+                    String[] data = new String[8];
 
                     data[0] = name;
                     data[1] = confidence;
@@ -290,6 +293,7 @@ public class Detect extends AppCompatActivity {
                     data[4] = date;
                     data[5] = userid;
                     data[6] = "1";
+                    data[7] = location ;
 
 
                     PutData putData = new PutData(url.getUrl() + "detection.php", "POST", field, data);
@@ -298,7 +302,7 @@ public class Detect extends AppCompatActivity {
                         if (putData.onComplete()) {
                             String result = putData.getResult(); // Assuming the response is a JSON string
                             System.out.println(result);
-                            database.insertPest(name, confidence, image, time, date, userid, 1);
+                            database.insertPest(name, confidence, image, time, date, userid, 1,location);
 
                         } else {
                             Log.e("Login Error", "Failed to execute request.");
@@ -317,7 +321,7 @@ public class Detect extends AppCompatActivity {
         }else{
             Log.d("ERROR", "Onlinedatabase: Can't connect to server ");
             Toast.makeText(getApplicationContext(), "Results saved offline", Toast.LENGTH_SHORT).show();
-            database.insertPest(name, confidence, image, time, date, userid, 0);
+            database.insertPest(name, confidence, image, time, date, userid, 0, location);
         }
 
 

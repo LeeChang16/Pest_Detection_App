@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment {
             id = getArguments().getInt("Id");
         }
         town_name.setText(location.getAddressline());
-        temp_reading.setText(""+id);
+//        temp_reading.setText(""+id);
 
 
         //Recyclers View
@@ -111,6 +111,8 @@ public class HomeFragment extends Fragment {
         if(list.isEmpty()){
             errmsg.setVisibility(View.VISIBLE);
         }
+
+        adapter.notifyDataSetChanged();
         return rootViews;
 
     }
@@ -200,20 +202,22 @@ public class HomeFragment extends Fragment {
     private List<recentdetectionData> getData()
     {
         List<recentdetectionData> list = new ArrayList<>();
-        Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM Detected_Pest WHERE User_Id = "+id+" ORDER BY Pest_Id DESC", null);
+        Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM Detected_Pest WHERE User_Id = "+id+" ORDER BY Date, Time DESC", null);
 
         if(cursor.moveToFirst()){
             do {
                 //Specify Which Column to get
-                String name = cursor.getString(1);
-                String confidence = cursor.getString(2);
-                byte[] imageBytes = cursor.getBlob(3);
-                String time = cursor.getString(4);
-                String date = cursor.getString(5);
+                String name = cursor.getString(0);
+                String confidence = cursor.getString(1);
+                byte[] imageBytes = cursor.getBlob(2);
+                String time = cursor.getString(3);
+                String date = cursor.getString(4);
+                String location = cursor.getString(6);
                 // Decode the byte array stored in sqlite
                 Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
                 // adding all the data to the list array
-                list.add(new recentdetectionData(name,confidence+" %",bitmap,time,date));
+                list.add(new recentdetectionData(name,confidence+" %",bitmap,time,date,location));
+
             }while(cursor.moveToNext());
         }
         cursor.close();

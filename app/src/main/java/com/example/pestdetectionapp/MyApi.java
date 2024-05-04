@@ -6,15 +6,15 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 public interface MyApi {
-    @FormUrlEncoded
-    @POST("AddUser.php")
-    Call<modelClass> insertData(
-            @Field("fname")String Fullname,
-            @Field("town")String Town,
-            @Field("province")String Province,
-            @Field("occupation")String Occupation,
-            @Field("user")String Username,
-            @Field("pass")String Password
-
-            );
+//    @FormUrlEncoded
+//    @POST("AddUser.php")
+//    Call<modelClass> insertData(
+//            @Field("fname")String Fullname,
+//            @Field("town")String Town,
+//            @Field("province")String Province,
+//            @Field("occupation")String Occupation,
+//            @Field("user")String Username,
+//            @Field("pass")String Password
+//
+//            );
 }

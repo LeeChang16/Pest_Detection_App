@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface apiset {
 
@@ -13,6 +14,6 @@ public interface apiset {
     Call<List<mydata>> getData();
 
 
-    @GET("RestApi.php")
-    Call<List<modelClass>> getUserData();
+    @GET("get_detection.php")
+    Call<List<modelClass>> getUserData(@Query("userid") String userid);
 }
