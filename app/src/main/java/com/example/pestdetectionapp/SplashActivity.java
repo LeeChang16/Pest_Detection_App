@@ -97,6 +97,12 @@ public class SplashActivity extends AppCompatActivity {
                     }
 
                 }
+
+//                Intent intent2 = new Intent(SplashActivity.this, DetectorActivity.class);
+//                startActivity(intent2);
+//                finish();
+
+
             }
         }, 4000);
     }

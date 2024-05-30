@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,8 +38,9 @@ import java.util.Objects;
 
 public class MenuFragment extends Fragment {
 
-    Button gallery, about_app, signout, analysis;
-    ImageView profile_image,editdetails, edit_image;
+    Button gallery, about_app, signout, analysis, insert;
+    EditText pestname, scientificname, order,family, description, intervention;
+    ImageView profile_image,editdetails, edit_image, pestimage;
     TextView name, address, occupation, location;
     DatabaseHandler database;
     id_Holder idHolder = id_Holder.getInstance();
@@ -71,6 +73,7 @@ public class MenuFragment extends Fragment {
         about_app = rootView.findViewById(R.id.About_app);
         signout = rootView.findViewById(R.id.logout);
         analysis = rootView.findViewById(R.id.Analysis);
+        insert = rootView.findViewById(R.id.insert);
 
         profile_image = rootView.findViewById(R.id.profile_images);
         name = rootView.findViewById(R.id.name);
@@ -293,6 +296,99 @@ public class MenuFragment extends Fragment {
         });
 
 
+        insert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                LayoutInflater inflater0 = (LayoutInflater) view.getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView0 = inflater0.inflate(R.layout.dummy_popup, null);
+
+                int windth0 = WindowManager.LayoutParams.MATCH_PARENT;
+                int height0 = WindowManager.LayoutParams.MATCH_PARENT;
+                PopupWindow dummyPopup = new PopupWindow(popupView0, windth0, height0, true);
+                dummyPopup.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+
+                // ACTUAL POPUP WINDOW
+                //Inflating the customlayout
+                LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView = inflater.inflate(R.layout.pop_insert, null);
+
+                //Instantiating the views
+                final RelativeLayout rootLayout = popupView.findViewById(R.id.root_layout);
+                edit_image = popupView.findViewById(R.id.pop_image);
+                 pestimage = popupView.findViewById(R.id.change_image);
+                 pestname = popupView.findViewById(R.id.insertpestname);
+                 scientificname = popupView.findViewById(R.id.insertscientificname);
+                 order = popupView.findViewById(R.id.insertorder);
+                 family = popupView.findViewById(R.id.insertfamily);
+                 description = popupView.findViewById(R.id.insertdescription);
+                 intervention = popupView.findViewById(R.id.insertintervention);
+                Button confirm = popupView.findViewById(R.id.edit_confirm);
+
+
+
+                //Creating the pop up window
+                int width = RelativeLayout.LayoutParams.WRAP_CONTENT;
+                int height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
+                //Show the popUpwindow
+                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+                popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        if (dummyPopup.isShowing()) {
+                            dummyPopup.dismiss();
+                        }
+                    }
+                });
+
+                pestimage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        selectGallery();
+                    }
+                });
+
+
+
+                confirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        String id = String.valueOf(database.getCount());
+                        if(validate()){
+
+                            ByteArrayOutputStream bs = new ByteArrayOutputStream();
+                            new_image.compress(Bitmap.CompressFormat.PNG, 100, bs);
+
+                            String Pestname = pestname.getText().toString();
+                            String Scientificname = scientificname.getText().toString();
+                            String Order = order.getText().toString();
+                            String Family = family.getText().toString();
+                            String Description = description.getText().toString();
+                            String Intervention = intervention.getText().toString();
+
+                            database.insertPestDetails(id,Pestname,Scientificname,Order,Family,Description,Intervention, bs.toByteArray());
+                            popupWindow.dismiss();
+                            Toast.makeText(requireContext(),"New Pest Added",Toast.LENGTH_SHORT ).show();
+
+                        }
+
+                        }
+
+
+
+                });
+
+
+
+
+            }
+        });
         return rootView;
     }
 
@@ -347,5 +443,55 @@ public class MenuFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+
+
+
+    public boolean validate(){
+        boolean valid = true;
+
+        String Pestname = pestname.getText().toString();
+        String Scientificname = scientificname.getText().toString();
+        String Order = order.getText().toString();
+        String Family = family.getText().toString();
+        String Description = description.getText().toString();
+        String Intervention = intervention.getText().toString();
+
+
+        if(TextUtils.isEmpty(Pestname)){
+            pestname.setError("This field is required!");
+            valid = false;
+        }else{pestname.setError(null);}
+
+        if(TextUtils.isEmpty(Scientificname)){
+            scientificname.setError("This field is required!");
+            valid = false;
+        }else{scientificname.setError(null);}
+
+        if(TextUtils.isEmpty(Order)){
+            order.setError("This field is required!");
+            valid = false;
+        }else{order.setError(null);}
+
+        if(TextUtils.isEmpty(Family)){
+            family.setError("This field is required!");
+            valid = false;
+        }else{family.setError(null);}
+
+        if(TextUtils.isEmpty(Description)){
+            description.setError("This field is required!");
+            valid = false;
+        }else{description.setError(null);}
+
+        if(TextUtils.isEmpty(Intervention)){
+            intervention.setError("This field is required!");
+            valid = false;
+        } else{intervention.setError(null);}
+
+        if(pestimage == null){
+            Toast.makeText(requireContext(),"Please Set Pest Image", Toast.LENGTH_SHORT).show();
+            valid = false;
+        }
+        return valid;
+    }
 
 }

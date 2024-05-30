@@ -272,7 +272,7 @@ public class Detect extends AppCompatActivity {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    String[] field = new String[8];
+                    String[] field = new String[9];
 
                     field[0] = "name";
                     field[1] = "confidence";
@@ -282,9 +282,10 @@ public class Detect extends AppCompatActivity {
                     field[5] = "userid";
                     field[6] = "uploaded";
                     field[7] = "location";
+                    field[8] = "method";
 
 
-                    String[] data = new String[8];
+                    String[] data = new String[9];
 
                     data[0] = name;
                     data[1] = confidence;
@@ -294,6 +295,7 @@ public class Detect extends AppCompatActivity {
                     data[5] = userid;
                     data[6] = "1";
                     data[7] = location ;
+                    data[8] = hold.getMethod() ;
 
 
                     PutData putData = new PutData(url.getUrl() + "detection.php", "POST", field, data);
@@ -302,7 +304,7 @@ public class Detect extends AppCompatActivity {
                         if (putData.onComplete()) {
                             String result = putData.getResult(); // Assuming the response is a JSON string
                             System.out.println(result);
-                            database.insertPest(name, confidence, image, time, date, userid, 1,location);
+                            database.insertPest(name, confidence, image, time, date, userid, 1,location, hold.getMethod() );
 
                         } else {
                             Log.e("Login Error", "Failed to execute request.");
@@ -321,7 +323,7 @@ public class Detect extends AppCompatActivity {
         }else{
             Log.d("ERROR", "Onlinedatabase: Can't connect to server ");
             Toast.makeText(getApplicationContext(), "Results saved offline", Toast.LENGTH_SHORT).show();
-            database.insertPest(name, confidence, image, time, date, userid, 0, location);
+            database.insertPest(name, confidence, image, time, date, userid, 0, location, hold.getMethod());
         }
 
 

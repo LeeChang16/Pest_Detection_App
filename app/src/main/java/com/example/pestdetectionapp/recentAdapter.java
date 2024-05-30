@@ -84,12 +84,14 @@ public class recentAdapter extends RecyclerView.Adapter<recentViewholder> {
                 TextView confidence = popupView.findViewById(R.id.pop_confidence);
                 TextView date_time = popupView.findViewById(R.id.pop_time_detected);
                 TextView location = popupView.findViewById(R.id.pop_location);
+                TextView method = popupView.findViewById(R.id.pop_method);
 
                 image.setImageBitmap(selectedItem.Image);
                 pestname.setText(selectedItem.name);
                 confidence.setText(selectedItem.confidence);
                 date_time.setText("Date & Time detected: "+selectedItem.date+" / "+selectedItem.time);
                 location.setText(selectedItem.location);
+                method.setText("Detection method: "+selectedItem.method);
 
                 //Creating the pop up window
                 int width = RelativeLayout.LayoutParams.WRAP_CONTENT;

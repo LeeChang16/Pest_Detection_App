@@ -174,16 +174,28 @@
              android:text="Pest Library"
              app:icon="@drawable/ic_library" />
 
+
          <androidx.appcompat.widget.AppCompatButton
-             android:id="@+id/About_app"
+             android:id="@+id/insert"
              android:layout_width="380dp"
              android:layout_height="50dp"
              android:layout_below="@id/Gallery"
              android:layout_centerHorizontal="true"
              android:layout_marginTop="15dp"
              android:background="@drawable/background_button_round_white"
-             android:text="About"
+             android:text="Insert Pest"
              app:icon="@drawable/baseline_perm_device_information_24" />
+
+         <androidx.appcompat.widget.AppCompatButton
+             android:id="@+id/About_app"
+             android:layout_width="380dp"
+             android:layout_height="50dp"
+             android:layout_below="@id/insert"
+             android:layout_centerHorizontal="true"
+             android:layout_marginTop="15dp"
+             android:background="@drawable/background_button_round_white"
+             android:text="About"
+             app:icon="@drawable/baseline_pest_control_24" />
 
          <androidx.appcompat.widget.AppCompatButton
              android:id="@+id/logout"

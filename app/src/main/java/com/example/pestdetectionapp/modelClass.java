@@ -9,12 +9,12 @@ public class modelClass {
     String uploaded;
     String image;
     String location;
-
+    String method;
    public modelClass(){
 
    }
 
-    public modelClass(String pestname, String confidence, String date, String time, String userid, String uploaded, String image, String location) {
+    public modelClass(String pestname, String confidence, String date, String time, String userid, String uploaded, String image, String location, String method) {
         this.pestname = pestname;
         this.confidence = confidence;
         this.date = date;
@@ -23,6 +23,7 @@ public class modelClass {
         this.uploaded = uploaded;
         this.image = image;
         this.location = location;
+        this.method = method;
     }
 
     public String getPestname() {
@@ -54,5 +55,8 @@ public class modelClass {
     }
     public String getLocation() {
         return location;
+    }
+    public String getMethod() {
+        return method;
     }
 }

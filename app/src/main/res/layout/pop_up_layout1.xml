@@ -67,13 +67,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/pop_confidence"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="5dp">
             <!--                    <TextView-->
             <!--                        android:id="@+id/label12"-->
             <!--                        android:layout_width="150dp"-->
             <!--                        android:layout_height="match_parent"-->
             <!--                        android:text=""-->
             <!--                        />-->
+            <TextView
+                android:id="@+id/pop_method"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:textColor="@color/charcoal" />
             <TextView
                 android:id="@+id/pop_time_detected"
                 android:layout_width="match_parent"

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="400dp"
+    android:id="@+id/root_layout"
+    android:layout_height="800dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <RelativeLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/background_btn_intro4"
+        android:padding="10dp">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardviews"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="10dp">
+
+            <ImageView
+                android:id="@+id/pop_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/change_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="190dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/editpic"
+                android:elevation="30dp" />
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout1"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cardviews"
+            android:layout_marginTop="10dp"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/insertpestname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Pest Name"
+                android:inputType="text"
+                android:maxLength="30" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout4"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout1"
+            android:layout_marginTop="5dp"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/insertscientificname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Scientific Name"
+                android:inputType="text"
+                android:maxLength="30" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout5"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout4"
+            android:layout_marginTop="5dp"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/insertorder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Order"
+                android:inputType="text"
+                android:maxLength="20" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout6"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout5"
+            android:layout_marginTop="5dp"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/insertfamily"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Family"
+                android:inputType="text"
+                android:maxLength="20" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout7"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout6"
+            android:layout_marginTop="5dp"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/insertdescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description"
+                android:inputType="text"
+                android:maxLength="500" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout8"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout7"
+            android:layout_marginTop="5dp"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/insertintervention"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Intervention"
+                android:inputType="text"
+                android:maxLength="500" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/edit_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout8"
+            android:layout_marginTop="10dp"
+            android:text="Confirm" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

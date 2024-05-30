@@ -63,7 +63,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String Detected_Pest_User = "User_Id";
     private static final String Detected_Pest_Uploaded = "Uploaded";
     private static final String Detected_Pest_Location = "Location";
-
+    private static final String Detection_Method = "Detection_Method";
 
 
     public DatabaseHandler(@Nullable Context context) {
@@ -101,6 +101,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + Detected_Pest_Date + " TEXT,"
                 + Detected_Pest_Uploaded + " INTEGER,"
                 + Detected_Pest_Location + " TEXT,"
+                + Detection_Method + " TEXT,"
                 + Detected_Pest_User + " TEXT)";
 
         String query4 = "CREATE TABLE " + Account_Table + " ("
@@ -129,7 +130,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void insertPest( String pestname, String confidencelevel, byte[] image, String time, String date, String user_id, int uploaded, String Location){
+    public void insertPest( String pestname, String confidencelevel, byte[] image, String time, String date, String user_id, int uploaded, String Location, String Method){
 
         SQLiteDatabase db = getWritableDatabase();
 
@@ -142,6 +143,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         insertValues.put(Detected_Pest_User, user_id);
         insertValues.put(Detected_Pest_Uploaded, uploaded);
         insertValues.put(Detected_Pest_Location, Location);
+        insertValues.put(Detection_Method, Method);
         db.insert(Detected_Pest_Table, null, insertValues);
 
     }
@@ -364,6 +366,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             doesnt_exist =false;
         }
         return doesnt_exist;
+    }
+
+    public int getCount(){
+        int id;
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+Pest_Info_Table, null);
+        return  id = cursor.getCount() + 2;
     }
 
 

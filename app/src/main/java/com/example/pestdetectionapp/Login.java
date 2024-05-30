@@ -240,6 +240,7 @@ public class Login extends AppCompatActivity {
                         String ImagePath = items.getImage();
                         String ImageUrl = url.getUrl() + ImagePath;
                         String Location = items.getLocation();
+                        String Method = items.getMethod();
 
                         System.out.println("RECENT URL: " + ImageUrl);
                         System.out.println("RECENT URL: " + ImageUrl);
@@ -257,7 +258,7 @@ public class Login extends AppCompatActivity {
                                 bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
                                 imagebyte = stream.toByteArray();
 
-                                database.insertPest(Pestame, Confidence, imagebyte, Time, Date, Userid, Integer.parseInt(Uploaded),Location);
+                                database.insertPest(Pestame, Confidence, imagebyte, Time, Date, Userid, Integer.parseInt(Uploaded),Location,Method);
                             }
 
                             @Override

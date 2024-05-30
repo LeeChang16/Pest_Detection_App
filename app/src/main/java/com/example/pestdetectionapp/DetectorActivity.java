@@ -394,7 +394,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    String[] field = new String[8];
+                    String[] field = new String[9];
 
                     field[0] = "name";
                     field[1] = "confidence";
@@ -404,9 +404,10 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                     field[5] = "userid";
                     field[6] = "uploaded";
                     field[7] = "location";
+                    field[8] = "method";
 
 
-                    String[] data = new String[8];
+                    String[] data = new String[9];
 
                     data[0] = name;
                     data[1] = confidence;
@@ -416,7 +417,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                     data[5] = userid;
                     data[6] = "1";
                     data[7] = location ;
-
+                    data[8] = "Realtime" ;
 
                     PutData putData = new PutData(url.getUrl() + "detection.php", "POST", field, data);
 
@@ -424,7 +425,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                         if (putData.onComplete()) {
                             String result = putData.getResult(); // Assuming the response is a JSON string
                             System.out.println(result);
-                            database.insertPest(name, confidence, image, time, date, userid, 1,location);
+                            database.insertPest(name, confidence, image, time, date, userid, 1,location,"Realtime");
 
                         } else {
                             Log.e("Login Error", "Failed to execute request.");
@@ -443,7 +444,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         }else{
             Log.d("ERROR", "Onlinedatabase: Can't connect to server ");
             Toast.makeText(getApplicationContext(), "Results saved offline", Toast.LENGTH_SHORT).show();
-            database.insertPest(name, confidence, image, time, date, userid, 0, location);
+            database.insertPest(name, confidence, image, time, date, userid, 0, location,"Realtime");
         }
 
 

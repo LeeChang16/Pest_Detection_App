@@ -156,7 +156,7 @@ public class HomeFragment extends Fragment {
                 int dimension = Math.min(bitmap.getWidth(), bitmap.getHeight());
                 bitmap = ThumbnailUtils.extractThumbnail(bitmap, dimension, dimension);
                 hold.setImage(bitmap);
-
+                hold.setMethod("Gallery");
 
                 // Pass the image Uri to Detect.java
                 Intent intent = new Intent(requireContext(), Detect.class);
@@ -178,6 +178,7 @@ public class HomeFragment extends Fragment {
 
 
                 hold.setImage(capturedImage); // to hold the image for later use
+                hold.setMethod("Camera");
 
                 Intent i = new Intent(requireContext(), Detect.class);
 //                ByteArrayOutputStream bs = new ByteArrayOutputStream();
@@ -202,8 +203,8 @@ public class HomeFragment extends Fragment {
     private List<recentdetectionData> getData()
     {
         List<recentdetectionData> list = new ArrayList<>();
-        Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM Detected_Pest WHERE User_Id = "+id+" ORDER BY Date, Time DESC", null);
-
+       // Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM Detected_Pest WHERE User_Id = "+id+" ORDER BY Date, Time DESC", null);
+        Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM Detected_Pest WHERE User_Id = " + id + " ORDER BY datetime(Date || ' ' || Time) DESC", null);
         if(cursor.moveToFirst()){
             do {
                 //Specify Which Column to get
@@ -213,10 +214,11 @@ public class HomeFragment extends Fragment {
                 String time = cursor.getString(3);
                 String date = cursor.getString(4);
                 String location = cursor.getString(6);
+                String method = cursor.getString(7);
                 // Decode the byte array stored in sqlite
                 Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
                 // adding all the data to the list array
-                list.add(new recentdetectionData(name,confidence+" %",bitmap,time,date,location));
+                list.add(new recentdetectionData(name,confidence+" %",bitmap,time,date,location,method));
 
             }while(cursor.moveToNext());
         }
